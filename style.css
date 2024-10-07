@@ -1,0 +1,283 @@
+
+@import url("https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"); 
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-image: url(images/fondo.jpg);
+  background-size: contain;
+}
+
+.container {
+  max-width: 1750px;
+  margin: auto;
+}
+
+.header {
+  display: flex;
+  position: relative;
+}
+
+.menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1000;
+}
+
+.logo {
+  color: #C70039;
+  font-size: 50px;
+  font-weight: 800;
+  font-family: "Cinzel", serif;
+  text-align: center;
+  padding-top: 50px;
+}
+.menu .navbar ul {
+  display: flex; /* Alinea los elementos del menú en una fila */
+  gap: 20px; /* Espacio entre los elementos */
+}
+
+.menu .navbar ul li {
+  position: relative;
+  display: inline-block; /* Asegura que cada elemento sea tratado en línea */
+}
+
+.menu .navbar ul li a {
+  font-family: "Lato";
+  font-size: 18px;
+  padding: 20px;
+  color: #FFC300;
+  display: block;
+  font-weight: 600;
+}
+.menu .navbar ul li a:hover {
+  color: #ebeadd;
+}
+
+#menu {
+  display: none;
+}
+
+.menu-icono {
+  width: 25px;
+}
+
+.menu label {
+  cursor: pointer;
+  display: none;
+}
+
+
+.header-info {
+  display: flex;
+  align-items: center;
+  margin-top: 300px;
+}
+
+.header-txt {
+  width: 50%;
+  padding-right: 35px;
+}
+
+.header-txt h2 {
+  font-family: "Lato";
+  font-size: 40px;
+  line-height: 70px;
+  font-weight: 600;
+  color: #d1c4c4;
+  margin-bottom: 10px;
+  text-transform: capitalize;
+  font-style: italic;
+}
+
+.header-txt p {
+  font-size: 20px;
+  color: #d6a4a4;
+  margin-bottom: 10px;
+}
+
+.btn-1 {
+  display: inline-block;
+  background-color: #927e7e;
+  padding: 10px 30px;
+  border-radius: 25px;
+  color: #ffffff;
+  text-transform: capitalize;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn-1:hover {
+  /*cambio color cuando se apoya el cursor encima*/
+  background-color: #900C3F;
+}
+
+.header-img {
+  width: 50%;
+}
+
+.header-img img {
+  width: 400px;
+}
+
+
+
+hr {
+    border: 1px solid #545454;
+}
+
+.footer {
+    padding: 10px 0;
+}
+
+.footer-links{
+display: flex;
+justify-content: space-between;
+}
+
+.link h3 {
+    font-size: 20px;
+    color: #900C3F;
+    margin-bottom: 10px;
+}
+
+.socials {
+  display: flex; /* Alinea los íconos en una fila */
+  gap: 10px; /* Espacio entre los íconos */
+}
+.socials img {
+    margin-right: 10px;
+    width: 50px;
+}
+
+a {
+    font-size: 16px;
+    display: block;
+    margin-bottom: 10px;
+    color: #edf7da;
+}
+
+/***********CSS del listado de camaras*************************/
+#listadoCamaras li {
+  padding: 10px;
+  color: rgb(248, 191, 177); /* Cambia el color del texto a blanco */
+  font-size: 18px; /* Aumenta el tamaño de la fuente */
+  display: flex; /* Usa flexbox para alinear elementos dentro de la lista */
+  align-items: center; /* Centra verticalmente los elementos */
+  margin-bottom: 1px; /* Espaciado entre elementos de la lista */
+}
+
+/* Estilo para el botón de check */
+.boton-check {
+  background-color: transparent; /* Fondo transparente */
+  border: none; /* Sin borde */
+  cursor: pointer; /* Cambia el cursor al pasar el mouse */
+  color: green; /* Color verde para el icono */
+  font-size: 30px; /* Aumenta el tamaño del icono */
+  margin-left: 10px; /* Espaciado a la izquierda */
+}
+
+/* Estilo para el botón de eliminar */
+.boton-eliminar {
+  background-color: transparent; /* Fondo transparente */
+  border: none; /* Sin borde */
+  cursor: pointer; /* Cambia el cursor al pasar el mouse */
+  color: red; /* Color rojo para el icono */
+  font-size: 30px; /* Aumenta el tamaño del icono */
+  margin-left: 3px; /* Espaciado a la izquierda */
+}
+
+
+/*--------------------------------Responsive abajo----------------------------------*/
+
+
+
+@media(max-width: 991px) {  /* pagina responsiva*/
+    .menu {
+        padding: 30px;
+    }
+    .menu label {
+        display: initial;
+    }
+    .menu .navbar {
+        position: absolute;
+        top:100%;
+        left: 0;
+        right: 0;
+        background-color: #303030;
+        display: none;
+    }
+
+    .menu .navbar ul li {
+        width: 100%;
+    }
+
+    .menu .navbar ul li  a {
+        color: #ffffff;
+    }
+    .menu .navbar ul li  a:hover  {
+        color: #f59b9b;
+    }
+    #menu:checked ~ .navbar{
+        display: initial;
+    }
+    
+    .header-info {
+        flex-direction: column;
+        padding: 30px;
+    }
+    .header-txt {
+        width: 100%;
+        text-align: center;
+        padding: 0;
+    }
+    .header-txt h1 {
+        font-size: 40px;
+        line-height: 50px;
+    }
+    .header-img {
+        width: 100%;
+        text-align: center;
+        padding-top: 35px;
+    }
+    .header-img img{
+        width: 300px;
+    }
+    .info {
+        padding: 0;
+        flex-direction: column;
+        align-items: center;
+    }
+    .info-1 {
+        margin-bottom: 20px;
+    }
+    
+    
+    
+    .footer {
+        padding: 30px;
+    }
+    .footer-links{
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .socials {
+        margin-bottom: 25px;
+    }
+  }
