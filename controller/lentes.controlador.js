@@ -84,13 +84,9 @@ const destroyLens = (req, res) => {
         if(result.affectedRows == 0){
             return res.status(404).send({error : "ERROR: La lente a borrar no existe"});
         };
-        res.json({mesaje : "Lente Eliminada"});
+        res.json({mensaje : "Lente Eliminada"});
     }); 
 };
-
-
-
-
 
 
 
