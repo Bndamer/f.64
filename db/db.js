@@ -5,7 +5,7 @@ const connection =mysql.createConnection({
     host : "localhost",
     user : "root",
     password : "",
-    database : "cinema"
+    database : "camaras"
 
 });
 
@@ -13,9 +13,9 @@ connection.connect((error) => {
 if(error){
     return console.error(error);
 }
-console.log("Estamos conectados a la Base de Datos");
+console.log("Estamos conectados a la Base de Datos Cámaras");
 });
 
-//exportar del  modulo la funcion connection
+//exportar del modulo la funcion connection
 
 module.exports = connection;

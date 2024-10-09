@@ -9,11 +9,12 @@
     "watch": "node --watch index.js"
   },
   "keywords": [],
-  "author": "JCL",
+  "author": "BND",
   "license": "MIT",
-  "description": "Aprendiendo con Node Express",
+  "description": "Aprendiendo Node Express",
   "dependencies": {
-    "express": "^4.21.0"
+    "express": "^4.21.0",
+    "mysql2": "^3.11.3"
   },
   "devDependencies": {
     "nodemon": "^3.1.7"
