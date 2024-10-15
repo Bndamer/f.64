@@ -63,7 +63,7 @@ const updateCamera = (req, res) => {
             return res.status(500).json({ error: "ERROR: Intente más tarde por favor" });
         }
         if (result.affectedRows === 0) {
-            return res.status(404).send({ error: "ERROR: El accesorio a modificar no existe" });
+            return res.status(404).send({ error: "ERROR: La cámara a modificar no existe" });
         }
 
         const camera = { ...req.body, idCamaras: id }; // Incluyes el ID en el objeto actualizado
@@ -82,7 +82,7 @@ const destroyCamera = (req, res) => {
             return res.status(500).json({ error: "ERROR: Intente más tarde por favor" });
         }
         if (result.affectedRows === 0) {
-            return res.status(404).send({ error: "ERROR: La camara a borrar no existe" });
+            return res.status(404).send({ error: "ERROR: La cámara a borrar no existe" });
         }
         res.json({ mensaje: "Cámara eliminada" }); // Mensaje de éxito
     }); 
