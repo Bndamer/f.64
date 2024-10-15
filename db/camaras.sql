@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-10-2024 a las 01:45:19
+-- Tiempo de generación: 15-10-2024 a las 22:11:51
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -28,20 +28,14 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `accesorios` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `descripcion` text DEFAULT NULL,
-  `tipo` varchar(50) DEFAULT NULL,
-  `precio` decimal(10,2) DEFAULT NULL
+  `idAccesorios` int(11) NOT NULL,
+  `nombreAccesorios` varchar(100) NOT NULL,
+  `descripcionAccesorios` text DEFAULT NULL,
+  `tipoAccesorios` varchar(50) DEFAULT NULL,
+  `precioAccesorios` decimal(10,2) DEFAULT NULL,
+  `fk_marcas` int(11) DEFAULT NULL,
+  `fkReseñas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `accesorios`
---
-
-INSERT INTO `accesorios` (`id`, `nombre`, `descripcion`, `tipo`, `precio`) VALUES
-(1, 'Trípode Profesional', 'Trípode de aluminio para cámaras DSLR', 'Trípode', 150.00),
-(2, 'Flash Externo', 'Flash de alta potencia para fotografía profesional', 'Flash', 300.00);
 
 -- --------------------------------------------------------
 
@@ -50,24 +44,17 @@ INSERT INTO `accesorios` (`id`, `nombre`, `descripcion`, `tipo`, `precio`) VALUE
 --
 
 CREATE TABLE `camaras` (
-  `id` int(11) NOT NULL,
-  `modelo` varchar(100) NOT NULL,
-  `tipo` varchar(50) DEFAULT NULL,
-  `sensor` varchar(50) DEFAULT NULL,
-  `resolucion_mp` decimal(5,2) DEFAULT NULL,
-  `iso_min` int(11) DEFAULT NULL,
-  `iso_max` int(11) DEFAULT NULL,
+  `idCamaras` int(11) NOT NULL,
+  `modeloCamaras` varchar(100) NOT NULL,
+  `tipoCamaras` varchar(50) DEFAULT NULL,
+  `sensorCamaras` varchar(50) DEFAULT NULL,
+  `resolucionCamaras` decimal(5,2) DEFAULT NULL,
+  `isoMinCamaras` int(11) DEFAULT NULL,
+  `isoMaxCamaras` int(11) DEFAULT NULL,
   `marca_id` int(11) DEFAULT NULL,
-  `precio` decimal(10,2) DEFAULT NULL
+  `precioCamaras` decimal(10,2) DEFAULT NULL,
+  `fkReseñas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `camaras`
---
-
-INSERT INTO `camaras` (`id`, `modelo`, `tipo`, `sensor`, `resolucion_mp`, `iso_min`, `iso_max`, `marca_id`, `precio`) VALUES
-(1, 'D7500', 'DSLR', 'APS-C', 20.90, 100, 51200, 1, 1200.00),
-(2, 'Canon EOS R5', 'Mirrorless', 'Full-Frame', 45.00, 100, 102400, 2, 3899.00);
 
 -- --------------------------------------------------------
 
@@ -76,25 +63,16 @@ INSERT INTO `camaras` (`id`, `modelo`, `tipo`, `sensor`, `resolucion_mp`, `iso_m
 --
 
 CREATE TABLE `lentes` (
-  `id` int(11) NOT NULL,
-  `modelo` varchar(100) DEFAULT NULL,
-  `tipo` varchar(50) DEFAULT NULL,
-  `apertura_min` decimal(4,2) DEFAULT NULL,
-  `apertura_max` decimal(4,2) DEFAULT NULL,
-  `distancia_focal_mm` decimal(5,1) DEFAULT NULL,
+  `idLentes` int(11) NOT NULL,
+  `modeloLentes` varchar(100) DEFAULT NULL,
+  `tipoLentes` varchar(50) DEFAULT NULL,
+  `aperturaMinLentes` decimal(4,2) DEFAULT NULL,
+  `aperturaMaxLantes` decimal(4,2) DEFAULT NULL,
+  `distanciaFocalLentes` decimal(5,1) DEFAULT NULL,
   `marca_id` int(11) DEFAULT NULL,
-  `precio` decimal(10,2) DEFAULT NULL
+  `precioLentes` decimal(10,2) DEFAULT NULL,
+  `fkReseñas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `lentes`
---
-
-INSERT INTO `lentes` (`id`, `modelo`, `tipo`, `apertura_min`, `apertura_max`, `distancia_focal_mm`, `marca_id`, `precio`) VALUES
-(1, 'Nikkor 50mm f/1.8G', 'Prime', 1.80, 16.00, 50.0, 1, 220.00),
-(3, 'Nikkor 50mm f/1.8G', 'Prime', 1.80, 16.00, 50.0, 1, 220.00),
-(4, 'Canon RF 24-70mm f/2.8L', 'Zoom', 2.80, 22.00, 24.0, 2, 2299.00),
-(5, 'Tokina 11-20 2.8 II', 'Angular Zoom', 2.80, 22.00, 11.0, 2, 500.00);
 
 -- --------------------------------------------------------
 
@@ -103,23 +81,50 @@ INSERT INTO `lentes` (`id`, `modelo`, `tipo`, `apertura_min`, `apertura_max`, `d
 --
 
 CREATE TABLE `marcas` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `pais_origen` varchar(100) DEFAULT NULL,
-  `fecha_fundacion` year(4) DEFAULT NULL
+  `idMarcas` int(11) NOT NULL,
+  `nombreMarcas` varchar(100) NOT NULL,
+  `paisOrigenMarcas` varchar(100) DEFAULT NULL,
+  `añoFundacionMarcas` year(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `marcas`
 --
 
-INSERT INTO `marcas` (`id`, `nombre`, `pais_origen`, `fecha_fundacion`) VALUES
+INSERT INTO `marcas` (`idMarcas`, `nombreMarcas`, `paisOrigenMarcas`, `añoFundacionMarcas`) VALUES
 (1, 'Nikon', 'Japón', '1917'),
 (2, 'Canon', 'Japón', '1937'),
 (3, 'Sony', 'Japón', '1946'),
 (4, 'Nikon', 'Japón', '1917'),
 (5, 'Canon', 'Japón', '1937'),
 (6, 'Sony', 'Japón', '1946');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `reseñas`
+--
+
+CREATE TABLE `reseñas` (
+  `idReseñas` int(11) NOT NULL,
+  `fkUsuarioReseñas` int(11) NOT NULL,
+  `comentarioReseñas` varchar(500) DEFAULT NULL,
+  `fechaComentarioReseñas` date NOT NULL,
+  `imagenReseñas` mediumblob DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `idUsuario` int(11) NOT NULL,
+  `nombreCompletoUsuario` varchar(40) NOT NULL,
+  `aliasUsuario` varchar(25) NOT NULL,
+  `DniUsuario` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Índices para tablas volcadas
@@ -129,26 +134,44 @@ INSERT INTO `marcas` (`id`, `nombre`, `pais_origen`, `fecha_fundacion`) VALUES
 -- Indices de la tabla `accesorios`
 --
 ALTER TABLE `accesorios`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`idAccesorios`),
+  ADD KEY `accesorios_ibfk_1` (`fk_marcas`) USING BTREE,
+  ADD KEY `reseñas_ibfk_1` (`fkReseñas`);
 
 --
 -- Indices de la tabla `camaras`
 --
 ALTER TABLE `camaras`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `marca_id` (`marca_id`);
+  ADD PRIMARY KEY (`idCamaras`),
+  ADD KEY `camaras_ibfk_1` (`marca_id`) USING BTREE,
+  ADD KEY `reseñas_ibfk_2` (`fkReseñas`) USING BTREE;
 
 --
 -- Indices de la tabla `lentes`
 --
 ALTER TABLE `lentes`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`idLentes`),
+  ADD KEY `lentes_ibfk_1` (`marca_id`),
+  ADD KEY `reseñas_ibfk_1` (`fkReseñas`);
 
 --
 -- Indices de la tabla `marcas`
 --
 ALTER TABLE `marcas`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`idMarcas`);
+
+--
+-- Indices de la tabla `reseñas`
+--
+ALTER TABLE `reseñas`
+  ADD PRIMARY KEY (`idReseñas`),
+  ADD KEY `reseñas_ibfk_1` (`fkUsuarioReseñas`);
+
+--
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`idUsuario`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -158,41 +181,56 @@ ALTER TABLE `marcas`
 -- AUTO_INCREMENT de la tabla `accesorios`
 --
 ALTER TABLE `accesorios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idAccesorios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `camaras`
 --
 ALTER TABLE `camaras`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idCamaras` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `lentes`
 --
 ALTER TABLE `lentes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idLentes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `marcas`
 --
 ALTER TABLE `marcas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idMarcas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
+-- Filtros para la tabla `accesorios`
+--
+ALTER TABLE `accesorios`
+  ADD CONSTRAINT `accesorios_ibfk_1` FOREIGN KEY (`fk_marcas`) REFERENCES `marcas` (`idMarcas`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `reseñas_fk` FOREIGN KEY (`fkReseñas`) REFERENCES `reseñas` (`idReseñas`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `camaras`
 --
 ALTER TABLE `camaras`
-  ADD CONSTRAINT `camaras_ibfk_1` FOREIGN KEY (`marca_id`) REFERENCES `marcas` (`id`);
+  ADD CONSTRAINT `camaras_ibfk_1` FOREIGN KEY (`marca_id`) REFERENCES `marcas` (`idMarcas`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `reseñas_fk2` FOREIGN KEY (`fkReseñas`) REFERENCES `reseñas` (`idReseñas`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `lentes`
 --
 ALTER TABLE `lentes`
-  ADD CONSTRAINT `lentes_ibfk_1` FOREIGN KEY (`marca_id`) REFERENCES `marcas` (`id`);
+  ADD CONSTRAINT `lentes_ibfk_1` FOREIGN KEY (`marca_id`) REFERENCES `marcas` (`idMarcas`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `reseñas_fk3` FOREIGN KEY (`fkReseñas`) REFERENCES `reseñas` (`idReseñas`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `reseñas`
+--
+ALTER TABLE `reseñas`
+  ADD CONSTRAINT `reseñas_ibfk_1` FOREIGN KEY (`fkUsuarioReseñas`) REFERENCES `usuarios` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
