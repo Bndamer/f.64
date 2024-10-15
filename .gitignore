@@ -1,3 +1,3 @@
-node_modules;
-camaras.mwb;
-camaras.mwb.back;
+/node_modules
+*.mwb
+*.mwb.back
