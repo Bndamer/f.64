@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-10-2024 a las 22:11:51
+-- Tiempo de generación: 16-10-2024 a las 02:34:49
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -53,8 +53,17 @@ CREATE TABLE `camaras` (
   `isoMaxCamaras` int(11) DEFAULT NULL,
   `marca_id` int(11) DEFAULT NULL,
   `precioCamaras` decimal(10,2) DEFAULT NULL,
-  `fkReseñas` int(11) NOT NULL
+  `fkReseñas` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `camaras`
+--
+
+INSERT INTO `camaras` (`idCamaras`, `modeloCamaras`, `tipoCamaras`, `sensorCamaras`, `resolucionCamaras`, `isoMinCamaras`, `isoMaxCamaras`, `marca_id`, `precioCamaras`, `fkReseñas`) VALUES
+(11, 'Nikon D7500', 'DSLR', 'APS-C', 20.90, 100, 51200, 1, 1200.00, NULL),
+(12, 'Canon EOS R5', 'Mirrorless', 'Full-frame', 45.00, 100, 51200, 2, 3900.00, NULL),
+(13, 'Sony A7 III', 'Mirrorless', 'Full-frame', 24.20, 100, 51200, 3, 2000.00, NULL);
 
 -- --------------------------------------------------------
 
@@ -67,12 +76,21 @@ CREATE TABLE `lentes` (
   `modeloLentes` varchar(100) DEFAULT NULL,
   `tipoLentes` varchar(50) DEFAULT NULL,
   `aperturaMinLentes` decimal(4,2) DEFAULT NULL,
-  `aperturaMaxLantes` decimal(4,2) DEFAULT NULL,
+  `aperturaMaxLentes` decimal(4,2) DEFAULT NULL,
   `distanciaFocalLentes` decimal(5,1) DEFAULT NULL,
   `marca_id` int(11) DEFAULT NULL,
   `precioLentes` decimal(10,2) DEFAULT NULL,
-  `fkReseñas` int(11) NOT NULL
+  `fkReseñas` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `lentes`
+--
+
+INSERT INTO `lentes` (`idLentes`, `modeloLentes`, `tipoLentes`, `aperturaMinLentes`, `aperturaMaxLentes`, `distanciaFocalLentes`, `marca_id`, `precioLentes`, `fkReseñas`) VALUES
+(7, 'Nikkor 24-70mm f/2.8', 'Zoom', 0.00, 0.00, 24.0, 1, 1800.00, NULL),
+(8, 'Canon EF 50mm f/1.8 STM', 'Prime', 0.00, 0.00, 50.0, 2, 125.00, NULL),
+(9, 'Sony FE 70-200mm f/4 G OSS', 'Zoom', 0.00, 0.00, 70.0, 3, 1500.00, NULL);
 
 -- --------------------------------------------------------
 
@@ -94,10 +112,7 @@ CREATE TABLE `marcas` (
 INSERT INTO `marcas` (`idMarcas`, `nombreMarcas`, `paisOrigenMarcas`, `añoFundacionMarcas`) VALUES
 (1, 'Nikon', 'Japón', '1917'),
 (2, 'Canon', 'Japón', '1937'),
-(3, 'Sony', 'Japón', '1946'),
-(4, 'Nikon', 'Japón', '1917'),
-(5, 'Canon', 'Japón', '1937'),
-(6, 'Sony', 'Japón', '1946');
+(3, 'Sony', 'Japón', '1946');
 
 -- --------------------------------------------------------
 
@@ -187,13 +202,13 @@ ALTER TABLE `accesorios`
 -- AUTO_INCREMENT de la tabla `camaras`
 --
 ALTER TABLE `camaras`
-  MODIFY `idCamaras` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idCamaras` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `lentes`
 --
 ALTER TABLE `lentes`
-  MODIFY `idLentes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idLentes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `marcas`
