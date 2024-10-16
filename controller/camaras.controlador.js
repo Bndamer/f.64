@@ -26,7 +26,7 @@ const showCamera = (req,res) => {
             return res.status(500).json({error : "ERROR: Intente mas tarde por favor"});
         }
         if(rows.length ==0){
-            return res.status(400).send({error :"ERROR: No existe el lente requerido"});
+            return res.status(400).send({error :"ERROR: No existe la camara requerida"});
         };
         res.json(rows[0]); //me muestra el elemento en la posicion cero si existe
     });
