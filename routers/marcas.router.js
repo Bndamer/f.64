@@ -1,4 +1,4 @@
-//rutas del mopdulo//
+//rutas del modulo//
 const express = require("express");
 const router= express.Router();
 
