@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-10-2024 a las 02:34:49
+-- Tiempo de generación: 21-10-2024 a las 20:19:20
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -138,8 +138,22 @@ CREATE TABLE `usuarios` (
   `idUsuario` int(11) NOT NULL,
   `nombreCompletoUsuario` varchar(40) NOT NULL,
   `aliasUsuario` varchar(25) NOT NULL,
-  `DniUsuario` int(10) NOT NULL
+  `DniUsuario` int(10) NOT NULL,
+  `ultimoLogeoUsuario` datetime DEFAULT NULL,
+  `emailUsuario` varchar(60) NOT NULL,
+  `passwordUsuario` varchar(70) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`idUsuario`, `nombreCompletoUsuario`, `aliasUsuario`, `DniUsuario`, `ultimoLogeoUsuario`, `emailUsuario`, `passwordUsuario`) VALUES
+(1, 'Juan Carlos López', 'jcl01', 12345678, '2024-10-18 14:30:00', 'jcl@gmail.com', '$2a$08$sgL5uP69/CDuETtLE6hDOux0xu1NwovDIVETmfCNKNodeM6nuWk0a'),
+(2, 'María Fernández', 'mari22', 87654321, NULL, 'mf@gmail.com', '$2a$08$aC7vbJSl3H.MGrsT4WlyJeSBmCjoW5RJVGHRH/dpbfyy0DsDbfeuO'),
+(3, 'Guadalupe García', 'lupe_g', 11223344, '2024-10-17 09:15:00', 'gg@gmail.com', '$2a$08$pmPtsCLCcFA8IBkwi.xcr.Izi6dITuwZFX6kdafgq.ybD8X.m.soa'),
+(4, 'Pedro Sánchez', 'pedro.87', 22334455, NULL, 'ps@gmail.com', '$2a$08$TXAZS1ZFYng/.BvtkSXrHuCcEyaYRy0YL/yYvCtu3oGbCBE/ZFMFC'),
+(5, 'Ana Martínez', 'ana_m', 33445566, '2024-10-19 08:00:00', 'am@gmail.com', '$2a$08$KGVvKNJw9VGjXPh8Pg25nu9AjmWQ1NWF319zhrLzVTzVP2xnObCku');
 
 --
 -- Índices para tablas volcadas
@@ -215,6 +229,12 @@ ALTER TABLE `lentes`
 --
 ALTER TABLE `marcas`
   MODIFY `idMarcas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas
