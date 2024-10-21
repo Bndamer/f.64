@@ -1,4 +1,6 @@
 
+require("dotenv").config(); //variable de entornos
+
 const express = require("express");
 const app = express();
 
@@ -30,5 +32,7 @@ app.get("/", (req, res) => {  // Ruta raíz principal del proyecto
     res.send("¡Hola Express!/-*-/*/!");
 });
 
-const PORT = 3000;
+app.use("/auth", require("./routers/auth.router"));
+
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
