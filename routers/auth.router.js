@@ -11,6 +11,18 @@ const authMiddleware = require("../middleware/auth.middleware")
 router.post('/register', controller.register);
 router.post('/login', controller.login);
 
+//// METODO GET ////
+router.get('/user/:id', authMiddleware, controller.showUser); // Obtiene la información del usuario//
+router.get('/user', authMiddleware, controller.showAllUser); // Obtiene la información del usuario//
+
+//// METODO PUT ////
+router.put('/user', authMiddleware, controller.updateUser); // Actualiza la información del usuario//
+
+//// METODO DELETE ////
+router.delete('/user', authMiddleware, controller.deleteUser); // Elimina el usuario//
+
+
+// Ruta protegida para verificar que el middleware funciona
 router.get("/protected", authMiddleware, (req, res) => {
     res.status(200).send(`Hola Usuario ${req.userId}`);
 });
