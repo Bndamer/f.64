@@ -16,10 +16,10 @@ router.get('/user/:id', authMiddleware, controller.showUser); // Obtiene la info
 router.get('/user', authMiddleware, controller.showAllUser); // Obtiene la información del usuario//
 
 //// METODO PUT ////
-router.put('/user', authMiddleware, controller.updateUser); // Actualiza la información del usuario//
+router.put('/user/:id', authMiddleware, controller.updateUser); // Actualiza la información del usuario//
 
 //// METODO DELETE ////
-router.delete('/user', authMiddleware, controller.deleteUser); // Elimina el usuario//
+router.delete('/user/:id', authMiddleware, controller.deleteUser); // Elimina el usuario//
 
 
 // Ruta protegida para verificar que el middleware funciona

@@ -5,8 +5,12 @@ const db = require("../db/db"); // Conexión a la base de datos
 const userModel = require("../models/user.modelo");
 const users = require("../models/user.modelo");
 
-const register = (req, res) => {
+
+
   //////////////////METODO POST - registro de usuarios ///////////////////////
+  ///////////////////////////////////////////////////////////////////////////
+
+const register = (req, res) => {
   const {
     emailUsuario,
     aliasUsuario,
@@ -91,8 +95,11 @@ const register = (req, res) => {
   );
 };
 
-///____________________________////
+
+
 //////////////////METODO POST - loggeo de usuarios ///////////////////////
+/////////////////////////////////////////////////////////////////////////
+
 const login = (req, res) => {
   const { email, password } = req.body;
 
@@ -138,8 +145,11 @@ const login = (req, res) => {
   );
 };
 
-////____________________________________________________________________________////
-///////METODO GET,MOSTRAR INFORMACION DE UN USUARIO//////
+
+
+///////////////METODO GET,MOSTRAR INFORMACION DE UN USUARIO//////////////
+////////////////////////////////////////////////////////////////////////
+
 const showUser = (req, res) => {
   // Verificar si el token fue decodificado correctamente y obtener el userId
   const userId = req.params.id; // El userId "req.userId;" hace que solo se pueda acceder
@@ -178,8 +188,10 @@ const showUser = (req, res) => {
 };
 
 
-// //////////METODO GET- TODOS LOS USUARIOS///////////////
+
 //////////////////////////////////////////////////////////////////
+// //////////METODO GET- TODOS LOS USUARIOS///////////////
+
 const showAllUser = (req, res) => {
   // Verificar si el token fue decodificado correctamente y obtener el userId
   const userId = req.userId; // El userId debería haber sido puesto por el middleware
@@ -228,102 +240,59 @@ const showAllUser = (req, res) => {
   );
 };
 
-//__________________________________________________________________________//
-//METODO PUT,ACTUALIZAR USUARIO ////////
+
+/////////////////////////////////////////////////////////////////
+////////////////METODO PUT,ACTUALIZAR USUARIO //////////////////
 
 const updateUser = (req, res) => {
-  const token = req.headers["authorization"];
-  if (!token) {
-    return res.status(401).send("Token no proporcionado.");
-  }
+    const userId = req.params.id; // Obtener el ID del usuario de la ruta
+    const { email, alias, nombre, dni } = req.body; // Obtener los datos del cuerpo de la solicitud
 
-  jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
-    if (err) {
-      return res.status(401).send("Token inválido.");
+    // Validar que se haya proporcionado el ID
+    if (!userId) {
+        return res.status(400).send("No se proporcionó un ID de usuario.");
     }
 
-    const userId = decoded.id; // Extraemos el id del usuario del token
-    const { email, aliasUsuario, DniUsuario, nombreCompletoUsuario, password } =
-      req.body;
-
-    // Si se proporciona una nueva contraseña, encriptarla
-    let newPasswordHash;
-    if (password) {
-      newPasswordHash = bcrypt.hashSync(password, 8);
-    }
-
-    // Actualizar el usuario en la base de datos
-    const updateQuery = `
-            UPDATE usuarios
-            SET emailUsuario = ?, aliasUsuario = ?, DniUsuario = ?, nombreCompletoUsuario = ?, passwordUsuario = ?
-            WHERE idUsuario = ?
-        `;
-
+    // Consulta para actualizar los datos del usuario
     db.query(
-      updateQuery,
-      [
-        email,
-        aliasUsuario,
-        DniUsuario,
-        nombreCompletoUsuario,
-        newPasswordHash || null,
-        userId,
-      ],
-      (error, result) => {
-        if (error) {
-          console.error(error);
-          return res
-            .status(500)
-            .send("Hubo un problema actualizando la información del usuario.");
-        }
+        "UPDATE usuarios SET emailUsuario = ?, aliasUsuario = ?, nombreCompletoUsuario = ?, DniUsuario = ? WHERE idUsuario = ?",
+        [email, alias, nombre, dni, userId],
+        (error, results) => {
+            if (error) {
+                console.error("Error al actualizar el usuario:", error);
+                return res.status(500).send("Error al actualizar el usuario.");
+            }
 
-        // Verificar si se actualizó algún registro
-        if (result.affectedRows === 0) {
-          return res.status(404).send("Usuario no encontrado.");
-        }
+            if (results.affectedRows === 0) {
+                return res.status(404).send("Usuario no encontrado.");
+            }
 
-        res.send("Información del usuario actualizada con éxito.");
-      }
+            res.status(200).send("Usuario actualizado con éxito.");
+        }
     );
-  });
 };
 
-//_____________________________________________________________//
+
+
+
+///////////////////////////////////////////////////////
 ///////METODO DELETE -ELIMINACION DE USUARIO//////////
+
 const deleteUser = (req, res) => {
-  const token = req.headers["authorization"];
-  if (!token) {
-    return res.status(401).send("Token no proporcionado.");
-  }
+    const userId = req.params.id; // Obtener el ID del usuario de la ruta
 
-  jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
-    if (err) {
-      return res.status(401).send("Token inválido.");
-    }
-
-    const userId = decoded.id; // Extraemos el id del usuario del token
-
-    // Eliminar el usuario de la base de datos
-    db.query(
-      "DELETE FROM usuarios WHERE idUsuario = ?",
-      [userId],
-      (error, result) => {
+    db.query("DELETE FROM usuarios WHERE idUsuario = ?", [userId], (error, results) => {
         if (error) {
-          console.error(error);
-          return res
-            .status(500)
-            .send("Hubo un problema eliminando el usuario.");
+            console.error("Error al eliminar el usuario:", error);
+            return res.status(500).send("Error al eliminar el usuario.");
         }
 
-        // Verificar si se eliminó algún registro
-        if (result.affectedRows === 0) {
-          return res.status(404).send("Usuario no encontrado.");
+        if (results.affectedRows === 0) {
+            return res.status(404).send("Usuario no encontrado.");
         }
 
-        res.send("Usuario eliminado con éxito.");
-      }
-    );
-  });
+        res.status(200).send("Usuario eliminado con éxito.");
+    });
 };
 
 module.exports = {

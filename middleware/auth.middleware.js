@@ -9,7 +9,6 @@ module.exports = (req, res, next) => {
             .send({auth: false, message: "No se proveyo un token"});
     
     const token = authHeader.split(" ")[1];
-    console.log("Token recibido:", token); // Verifica si el token llega bien
 
     if(!token)
         return res.status(403).send({auth: false, message: "Malformed Token"});
