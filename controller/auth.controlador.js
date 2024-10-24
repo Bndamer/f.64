@@ -7,8 +7,9 @@ const users = require("../models/user.modelo");
 
 
 
-  //////////////////METODO POST - registro de usuarios ///////////////////////
-  ///////////////////////////////////////////////////////////////////////////
+ 
+//////////////////////////////////////////////////////////////////////////
+//////////////////METODO POST - registro de usuarios ///////////////////////
 
 const register = (req, res) => {
   const {
@@ -97,8 +98,9 @@ const register = (req, res) => {
 
 
 
-//////////////////METODO POST - loggeo de usuarios ///////////////////////
+
 /////////////////////////////////////////////////////////////////////////
+//////////////////METODO POST - loggeo de usuarios ///////////////////////
 
 const login = (req, res) => {
   const { email, password } = req.body;
@@ -147,8 +149,8 @@ const login = (req, res) => {
 
 
 
-///////////////METODO GET,MOSTRAR INFORMACION DE UN USUARIO//////////////
 ////////////////////////////////////////////////////////////////////////
+///////////////METODO GET,MOSTRAR INFORMACION DE UN USUARIO//////////////
 
 const showUser = (req, res) => {
   // Verificar si el token fue decodificado correctamente y obtener el userId
@@ -190,7 +192,7 @@ const showUser = (req, res) => {
 
 
 //////////////////////////////////////////////////////////////////
-// //////////METODO GET- TODOS LOS USUARIOS///////////////
+///////////////METODO GET- TODOS LOS USUARIOS///////////////////
 
 const showAllUser = (req, res) => {
   // Verificar si el token fue decodificado correctamente y obtener el userId
@@ -239,6 +241,7 @@ const showAllUser = (req, res) => {
     }
   );
 };
+
 
 
 /////////////////////////////////////////////////////////////////
@@ -295,6 +298,48 @@ const deleteUser = (req, res) => {
     });
 };
 
+
+//////////////////////////////////////////////////////////////////////
+/////////METODO PATCH - Actualizar un solo parametro del usuario ////
+
+const UpdateOneParameterUser = (req, res) => {
+    const userId = req.params.id; // Obtener el ID del usuario desde la ruta
+    const updates = req.body; // Obtener los datos que se desean actualizar desde el cuerpo de la solicitud
+
+    if (!userId) {
+        return res.status(400).send("No se obtuvo el ID de usuario.");
+    }
+
+    // Verificar si hay campos para actualizar
+    if (Object.keys(updates).length === 0) {
+        return res.status(400).send("No se proporcionaron campos para actualizar.");
+    }
+
+    // Crear una lista de campos a actualizar
+    const fields = Object.keys(updates).map(key => `${key} = ?`).join(", ");
+    const values = Object.values(updates);
+    
+    // Agregar el ID al final de los valores para la consulta
+    values.push(userId);
+
+    // Consulta a la base de datos para actualizar el usuario
+    db.query(`UPDATE usuarios SET ${fields} WHERE idUsuario = ?`, values, (error, results) => {
+        if (error) {
+            console.error("Error al actualizar el usuario:", error);
+            return res.status(500).send("Error al actualizar el usuario.");
+        }
+
+        if (results.affectedRows === 0) {
+            return res.status(404).send("Usuario no encontrado.");
+        }
+
+        res.status(200).send("Usuario actualizado con éxito.");
+    });
+};
+
+
+
+
 module.exports = {
   register,
   login,
@@ -302,4 +347,5 @@ module.exports = {
   showAllUser,
   updateUser,
   deleteUser,
+  UpdateOneParameterUser
 };

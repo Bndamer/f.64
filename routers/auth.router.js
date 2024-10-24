@@ -21,6 +21,9 @@ router.put('/user/:id', authMiddleware, controller.updateUser); // Actualiza la 
 //// METODO DELETE ////
 router.delete('/user/:id', authMiddleware, controller.deleteUser); // Elimina el usuario//
 
+////METODO PATCH/////
+router.patch('/user/:id', authMiddleware, controller.UpdateOneParameterUser); // Actualiza parametros determinados del usuario//
+
 
 // Ruta protegida para verificar que el middleware funciona
 router.get("/protected", authMiddleware, (req, res) => {
