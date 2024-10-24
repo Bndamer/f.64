@@ -315,14 +315,32 @@ const UpdateOneParameterUser = (req, res) => {
         return res.status(400).send("No se proporcionaron campos para actualizar.");
     }
 
-    // Crear una lista de campos a actualizar
-    const fields = Object.keys(updates).map(key => `${key} = ?`).join(", ");
-    const values = Object.values(updates);
+     // Mapeo de campos-mediante este mapeo puedo ingresar "nombre","email","alias" y "dni" en la consulta en postman 
+     //y no necesito usar los nombres exactos que tiene estos campos en la base de datos
+     const fieldMap = {
+        nombre: "nombreCompletoUsuario",
+        email: "emailUsuario",
+        alias: "aliasUsuario",
+        dni: "DniUsuario"
+    };
+
+    // Crear una lista de campos a actualizar y valores
+    const fields = Object.keys(updates)
+        .filter(key => fieldMap[key]) // Filtra solo los campos válidos
+        .map(key => `${fieldMap[key]} = ?`) // Usa el mapeo para obtener el nombre correcto
+        .join(", ");
+    const values = Object.values(updates)
+        .filter((_, index) => Object.keys(updates)[index] in fieldMap); // Filtra los valores de acuerdo con el mapeo
+
+    // Si no hay campos válidos para actualizar
+    if (fields.length === 0) {
+        return res.status(400).send("No se proporcionaron campos válidos para actualizar.");
+    }
     
     // Agregar el ID al final de los valores para la consulta
     values.push(userId);
 
-    // Consulta a la base de datos para actualizar el usuario
+    // Consulta a la base de datos
     db.query(`UPDATE usuarios SET ${fields} WHERE idUsuario = ?`, values, (error, results) => {
         if (error) {
             console.error("Error al actualizar el usuario:", error);
