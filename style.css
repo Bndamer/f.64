@@ -6,9 +6,6 @@
 
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
   text-decoration: none;
   list-style: none;
 }
@@ -19,59 +16,44 @@ body {
   background-size:cover ;
 }
 
-.container {
-  max-width: 1750px;
-  margin: auto;
-}
 
 .header {
   display: flex;
-  position: relative;
+  align-items: center;
 }
 
 .menu {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  z-index: 1000;
 }
 
-.logo {
-  color: #C70039;
-  font-size: 50px;
-  font-weight: 800;
-  font-family: "Cinzel", serif;
-  text-align: center;
-}
 .logo img { 
   width: 300px;
-  
+  padding-left: 30%;
 }
 
 .menu .navbar ul {
   display: flex; /* Alinea los elementos del menú en una fila */
-  gap: 10px; /* Espacio entre los elementos */
+  gap: 20px; /* Espacio entre los elementos */
 }
 
 .menu .navbar ul li {
-  position: relative;
   display: inline-block; /* Asegura que cada elemento sea tratado en línea */
 }
 
 .menu .navbar ul li a {
   font-family: "Lato";
-  font-size: 18px;
-  padding: 10px;
-  color: #FFC300;
+  font-size: 20px;
+  padding: 15px;
+  color: rgb(129, 83, 56);
   display: flex;
-  font-weight: 600;
+  font-weight: 400;
+  font-style: italic;
 }
 .menu .navbar ul li a:hover {
-  color: #ebeadd;
+  color: rgb(112, 2, 2);
+}
+.menu .navbar img{
+  width: 40px;
 }
 
 #menu {
@@ -87,34 +69,50 @@ body {
   display: none;
 }
 
-
-.header-info {
+.fraseBresson {
   display: flex;
-  align-items: center;
-  margin-top: 300px;
+ justify-content: space-around;
+ padding: 0px 0px 0px 70px;
 }
 
-.header-txt {
-  width: 50%;
-  padding-right: 35px;
+.fraseBressonconteiner {
+  /*padding: ;*/
 }
 
-.header-txt h2 {
+.fraseBressoncontainer h2 {
   font-family: "Lato";
-  font-size: 40px;
-  line-height: 70px;
-  font-weight: 600;
+  font-size: 35px;
+  line-height: 50px;
+  font-weight: 500px;
   color: #d1c4c4;
   margin-bottom: 10px;
-  text-transform: capitalize;
   font-style: italic;
 }
 
-.header-txt p {
+.fraseBressoncontainer p {
   font-size: 20px;
-  color: #d6a4a4;
+  color: #b46b6b;
   margin-bottom: 10px;
 }
+
+.carruselExpress { /* carrusel de imagenes de Bresson*/
+  display: flex;
+  width: 1000px;
+  height: 350px;
+}
+.carruselExpress img{
+width: 0;
+flex-grow: 1;
+object-fit: cover;
+opacity: .5;
+transition: 0.8s ease;
+}
+.carruselExpress img:hover{ /*cuando se apoya con el curso encima*/
+  cursor: crosshair;
+  width: 300px;
+  opacity: 1;
+  filter: contrast(110%);
+  }
 
 .btn-1 {
   display: inline-block;
@@ -131,32 +129,22 @@ body {
   background-color: #900C3F;
 }
 
-.header-img {
-  width: 50%;
-}
-
-.header-img img {
-  width: 200px;
-}
-
-
-
 hr {
     border: 1px solid #545454;
 }
 
 .footer {
-     padding: 200px 0;
+     padding: 10px 0;
 }
 
 .footer-links{
 display: flex;
-justify-content: space-between;
+justify-content: space-around;
 }
 
 .link h3 {
     font-size: 20px;
-    color: #900C3F;
+    color: rgb(165, 142, 117);
     margin-bottom: 10px;
 }
 
@@ -175,15 +163,18 @@ a {
     margin-bottom: 10px;
     color: #edf7da;
 }
+.small {
+  color: rgb(253, 228, 199);
+}
 
 /***********CSS del listado de camaras*************************/
-#listadoCamaras li {
-  padding: 10px;
+.listadoCamaras {
+  display:block;
+
+  padding: 15px;
   color: rgb(248, 191, 177); /* Cambia el color del texto a blanco */
-  font-size: 18px; /* Aumenta el tamaño de la fuente */
-  display: flex; /* Usa flexbox para alinear elementos dentro de la lista */
-  align-items: center; /* Centra verticalmente los elementos */
-  margin-bottom: 1px; /* Espaciado entre elementos de la lista */
+  font-size: 20px; /* Aumenta el tamaño de la fuente */
+  margin-bottom: 10px; /* Espaciado entre elementos de la lista */
 }
 
 /* Estilo para el botón de check */
@@ -204,6 +195,28 @@ a {
   color: red; /* Color rojo para el icono */
   font-size: 30px; /* Aumenta el tamaño del icono */
   margin-left: 3px; /* Espaciado a la izquierda */
+}
+
+/************************ESTILOS PARA LOGIN.HTML***********************************/
+.conteiner-loginregister{
+  display: flex;
+  padding: 10px;
+  justify-content: space-around;
+}
+fieldset {
+  display:flex;
+  flex-direction: column; /* Alinea los elementos en columna */
+  gap: 10px;
+}
+.login, .register {
+  padding: 20px;
+  background-color: #0000005e;
+}
+.login{
+  color: #8b7e53;
+}
+.register {
+  color: #a79db6;
 }
 
 
