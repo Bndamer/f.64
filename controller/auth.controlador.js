@@ -7,17 +7,20 @@ const users = require("../models/user.modelo");
 
 
 
- 
 //////////////////////////////////////////////////////////////////////////
 //////////////////METODO POST - registro de usuarios ///////////////////////
 
 const register = (req, res) => {
-  const {
+  let imagenAsubir ="";
+if (req.file){
+imagenAsubir = req.file.filename;
+}
+  const {  //informacion traida del cuerpo del body
     emailUsuario,
     aliasUsuario,
     DniUsuario,
     nombreCompletoUsuario,
-    password,
+    password
   } = req.body;
   /////DOBLE VERIFICACION///////
   // Verifica si el email ya existe
@@ -61,7 +64,7 @@ const register = (req, res) => {
 
           // Insertar el nuevo usuario en la base de datos con su alias y email
           db.query(
-            "INSERT INTO usuarios (emailUsuario, aliasUsuario, DniUsuario, nombreCompletoUsuario, ultimologeoUsuario, passwordUsuario) VALUES (?, ?, ?, ?, ?, ?)",
+            "INSERT INTO usuarios (emailUsuario, aliasUsuario, DniUsuario, nombreCompletoUsuario, ultimologeoUsuario, passwordUsuario, img_usuarios ) VALUES (?, ?, ?, ?, ?, ?,?)",
             [
               emailUsuario,
               aliasUsuario,
@@ -69,6 +72,7 @@ const register = (req, res) => {
               nombreCompletoUsuario,
               null,
               hash,
+              imagenAsubir
             ],
             (error, result) => {
               if (error) {
@@ -184,6 +188,7 @@ const showUser = (req, res) => {
         nombre: userData.nombreCompletoUsuario,
         Dni: userData.DniUsuario,
         ultimoLogeo: userData.ultimologeoUsuario,
+        fotoPerfil : userData.img_usuarios
       });
     }
   );

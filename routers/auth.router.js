@@ -1,6 +1,7 @@
 /// RUTAS DEL MODULO ///
 const express = require("express");
 const router = express.Router();
+const uploads = require("./usuarios.router")
 
 //// AUTH ////
 const controller = require("../controller/auth.controlador");
@@ -8,7 +9,7 @@ const authMiddleware = require("../middleware/auth.middleware")
 
 
 //// METODO POST  ////
-router.post('/register', controller.register);
+router.post('/register',uploads.single('img_usuarios'), controller.register);
 router.post('/login', controller.login);
 
 //// METODO GET ////
