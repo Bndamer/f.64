@@ -235,6 +235,7 @@ const showAllUser = (req, res) => {
           nombre: user.nombreCompletoUsuario,
           Dni: user.DniUsuario,
           ultimoLogeo: user.ultimologeoUsuario,
+          fotoPerfil : user.img_usuarios
         }));
 
         res.status(200).send({
