@@ -18,7 +18,7 @@ _______
 
 En la carpeta **"Capturas POSTMAN"**  se puede ver documentado el uso de postman para verificar la correcta funcionalidad del CRUD de cada tabla.
 ![postman](https://github.com/user-attachments/assets/0fb083a3-cd47-4363-a700-319b7666f591)
-Acceso a la carpeta POSTMAN : https://github.com/Bndamer/f.64/tree/dfa7a7b7a6f9dd7a75d55967569362087ee499be/Capturas%20POSTMAN
+Acceso a la carpeta POSTMAN : https://github.com/Bndamer/f.64/tree/7fbbab35f20add09b09b1259e53fb732584af382/Capturas%20POSTMAN
 
 _____
 _____
