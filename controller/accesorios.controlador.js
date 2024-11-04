@@ -1,3 +1,13 @@
+//CAMPOS TABLA ACCESORIOS//
+//idAccesorios
+//nombreAccesorios
+//descripcionAccesorios
+//tipoAccesorios
+//precioAccesorios
+//fk_marcas
+//fkReseñas
+
+
 //controlador del modulo//
 const db =require("../db/db");
 

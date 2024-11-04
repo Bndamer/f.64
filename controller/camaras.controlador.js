@@ -1,96 +1,116 @@
 //controlador del modulo//
 const db =require("../db/db");
 
-//METODO GET// consultar datos existentes
+///CAMPOS TABLA CAMARAS//
+//idCamaras
+//modeloCamaras
+//tipoCamaras
+//sensorCamaras
+//resolucionCamaras
+//isoMinCamaras
+//isoMaxCamaras
+//marca_id
+//precioCamaras
+//fkReseñas
 
-//para todas las camaras
-const allCameras =(req,res) =>{
-    const sql="SELECT * FROM camaras";
-    db.query(sql,(error,rows )=> {
-        if(error){
-            return res.status(500).json({error : "ERROR: Intente mas tarde por favor"});
+
+///////////////////////////////////////////////////////////////////////
+//////////////METODO GET/////// consultar todas las camaras///////////
+
+const allCameras = (req, res) => {
+    const sql = "SELECT * FROM camaras"; // Consulta SQL para seleccionar todas las cámaras
+    db.query(sql, (error, rows) => { // Ejecuta la consulta
+        if (error) {
+            return res.status(500).json({ error: "ERROR: Intente más tarde por favor" }); // Manejo de errores
         }
-        res.json(rows);
+        res.json(rows); // Devuelve todas las filas (cámaras) en formato JSON
     });
 };
 
 
 
-//para un item o camara
-const showCamera = (req,res) => {
-    const{id} = req.params;
-    const sql="SELECT * FROM camaras WHERE idCamaras = ?";
-    db.query(sql,[id],(error,rows )=> {
-        console.log(rows);
-        if(error){
-            return res.status(500).json({error : "ERROR: Intente mas tarde por favor"});
-        }
-        if(rows.length ==0){
-            return res.status(400).send({error :"ERROR: No existe la camara requerida"});
-        };
-        res.json(rows[0]); //me muestra el elemento en la posicion cero si existe
-    });
 
+/////////////////////////////////////////////////////////////////////////
+//////////////METODO GET///////consultar una cámara especifica//////////
+
+const showCamera = (req, res) => {
+    const { id } = req.params; // Extrae el ID de los parámetros de la solicitud
+    const sql = "SELECT * FROM camaras WHERE idCamaras = ?"; // Consulta SQL para seleccionar una cámara específica
+    db.query(sql, [id], (error, rows) => { // Ejecuta la consulta
+        console.log(rows); // Muestra las filas en la consola para depuración
+        if (error) {
+            return res.status(500).json({ error: "ERROR: Intente más tarde por favor" }); // Manejo de errores
+        }
+        if (rows.length == 0) {
+            return res.status(400).send({ error: "ERROR: No existe la cámara requerida" }); // Manejo de caso en que no se encuentra la cámara
+        }
+        res.json(rows[0]); // Devuelve la cámara encontrada en la posición cero
+    });
 };
 
-//________________________//
 
-//METODO POST///agregar dato nuevo
+
+//////////////////////////////////////////////////////////////////////
+//////////METODO POST - agregar camara nueva ////////////////////////
+
 const storeCamera = (req, res) => {
-    const {modeloCamaras, tipoCamaras, sensorCamaras, resolucionCamaras, isoMinCamaras, isoMaxCamaras,precioCamaras} = req.body;
-    const sql = "INSERT INTO camaras (modeloCamaras, tipoCamaras, sensorCamaras, resolucionCamaras, isoMinCamaras, isoMaxCamaras,precioCamaras) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    db.query(sql, [modeloCamaras, tipoCmaras, sensorCamaras, resolucionCamaras, isoMinCamaras, isoMaxCamaras,precioCamaras], (error, result) => {
-        console.log(result);
-        if(error){
-            return res.status(500).json({error : "ERROR: Intente mas tarde por favor"});
+    const { modeloCamaras, tipoCamaras, sensorCamaras, resolucionCamaras, isoMinCamaras, isoMaxCamaras, precioCamaras } = req.body; // Extrae los campos del cuerpo de la solicitud
+    const sql = "INSERT INTO camaras (modeloCamaras, tipoCamaras, sensorCamaras, resolucionCamaras, isoMinCamaras, isoMaxCamaras, precioCamaras) VALUES (?, ?, ?, ?, ?, ?, ?)"; // Consulta SQL para insertar una nueva cámara
+    db.query(sql, [modeloCamaras, tipoCamaras, sensorCamaras, resolucionCamaras, isoMinCamaras, isoMaxCamaras, precioCamaras], (error, result) => { // Ejecuta la consulta
+        console.log(result); // Muestra el resultado de la consulta en la consola para depuración
+        if (error) {
+            return res.status(500).json({ error: "ERROR: Intente más tarde por favor" }); // Manejo de errores
         }
-        const camera = {...req.body, idCamaras: result.insertId}; // ... reconstruir el objeto del body
-        res.status(201).json(camera); // muestra creado con exito el elemento
+        const camera = { ...req.body, idCamaras: result.insertId }; // Reconstruye el objeto de la cámara con el ID generado
+        res.status(201).json(camera); // Devuelve la cámara creada con éxito
     }); 
-
 };
 
 
-//// METODO PUT  //// modificacion de datos
+
+////////////////////////////////////////////////////////////////////
+/////////// METODO PUT  //// modificacion de camara////////////////
+
 const updateCamera = (req, res) => {
-    const { id } = req.params; // El 'id' viene del parámetro en la URL
-    const { modeloCamaras, tipoCamaras, sensorCamaras, resolucionCamaras, isoMinCamaras, isoMaxCamaras,precioCamaras } = req.body; // Asegúrate de usar los nombres correctos de los campos
+    const { id } = req.params; // Extrae el ID del parámetro en la URL
+    const { modeloCamaras, tipoCamaras, sensorCamaras, resolucionCamaras, isoMinCamaras, isoMaxCamaras, precioCamaras } = req.body; // Extrae los campos del cuerpo de la solicitud
 
-    const sql = "UPDATE accesorios SET modeloCamaras = ?, tipoCamaras = ?, sensorCamaras = ?, resolucionCamaras = ?, isoMinCamaras = ?, isoMaxCamaras = ?, precioCamaras = ? WHERE idCamaras = ?";
+    const sql = "UPDATE camaras SET modeloCamaras = ?, tipoCamaras = ?, sensorCamaras = ?, resolucionCamaras = ?, isoMinCamaras = ?, isoMaxCamaras = ?, precioCamaras = ? WHERE idCamaras = ?"; // Consulta SQL para actualizar los datos de la cámara
 
-    db.query(sql, [modeloCamaras, tipoCamaras, sensorCamaras, resolucionCamaras, isoMinCamaras, isoMaxCamaras,precioCamaras], (error, result) => {
+    db.query(sql, [modeloCamaras, tipoCamaras, sensorCamaras, resolucionCamaras, isoMinCamaras, isoMaxCamaras, precioCamaras, id], (error, result) => { // Ejecuta la consulta
         if (error) {
-            return res.status(500).json({ error: "ERROR: Intente más tarde por favor" });
+            return res.status(500).json({ error: "ERROR: Intente más tarde por favor" }); // Manejo de errores
         }
         if (result.affectedRows === 0) {
-            return res.status(404).send({ error: "ERROR: La cámara a modificar no existe" });
+            return res.status(404).send({ error: "ERROR: La cámara a modificar no existe" }); // Manejo de caso en que no se encuentra la cámara
         }
 
-        const camera = { ...req.body, idCamaras: id }; // Incluyes el ID en el objeto actualizado
-        res.json(camera); // Devuelves el objeto actualizado
+        const camera = { ...req.body, idCamaras: id }; // Reconstruye el objeto de la cámara actualizada
+        res.json(camera); // Devuelve el objeto actualizado
     });
 };
 
 
-//// METODO DELETE //// eliminacion de datos
-const destroyCamera = (req, res) => {
-    const { id } = req.params; // Extraemos el ID del parámetro de la URL
-    const sql = "DELETE FROM camaras WHERE idCamaras = ?"; // Usamos el nombre correcto de la columna de la clave primaria
+///////////////////////////////////////////////////////////////////////
+//////////////////// METODO DELETE //// eliminacion de cámara/////////
 
-    db.query(sql, [id], (error, result) => {
+const destroyCamera = (req, res) => {
+    const { id } = req.params; // Extrae el ID del parámetro de la URL
+    const sql = "DELETE FROM camaras WHERE idCamaras = ?"; // Consulta SQL para eliminar la cámara
+
+    db.query(sql, [id], (error, result) => { // Ejecuta la consulta
         if (error) {
-            return res.status(500).json({ error: "ERROR: Intente más tarde por favor" });
+            return res.status(500).json({ error: "ERROR: Intente más tarde por favor" }); // Manejo de errores
         }
         if (result.affectedRows === 0) {
-            return res.status(404).send({ error: "ERROR: La cámara a borrar no existe" });
+            return res.status(404).send({ error: "ERROR: La cámara a borrar no existe" }); // Manejo de caso en que no se encuentra la cámara
         }
         res.json({ mensaje: "Cámara eliminada" }); // Mensaje de éxito
     }); 
 };
 
 
-
-//exportar todas las funciones del modulo
+//exportar todas las funciones del modulo para las rutas
 module.exports={
     allCameras,
     showCamera,

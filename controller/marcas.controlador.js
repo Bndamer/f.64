@@ -1,64 +1,76 @@
 //controlador del modulo//
 const db =require("../db/db");
 
-//METODO GET// consultar datos existentes
+//////CAMPOS TABLA MARCAS/////
+//idMarcas
+//nombreMarcas
+//paisOrigenMarcas
+//añoFundacionMarcas
 
-//para todas las marcas
-const allMarc =(req,res) =>{
-    const sql="SELECT * FROM marcas";
-    db.query(sql,(error,rows )=> {
-        if(error){
-            return res.status(500).json({error : "ERROR: Intente mas tarde por favor"});
+
+//////////////////////////////////////////////////////////////////////
+/////////////METODO GET/// consultar todas las marcas existentes/////
+
+const allMarc = (req, res) => {
+    const sql = "SELECT * FROM marcas"; // Consulta SQL para seleccionar todas las marcas
+    db.query(sql, (error, rows) => { // Ejecutar la consulta en la base de datos
+        if (error) { // Manejo de errores
+            return res.status(500).json({ error: "ERROR: Intente más tarde por favor" });
         }
-        res.json(rows);
+        res.json(rows); // Retorna todas las marcas como respuesta en formato JSON
     });
 };
 
 
 
-//para un item o marca
-const showMarc = (req,res) => {
-    const{id} = req.params;
-    const sql="SELECT * FROM marcas WHERE idMarcas = ?";
-    db.query(sql,[id],(error,rows )=> {
-        console.log(rows);
-        if(error){
-            return res.status(500).json({error : "ERROR: Intente mas tarde por favor"});
-        }
-        if(rows.length ==0){
-            return res.status(400).send({error :"ERROR: No existe la marca solicitada"});
-        };
-        res.json(rows[0]); //me muestra el elemento en la posicion cero si existe
-    });
+//////////////////////////////////////////////////////////////////////
+/////////////METODO GET/// consultar una marca existente/////////////
 
+const showMarc = (req, res) => {
+    const { id } = req.params; // Extrae el ID de la marca de los parámetros de la URL
+    const sql = "SELECT * FROM marcas WHERE idMarcas = ?"; // Consulta SQL para seleccionar la marca por ID
+    db.query(sql, [id], (error, rows) => { // Ejecutar la consulta
+        console.log(rows); // muestra en consola de las filas devueltas por la consulta
+        if (error) { // Manejo de errores
+            return res.status(500).json({ error: "ERROR: Intente más tarde por favor" });
+        }
+        if (rows.length == 0) { // Verificación de si se encontró la marca
+            return res.status(400).send({ error: "ERROR: No existe la marca solicitada" });
+        }
+        res.json(rows[0]); // Retorna la marca encontrada como respuesta en formato JSON
+    });
 };
 
-//________________________//
 
-//METODO POST///agregar dato nuevo
+
+///////////////////////////////////////////////////////////////////////
+////////////////////METODO POST///agregar marca nueva ////////////////
+
 const storeMarc = (req, res) => {
-    const {nombreMarcas, paisOrigenMarcas, añoFundacionMarcas} = req.body;
-    const sql = "INSERT INTO marcas (nombreMarcas, paisOrigenMarcas, añoFundacionMarcas) VALUES (?, ?, ?)";
-    db.query(sql, [nombreMarcas, paisOrigenMarcas, añoFundacionMarcas], (error, result) => {
-        console.log(result);
-        if(error){
-            return res.status(500).json({error : "ERROR: Intente mas tarde por favor"});
+    const { nombreMarcas, paisOrigenMarcas, añoFundacionMarcas } = req.body; // Extrae los datos del cuerpo de la solicitud
+    const sql = "INSERT INTO marcas (nombreMarcas, paisOrigenMarcas, añoFundacionMarcas) VALUES (?, ?, ?)"; // Consulta SQL para insertar una nueva marca
+    db.query(sql, [nombreMarcas, paisOrigenMarcas, añoFundacionMarcas], (error, result) => { // Ejecutar la consulta
+        console.log(result); // Log del resultado de la consulta
+        if (error) { // Manejo de errores
+            return res.status(500).json({ error: "ERROR: Intente más tarde por favor" });
         }
-        const marca = {...req.body, idMarcas: result.insertId}; // ... reconstruir el objeto del body
-        res.status(201).json(marca); // muestra creado con exito el elemento
+        const marca = { ...req.body, idMarcas: result.insertId }; // Reconstruye el objeto de la marca con el ID asignado
+        res.status(201).json(marca); // Retorna la marca creada exitosamente como respuesta en formato JSON
     }); 
-
 };
 
 
-//// METODO PUT  //// modificacion de datos
+
+///////////////////////////////////////////////////////////////////
+/////////////// METODO PUT  /////// modificacion de marca ////////
+
 const updateMarc = (req, res) => {
     const { id } = req.params; // El 'id' viene del parámetro en la URL
-    const { nombreMarcas, paisOrigenMarcas, añoFundacionMarcas } = req.body; // Asegúrate de usar los nombres correctos de los campos
+    const { nombreMarcas, paisOrigenMarcas, añoFundacionMarcas } = req.body; // Extrae los datos del cuerpo de la solicitud
 
-    const sql = "UPDATE marcas SET nombreMarcas = ?, paisOrigenMarcas = ?, añoFundacionMarcas = ? WHERE idMarcas = ?";
+    const sql = "UPDATE marcas SET nombreMarcas = ?, paisOrigenMarcas = ?, añoFundacionMarcas = ? WHERE idMarcas = ?"; // Consulta SQL para actualizar la marca
 
-    db.query(sql, [nombreMarcas, paisOrigenMarcas, añoFundacionMarcas], (error, result) => {
+    db.query(sql, [nombreMarcas, paisOrigenMarcas, añoFundacionMarcas], (error, result) => { // Ejecutar la consulta y verificacion
         if (error) {
             return res.status(500).json({ error: "ERROR: Intente más tarde por favor" });
         }
@@ -72,12 +84,15 @@ const updateMarc = (req, res) => {
 };
 
 
-//// METODO DELETE //// eliminacion de datos
+
+/////////////////////////////////////////////////////////////////
+////////////// METODO DELETE //////// eliminacion de marca//////
+
 const destroyMarc = (req, res) => {
     const { id } = req.params; // Extraemos el ID del parámetro de la URL
     const sql = "DELETE FROM marcas WHERE idMarcas = ?"; // Usamos el nombre correcto de la columna de la clave primaria
 
-    db.query(sql, [id], (error, result) => {
+    db.query(sql, [id], (error, result) => {  //Manejo de errores,verificaciones
         if (error) {
             return res.status(500).json({ error: "ERROR: Intente más tarde por favor" });
         }
