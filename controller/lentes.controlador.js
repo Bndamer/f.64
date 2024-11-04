@@ -7,7 +7,7 @@ const db =require("../db/db");
 //tipolentes
 //aperturaMinLentes
 //aperturaMaxLentes
-//distanciaFocalLAentes
+//distanciaFocalLentes
 //marca_id
 //precioLentes
 //fkReseñas 
@@ -33,7 +33,7 @@ const allLens = (req, res) => {
 
 const showLens = (req, res) => {
     const { id } = req.params; // Extraer el ID de los parámetros de la solicitud
-    const sql = "SELECT * FROM lentes WHERE id = ?"; // Consulta SQL para buscar un lente por ID
+    const sql = "SELECT * FROM lentes WHERE idLentes = ?"; // Consulta SQL para buscar un lente por ID
     db.query(sql, [id], (error, rows) => { // Ejecutar la consulta
         console.log(rows); // Mostrar las filas obtenidas en la consola
         if (error) {
@@ -46,12 +46,13 @@ const showLens = (req, res) => {
     });
 };
 
-//________________________//
 
+
+/////////////////
 //METODO POST///
 const storeLens = (req, res) => {
     const { modelo, tipo, apertura_min, apertura_max, distancia_focal_mm, marca_id, precio } = req.body; // Extraer datos del cuerpo de la solicitud
-    const sql = "INSERT INTO lentes (modelo, tipo, apertura_min, apertura_max, distancia_focal_mm, marca_id, precio) VALUES (?, ?, ?, ?, ?, ?, ?)"; // Consulta SQL para insertar un nuevo lente
+    const sql = "INSERT INTO lentes (modeloLentes, tipoLentes, aperturaMinLentes, aperturaMaxLentes, distanciaFocalLentes, marca_id, precioLentes) VALUES (?, ?, ?, ?, ?, ?, ?)"; // Consulta SQL para insertar un nuevo lente
     db.query(sql, [modelo, tipo, apertura_min, apertura_max, distancia_focal_mm, marca_id, precio], (error, result) => { // Ejecutar la consulta
         console.log(result); // Mostrar el resultado de la consulta en la consola
         if (error) {
@@ -63,11 +64,13 @@ const storeLens = (req, res) => {
 };
 
 
-//// METODO PUT  ////
+
+//////////////////////
+//// METODO PUT - modificar lente ////
 const updateLens = (req, res) => {
     const { id } = req.params; // Extraer el ID de los parámetros de la solicitud
     const { modelo, tipo, apertura_min, apertura_max, distancia_focal_mm, marca_id, precio } = req.body; // Extraer datos del cuerpo de la solicitud
-    const sql = "UPDATE lentes SET modelo = ?, tipo = ?, apertura_min = ?, apertura_max = ?, distancia_focal_mm = ?, marca_id = ?, precio = ? WHERE id = ?"; // Consulta SQL para actualizar un lente
+    const sql = "UPDATE lentes SET modeloLentes = ?, tipoLentes = ?, aperturaMinLentes = ?, aperturaMaxLentes = ?, distanciaFocalLentes = ?, marca_id = ?, precioLentes = ? WHERE idLentes = ?"; // Consulta SQL para actualizar un lente
     db.query(sql, [modelo, tipo, apertura_min, apertura_max, distancia_focal_mm, marca_id, precio, id], (error, result) => { // Ejecutar la consulta
         console.log(result); // Mostrar el resultado de la consulta en la consola
         if (error) {
@@ -83,10 +86,12 @@ const updateLens = (req, res) => {
 };
 
 
-//// METODO DELETE ////
+
+////////////////////////
+//// METODO DELETE - eliminar lente ////
 const destroyLens = (req, res) => {
     const { id } = req.params; // Extraer el ID de los parámetros de la solicitud
-    const sql = "DELETE FROM lentes WHERE id = ?"; // Consulta SQL para eliminar un lente por ID
+    const sql = "DELETE FROM lentes WHERE idLentes = ?"; // Consulta SQL para eliminar un lente por ID
     db.query(sql, [id], (error, result) => { // Ejecutar la consulta
         console.log(result); // Mostrar el resultado de la consulta en la consola
         if (error) {

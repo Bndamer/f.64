@@ -70,7 +70,7 @@ const updateMarc = (req, res) => {
 
     const sql = "UPDATE marcas SET nombreMarcas = ?, paisOrigenMarcas = ?, añoFundacionMarcas = ? WHERE idMarcas = ?"; // Consulta SQL para actualizar la marca
 
-    db.query(sql, [nombreMarcas, paisOrigenMarcas, añoFundacionMarcas], (error, result) => { // Ejecutar la consulta y verificacion
+    db.query(sql, [nombreMarcas, paisOrigenMarcas, añoFundacionMarcas,id], (error, result) => { // Ejecutar la consulta y verificacion
         if (error) {
             return res.status(500).json({ error: "ERROR: Intente más tarde por favor" });
         }

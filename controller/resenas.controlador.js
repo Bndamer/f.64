@@ -5,6 +5,7 @@ const db = require("../db/db");
 //idReseñas
 //fkUsuarioReseñas
 //comentarioReseñas
+//fechaComentarioReseñas
 //imagenReseñas
 
 
@@ -53,9 +54,9 @@ const showRes = (req, res) => {
 //////// Método POST para agregar una nueva reseña///////////
 
 const storeRes = (req, res) => {
-    const { comentarioReseñas, fechaComentarioReseñas, imagenReseñas } = req.body; // Extrae los campos del cuerpo de la solicitud
-    const sql = "INSERT INTO reseñas (comentarioReseñas, fechaComentarioReseñas, imagenReseñas) VALUES (?, ?, ?)"; // Consulta SQL para insertar una nueva reseña
-    db.query(sql, [comentarioReseñas, fechaComentarioReseñas, imagenReseñas], (error, result) => {
+    const { fkUsuarioReseñas,comentarioReseñas, fechaComentarioReseñas, imagenReseñas } = req.body; // Extrae los campos del cuerpo de la solicitud
+    const sql = "INSERT INTO reseñas (fkUsuarioReseñas,comentarioReseñas, fechaComentarioReseñas, imagenReseñas) VALUES (?,?, ?, ?)"; // Consulta SQL para insertar una nueva reseña
+    db.query(sql, [fkUsuarioReseñas,comentarioReseñas, fechaComentarioReseñas, imagenReseñas], (error, result) => {
         console.log(result); // Muestra en consola el resultado de la inserción
         if (error) {
             // Si hay un error en la consulta, responde con un error 500

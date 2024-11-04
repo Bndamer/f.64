@@ -11,9 +11,9 @@
 //controlador del modulo//
 const db =require("../db/db");
 
-//METODO GET//
 
-//para todas las accesorios
+//////////////////////////////////////////////////////////////////
+/////////////METODO GET////para todas las accesorios/////////////
 const allAccesories =(req,res) =>{
     const sql="SELECT * FROM accesorios";
     db.query(sql,(error,rows )=> {
@@ -26,7 +26,9 @@ const allAccesories =(req,res) =>{
 
 
 
-//para un item o accesorio
+//////////////////////////////////////////////////////////////////
+/////////////METODO GET//para un item o accesorio////////////////
+
 const showAccesories = (req,res) => {
     const{id} = req.params;
     const sql="SELECT * FROM accesorios WHERE idAccesorios = ?";
@@ -43,12 +45,12 @@ const showAccesories = (req,res) => {
 
 };
 
-//________________________//
+////////////////////////////////////////////////////////////
+///////////METODO POST/////////////////////////////////////
 
-//METODO POST///
 const storeAccesories = (req, res) => {
     const {nombreAccesorios, descripcionAccesorios, tipoAccesorios, precioAccesorios, fk_marcas, fkReseñas} = req.body;
-    const sql = "INSERT INTO accesorios (nombreAccesorios, descripcionAccesorios, tipoAccesorios, precioAccesorios) VALUES (?, ?, ?, ?)";
+    const sql = "INSERT INTO accesorios (nombreAccesorios, descripcionAccesorios, tipoAccesorios, precioAccesorios,fk_marcas, fkReseñas) VALUES (?, ?, ?, ?,?,?)";
     db.query(sql, [nombreAccesorios, descripcionAccesorios, tipoAccesorios, precioAccesorios, fk_marcas, fkReseñas], (error, result) => {
         console.log(result);
         if(error){
@@ -61,14 +63,17 @@ const storeAccesories = (req, res) => {
 };
 
 
-//// METODO PUT  ////
+
+////////////////////////////////////////////
+//// METODO PUT - actualizar accesorio ////
+
 const updateAccesories = (req, res) => {
     const { id } = req.params; // El 'id' viene del parámetro en la URL
-    const { nombreAccesorios, descripcionAccesorios, tipoAccesorios, precioAccesorios } = req.body; // Asegúrate de usar los nombres correctos de los campos
+    const { nombreAccesorios, descripcionAccesorios, tipoAccesorios, precioAccesorios, fk_marcas, fkReseñas } = req.body; // Asegúrate de usar los nombres correctos de los campos
 
-    const sql = "UPDATE accesorios SET nombreAccesorios = ?, descripcionAccesorios = ?, tipoAccesorios = ?, precioAccesorios = ?  WHERE idAccesorios = ?";
+    const sql = "UPDATE accesorios SET nombreAccesorios = ?, descripcionAccesorios = ?, tipoAccesorios = ?, precioAccesorios = ? , fk_marcas = ?, fkReseñas = ? WHERE idAccesorios = ?";
 
-    db.query(sql, [nombreAccesorios, descripcionAccesorios, tipoAccesorios, precioAccesorios], (error, result) => {
+    db.query(sql, [nombreAccesorios, descripcionAccesorios, tipoAccesorios, precioAccesorios, fk_marcas, fkReseñas,id], (error, result) => {
         if (error) {
             return res.status(500).json({ error: "ERROR: Intente más tarde por favor" });
         }
@@ -82,7 +87,10 @@ const updateAccesories = (req, res) => {
 };
 
 
-//// METODO DELETE ////
+
+//////////////////////////////////////////////////
+//////// METODO DELETE - eliminar accesorio///////
+
 const destroyAccesories = (req, res) => {
     const { id } = req.params; // Extraemos el ID del parámetro de la URL
     const sql = "DELETE FROM accesorios WHERE idAccesorios = ?"; // Usamos el nombre correcto de la columna de la clave primaria
