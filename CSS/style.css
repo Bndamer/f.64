@@ -12,61 +12,51 @@
 
 body {
   font-family: "Poppins", sans-serif;
-  background-image: url(images/fondo.jpg);
+  background-image: url(../images/fondo.jpg);
   background-size:cover ;
 }
 
 
 .header {
+  display: flex ;
+  align-items: center;
+}
+
+.logo img { 
+  width: 200px;
+}
+.menu_container{
   display: flex;
   align-items: center;
 }
 
-.menu {
-  display: flex;
-}
-
-.logo img { 
-  width: 300px;
-  padding-left: 30%;
-}
-
-.menu .navbar ul {
+.navbar ul {
   display: flex; /* Alinea los elementos del menú en una fila */
   gap: 20px; /* Espacio entre los elementos */
 }
 
-.menu .navbar ul li {
-  display: inline-block; /* Asegura que cada elemento sea tratado en línea */
+.navbar ul li {
+  /*display: inline-block; /* Asegura que cada elemento sea tratado en línea */
 }
 
-.menu .navbar ul li a {
+.navbar ul li a {
   font-family: "Lato";
-  font-size: 20px;
-  padding: 15px;
+  font-size: 15px;
+  /*padding: 2px;*/
   color: rgb(129, 83, 56);
-  display: flex;
+  /*display: flex;*/
   font-weight: 400;
   font-style: italic;
 }
-.menu .navbar ul li a:hover {
+.navbar ul li a:hover {
   color: rgb(112, 2, 2);
 }
-.menu .navbar img{
+.navbar img{
   width: 40px;
-}
-
-#menu {
-  display: none;
 }
 
 .menu-icono {
   width: 25px;
-}
-
-.menu label {
-  cursor: pointer;
-  display: none;
 }
 
 .fraseBresson {
@@ -135,32 +125,30 @@ hr {
 
 .footer {
      padding: 10px 0;
-}
+    }
 
-.footer-links{
-display: flex;
-justify-content: space-around;
+.footer{
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-content:center;
 }
 
 .link h3 {
-    font-size: 20px;
+  font-size: 15px;
     color: rgb(165, 142, 117);
-    margin-bottom: 10px;
 }
 
 .socials {
-  display: flex; /* Alinea los íconos en una fila */
+  display: flex;
   gap: 10px; /* Espacio entre los íconos */
 }
+
 .socials img {
-    margin-right: 10px;
-    width: 50px;
+      width: 35px;
 }
 
 a {
     font-size: 14px;
-    display: block;
-    margin-bottom: 10px;
     color: #edf7da;
 }
 .small {
@@ -224,7 +212,7 @@ fieldset {
 
 
 
-@media(max-width: 991px) {  /* pagina responsiva*/
+/*@media(max-width: 991px) {  /* pagina responsiva*/
     .menu {
         padding: 30px;
     }
@@ -297,4 +285,3 @@ fieldset {
     .socials {
         margin-bottom: 25px;
     }
-  }

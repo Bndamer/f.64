@@ -4,21 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Listado de Cámaras</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="CSS/style.css" />
     <link rel="icon" type="image/x-icon" href="/images/favicon.png" />
     <script src="listado.js"></script>
   </head>
   <body>
     <header class="header">
-      <div class="menu container">
+      <div class="menu_container">
         <!--<a class="logo" href="#">Gabinete de Curiosidades f.64 </a>-->
         <a class="logo" href="index.html"
           ><img src="images/diseño gabinete.png" alt="" />
         </a>
-        <input type="checkbox" id="menu" />
-        <label for="menu"
-          ><img src="images/menu.png" alt="" class="menu-icono"
-        /></label>
         <nav class="navbar">
           <ul>
             <li><a href="#">Desafío de la semana</a></li>
@@ -62,31 +58,39 @@
 
     <hr />
 
-    <footer class="footer container">
-      <div class="footer-links">
-        <div class="link">
-          <h3>Seguinos en nuestras redes</h3>
-          <div class="socials">
-            <a href="https://www.facebook.com/" target="_blank"
-              ><img src="images/footer/facebook.png" alt="Facebook"
-            /></a>
-            <a href="https://www.linkedin.com/" target="_blank"
-              ><img src="images/footer/linkedin.png" alt="LinkedIn"
-            /></a>
-            <a href="https://www.instagram.com/" target="_blank"
-              ><img src="images/footer/social.png" alt="Instagram"
-            /></a>
-            <a href="https://www.twitter.com/" target="_blank"
-              ><img src="images/footer/twitter.png" alt="Twitter"
-            /></a>
-          </div>
-        </div>
+    <footer class="footer">
+
+      <div class="link">
+        <h3>Seguinos en nuestras redes</h3>
+        <ul class="socials">
+          <li>
+            <a href="https://www.facebook.com/" target="_blank">
+              <img src="images/footer/facebook.png" alt="Facebook" />
+            </a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/" target="_blank">
+              <img src="images/footer/linkedin.png" alt="LinkedIn" />
+            </a>
+          </li>
+          <li>
+            <a href="https://www.instagram.com/" target="_blank">
+              <img src="images/footer/social.png" alt="Instagram" />
+            </a>
+          </li>
+          <li>
+            <a href="https://www.twitter.com/" target="_blank">
+              <img src="images/footer/twitter.png" alt="Twitter" />
+            </a>
+          </li>
+        </ul>
+      </div>
+      
 
         <div class="link">
           <h3>Información Útil</h3>
           <ul>
             <li><a href="#">Sobre Nosotros</a></li>
-            <li><a href="#">Política de Privacidad</a></li>
             <li><a href="#">Términos y Condiciones</a></li>
             <li><a href="#">Soporte</a></li>
           </ul>
@@ -97,7 +101,6 @@
           <ul>
             <li><a href="#">Técnicas de Fotografía</a></li>
             <li><a href="#">Guía de Cámaras</a></li>
-            <li><a href="#">Talleres Online</a></li>
             <li><a href="#">Comunidad Fotográfica</a></li>
           </ul>
         </div>
@@ -106,7 +109,6 @@
           <h3>Contacto</h3>
           <ul>
             <li><a href="#">Envíanos un mensaje</a></li>
-            <li><a href="#">FAQs</a></li>
             <li><a href="#">Soporte Técnico</a></li>
             <li><a href="#">Newsletter</a></li>
           </ul>
@@ -114,21 +116,20 @@
 
         <div class="small">
           <ul>
-            <li>
-              <p>
-                "Tus primeras 10.000 fotografías serán tus peores fotografías."
-                Henri Cartier-Bresson
-              </p>
-            </li>
-            <li>
-              <small>
-                Gabinete de Curiosidades F.64. Todos los derechos reservados.
-                2024. Buenos Aires,Argentina.</small
-              >
-            </li>
-          </ul>
-        </div>
+            <li><p>
+              "Tus primeras 10.000 fotografías serán tus peores fotografías." Henri
+              Cartier-Bresson
+            </p>
+  
+          </li>
+        <li>
+          <small>
+            Gabinete de Curiosidades F.64. Todos los derechos reservados. 2024.
+            Buenos Aires,Argentina.</small>
+        </li></ul>      
       </div>
+
+     
     </footer>
   </body>
 </html>
