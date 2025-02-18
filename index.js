@@ -1,12 +1,11 @@
 
 require("dotenv").config(); //variable de entornos
+const path = require("path");
+
 
 const express = require("express");
 const app = express();
 
-
-app.use(express.json()); // en el cuerpo de la peticion viene un json,lo voy a transformar
-//en un objeto JS y de esa maneja lo puedo utilizar
 
 // Rutas para lentes
 const lentesRouter = require('./routers/lentes.router');
@@ -28,8 +27,14 @@ app.use('/accesorios', accesoriosRouter);
 const resenasRouter =require('./routers/resenas.router');
 app.use('/resenas',resenasRouter);
 
-app.get("/", (req, res) => {  // Ruta raíz principal del proyecto
-    res.send("¡Hola Express!/-*-/*/!");
+
+app.use(express.json()); // en el cuerpo de la peticion viene un json,lo voy a transformar
+//en un objeto JS y de esa maneja lo puedo utilizar
+//permite procesar datos JSON en las solicitudes POST, PUT y PATCH.
+app.use(express.static(__dirname + "/public"));  //configuracion acceso a la carpeta public///
+
+app.get("/", (req, res) => {   //Ruta Raiz del proyecto
+    res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 app.use("/auth", require("./routers/auth.router"));

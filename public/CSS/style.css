@@ -12,7 +12,7 @@
 
 body {
   font-family: "Poppins", sans-serif;
-  background-image: url(../images/fondo.jpg);
+  background-image: url(/images/fondo.jpg);
   background-size:cover ;
 }
 
@@ -35,9 +35,9 @@ body {
   gap: 20px; /* Espacio entre los elementos */
 }
 
-.navbar ul li {
-  /*display: inline-block; /* Asegura que cada elemento sea tratado en línea */
-}
+/*.navbar ul li {
+  /*display: inline-block; /* Asegura que cada elemento sea tratado en línea
+}*/
 
 .navbar ul li a {
   font-family: "Lato";
@@ -65,9 +65,9 @@ body {
  padding: 0px 0px 0px 70px;
 }
 
-.fraseBressonconteiner {
-  /*padding: ;*/
-}
+/*.fraseBressonconteiner {
+  /*padding: ;
+}*/
 
 .fraseBressoncontainer h2 {
   font-family: "Lato";
