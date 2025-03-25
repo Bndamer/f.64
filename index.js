@@ -5,6 +5,7 @@ const path = require("path");
 
 const express = require("express");
 const app = express();
+const { login, register } = require("./controller/auth.controlador.js"); 
 
 
 // Rutas para lentes
@@ -25,7 +26,8 @@ app.use('/accesorios', accesoriosRouter);
 
 //Rutas para reseñas
 const resenasRouter =require('./routers/resenas.router');
-app.use('/resenas',resenasRouter);
+const authMiddleware = require("./middleware/auth.middleware");
+app.use('/resenas', resenasRouter);
 
 
 app.use(express.json()); // en el cuerpo de la peticion viene un json,lo voy a transformar
@@ -33,9 +35,16 @@ app.use(express.json()); // en el cuerpo de la peticion viene un json,lo voy a t
 //permite procesar datos JSON en las solicitudes POST, PUT y PATCH.
 app.use(express.static(__dirname + "/public"));  //configuracion acceso a la carpeta public///
 
+
 app.get("/", (req, res) => {   //Ruta Raiz del proyecto
     res.sendFile(path.join(__dirname, "public", "index.html"));
 });
+
+app.get("/login", (req, res) => 
+    res.sendFile(__dirname+ "/public/login.html"));
+
+app.post("/api/login", login);
+app.post("/api/register", register);
 
 app.use("/auth", require("./routers/auth.router"));
 
