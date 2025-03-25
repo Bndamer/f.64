@@ -62,7 +62,7 @@ body {
 .fraseBresson {
   display: flex;
  justify-content: space-around;
- padding: 0px 0px 0px 70px;
+ padding: 0px 0px 0px 20px;
 }
 
 /*.fraseBressonconteiner {
@@ -71,11 +71,10 @@ body {
 
 .fraseBressoncontainer h2 {
   font-family: "Lato";
-  font-size: 35px;
+  font-size: 30px;
   line-height: 50px;
-  font-weight: 500px;
+  font-weight: 100px;
   color: #d1c4c4;
-  margin-bottom: 10px;
   font-style: italic;
 }
 
@@ -87,7 +86,7 @@ body {
 
 .carruselExpress { /* carrusel de imagenes de Bresson*/
   display: flex;
-  width: 1000px;
+  width: 800px;
   height: 350px;
 }
 .carruselExpress img{
