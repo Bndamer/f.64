@@ -1,7 +1,7 @@
 /// RUTAS DEL MODULO ///
 const express = require("express");
 const router = express.Router();
-const uploads = require("./usuarios.router")
+const uploads = require("../middleware/multer.middleware")
 
 //// AUTH ////
 const controller = require("../controller/auth.controlador");

@@ -33,6 +33,8 @@ app.use('/resenas', resenasRouter);
 app.use(express.json()); // en el cuerpo de la peticion viene un json,lo voy a transformar
 //en un objeto JS y de esa maneja lo puedo utilizar
 //permite procesar datos JSON en las solicitudes POST, PUT y PATCH.
+app.use(express.urlencoded({ extended: true })); //PERMITE UTILIZAR FORMDATA QUE VIENE DESDE LO FORMULARIOS FRONT
+
 app.use(express.static(__dirname + "/public"));  //configuracion acceso a la carpeta public///
 
 
