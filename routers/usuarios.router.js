@@ -21,7 +21,7 @@ const uploads =multer({
         const extname = filetypes.test(
               path.extname(file.originalname).toLowerCase()
         );
-        if (mimetype && path.extname){
+        if (mimetype && extname){
              return cb(null, true);
         };
         cb("Tipo de archivo no soportado");
