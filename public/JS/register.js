@@ -110,7 +110,7 @@ document.getElementById('register_form').addEventListener('submit', async (e) =>
     if (imageInput.files.length > 0) {
         formData.append('img_usuarios', imageInput.files[0]); // Agregar la imagen al FormData
     } else {
-        console.error("No se seleccionó una imagen.");
+        console.log("No se seleccionó una imagen.");
     }
 
     // Verificar qué datos se están enviando

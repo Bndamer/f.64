@@ -12,8 +12,10 @@
 
 body {
   font-family: "Poppins", sans-serif;
-  background-image: url(/public/images/fondo.jpg);
-  background-size:cover ;
+  background-image: url("/public/images/fondo.jpg");
+  background-size:cover ; 
+  /*background-color: #b1b1b1;*/
+  padding: 0rem 5rem 0rem 5rem;
 }
 
 
@@ -27,12 +29,12 @@ body {
 }
 .menu_container{
   display: flex;
-  align-items: center;
+  align-items:center;
 }
 
 .navbar ul {
   display: flex; /* Alinea los elementos del menú en una fila */
-  gap: 20px; /* Espacio entre los elementos */
+  gap: 18px; /* Espacio entre los elementos */
 }
 
 /*.navbar ul li {
@@ -41,12 +43,11 @@ body {
 
 .navbar ul li a {
   font-family: "Lato";
-  font-size: 15px;
+  font-size: 18px;
   /*padding: 2px;*/
   color: rgb(129, 83, 56);
   /*display: flex;*/
   font-weight: 400;
-  font-style: italic;
 }
 .navbar ul li a:hover {
   color: rgb(112, 2, 2);
@@ -62,7 +63,6 @@ body {
 .fraseBresson {
   display: flex;
  justify-content: space-around;
- padding: 0px 0px 0px 20px;
 }
 
 /*.fraseBressonconteiner {
@@ -87,7 +87,7 @@ body {
 .carruselExpress { /* carrusel de imagenes de Bresson*/
   display: flex;
   width: 800px;
-  height: 350px;
+  height: 300px;
 }
 .carruselExpress img{
 width: 0;
@@ -118,28 +118,20 @@ transition: 0.8s ease;
   background-color: #900C3F;
 }
 
-hr {
+/* hr {
     border: 1px solid #545454;
-}
+} */
 
-.footer {
-     padding: 10px 0;
-    }
 
 .footer{
-  display: flex;
-  justify-content: center; /* Centra horizontalmente */
-  align-content:center;
+  display:inline-flex;
+  
 }
 
-.link h3 {
-  font-size: 15px;
-    color: rgb(165, 142, 117);
-}
 
 .socials {
-  display: flex;
-  gap: 10px; /* Espacio entre los íconos */
+  display: inline-flex;
+  gap: 15px; /* Espacio entre los íconos */
 }
 
 .socials img {
@@ -147,7 +139,7 @@ hr {
 }
 
 a {
-    font-size: 14px;
+    font-size: 12px;
     color: #edf7da;
 }
 .small {
