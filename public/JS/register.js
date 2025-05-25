@@ -84,10 +84,10 @@ document.getElementById('register_form').addEventListener('submit', async (e) =>
     
     // Obtener valores del formulario
     const fullName = document.getElementById('fullName').value;
-    const email = document.getElementById('email').value;
+    const email = document.getElementById('emailUsuario').value;
     const username = document.getElementById('username').value;
     const dni = document.getElementById('dni').value;
-    const password = document.getElementById('password').value;
+    const password = document.getElementById('passwordUser').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
     const imageInput = document.getElementById('img_usuarios'); // Input de imagen
 

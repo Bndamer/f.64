@@ -12,9 +12,9 @@
 
 body {
   font-family: "Poppins", sans-serif;
-  background-image: url("/public/images/fondo.jpg");
+  /*background-image: url("/public/images/fondo.jpg");*/
   background-size:cover ; 
-  /*background-color: #b1b1b1;*/
+  background-color: #828282;
   padding: 0rem 5rem 0rem 5rem;
 }
 
