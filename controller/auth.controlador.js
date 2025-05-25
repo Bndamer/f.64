@@ -21,8 +21,6 @@ const db = require("../db/db"); // Conexión a la base de datos
 //////////////////METODO POST - registro de usuarios ///////////////////////
 
 const register = (req, res) => {
-  console.log("Cuerpo recibido en req.body:", req.body); //SACAR LUEGO
-  console.log("Archivo recibido en req.file:", req.file); //SACAR LUEGO
   let imagenAsubir =""; // Variable para almacenar el nombre de la imagen si se sube
 if (req.file){
 imagenAsubir = req.file.filename; // Si se sube una imagen, guarda el nombre del archivo

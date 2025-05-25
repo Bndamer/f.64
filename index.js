@@ -46,7 +46,9 @@ app.get("/login", (req, res) =>
     res.sendFile(__dirname+ "/public/login.html"));
 
 app.post("/api/login", login);
-app.post("/api/register", register);
+// app.post("/api/register", register);
+const uploads = require("./middleware/multer.middleware");
+app.post("/api/register", uploads.single("img_usuarios"), register);
 
 app.use("/auth", require("./routers/auth.router"));
 
