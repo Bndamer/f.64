@@ -12,10 +12,11 @@
 
 body {
   font-family: "Poppins", sans-serif;
-  /*background-image: url("/public/images/fondo.jpg");*/
-  background-size:cover ; 
-  background-color: #828282;
-  padding: 0rem 5rem 0rem 5rem;
+  background-image: url("/public/images/pexels-derice-jason-fahnkow-745824-1595236.jpg");
+  background-size:cover ;
+  /*background-color: #828282;*/
+  padding:0;
+  margin:  0 5rem 0 5rem ;
 }
 
 
@@ -44,7 +45,7 @@ body {
 .navbar ul li a {
   font-family: "Lato";
   font-size: 18px;
-  /*padding: 2px;*/
+  padding: 2px;
   color: rgb(129, 83, 56);
   /*display: flex;*/
   font-weight: 400;
@@ -93,7 +94,7 @@ body {
 width: 0;
 flex-grow: 1;
 object-fit: cover;
-opacity: .5;
+opacity: 1;
 transition: 0.8s ease;
 }
 .carruselExpress img:hover{ /*cuando se apoya con el curso encima*/
@@ -123,19 +124,22 @@ transition: 0.8s ease;
 } */
 
 
-.footer{
-  display:inline-flex;
-  
+.footer {
+  color: #a79db6;
+  display: flex;
+  justify-content:flex-start; /* o lo que necesites */
+  background-color: #02020284;
 }
 
 
 .socials {
-  display: inline-flex;
-  gap: 15px; /* Espacio entre los íconos */
+  display: grid;
+  grid-template-columns: 50% 50%;
+  justify-content:baseline;
 }
 
 .socials img {
-      width: 35px;
+      width: 25px;
 }
 
 a {
