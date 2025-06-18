@@ -1,0 +1,21 @@
+const express = require("express");
+const router = express.Router();
+
+const controller = require("../controller/tecnicas.controlador"); // Asegurate que el archivo se llame así
+
+// GET - Todas las técnicas
+router.get('/', controller.allTech);
+
+// GET - Técnica por ID
+router.get('/:id', controller.showTech);
+
+// POST - Crear técnica
+router.post('/', controller.newTech);
+
+// PUT - Actualizar técnica
+router.put('/:id', controller.updateTech);
+
+// DELETE - Eliminar técnica
+router.delete('/:id', controller.destroyTech);
+
+module.exports = router;

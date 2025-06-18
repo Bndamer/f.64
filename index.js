@@ -29,6 +29,14 @@ const resenasRouter =require('./routers/resenas.router');
 const authMiddleware = require("./middleware/auth.middleware");
 app.use('/resenas', resenasRouter);
 
+//Rutas para técnicas
+const tecnicasRouter = require('./routers/tecnicas.router');
+app.use('/tecnicas', tecnicasRouter);
+
+//Rutas para fotógrafos
+const fotografosRouter = require('./routers/fotografos.router');
+app.use('/fotografos', fotografosRouter);
+
 
 app.use(express.json()); // en el cuerpo de la peticion viene un json,lo voy a transformar
 //en un objeto JS y de esa maneja lo puedo utilizar
