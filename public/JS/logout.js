@@ -9,4 +9,5 @@ document.getElementById('logoutBtn').addEventListener('click', () => {
     }
 
     window.location.href = '/login.html';
+    console.log('Usuario desconectado exitosamente');
 });

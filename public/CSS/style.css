@@ -1,9 +1,13 @@
 
 @import url("https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"); 
 
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
-
+@font-face {
+  font-family:'SuckersGothicMedium';
+  src: url('/fonts/sackersgothicstd-medium.otf') format('truetype');
+ font-weight: normal;
+  font-style: normal;
+}
 
 * {
   text-decoration: none;
@@ -11,8 +15,8 @@
 }
 
 body {
-  font-family: "Poppins", sans-serif;
-  background-image: url("/public/images/pexels-derice-jason-fahnkow-745824-1595236.jpg");
+  font-family: "SuckersGothicMedium", sans-serif;
+  background-image: url("/images/pexels-derice-jason-fahnkow-745824-1595236.jpg");
   background-size:cover ;
   /*background-color: #828282;*/
   padding:0;
@@ -23,10 +27,11 @@ body {
 .header {
   display: flex ;
   align-items: center;
+  justify-content: space-between;
 }
 
 .logo img { 
-  width: 200px;
+  width: 220px;
 }
 .menu_container{
   display: flex;
@@ -34,55 +39,34 @@ body {
 }
 
 .navbar ul {
+  padding-top: 20px;
   display: flex; /* Alinea los elementos del menú en una fila */
-  gap: 18px; /* Espacio entre los elementos */
+  gap: 60px; /* Espacio entre los elementos */
+  align-items: center;
 }
 
-/*.navbar ul li {
-  /*display: inline-block; /* Asegura que cada elemento sea tratado en línea
-}*/
+/* .navbar ul li {
+  display: inline-block; /* Asegura que cada elemento sea tratado en línea */
+
+/* } */
 
 .navbar ul li a {
-  font-family: "Lato";
   font-size: 18px;
+  letter-spacing: 2px;
   padding: 2px;
-  color: rgb(129, 83, 56);
+  color: rgb(175, 175, 175);
   /*display: flex;*/
   font-weight: 400;
 }
 .navbar ul li a:hover {
-  color: rgb(112, 2, 2);
+  color: rgb(210, 210, 240);
 }
 .navbar img{
-  width: 40px;
+  width: 50px;
 }
 
 .menu-icono {
   width: 25px;
-}
-
-.fraseBresson {
-  display: flex;
- justify-content: space-around;
-}
-
-/*.fraseBressonconteiner {
-  /*padding: ;
-}*/
-
-.fraseBressoncontainer h2 {
-  font-family: "Lato";
-  font-size: 30px;
-  line-height: 50px;
-  font-weight: 100px;
-  color: #d1c4c4;
-  font-style: italic;
-}
-
-.fraseBressoncontainer p {
-  font-size: 20px;
-  color: #b46b6b;
-  margin-bottom: 10px;
 }
 
 .carruselExpress { /* carrusel de imagenes de Bresson*/
@@ -104,20 +88,6 @@ transition: 0.8s ease;
   filter: contrast(110%);
   }
 
-.btn-1 {
-  display: inline-block;
-  background-color: #927e7e;
-  padding: 10px 30px;
-  border-radius: 25px;
-  color: #ffffff;
-  text-transform: capitalize;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-}
-
-.btn-1:hover {
-  /*cambio color cuando se apoya el cursor encima*/
-  background-color: #900C3F;
-}
 
 /* hr {
     border: 1px solid #545454;
@@ -125,29 +95,46 @@ transition: 0.8s ease;
 
 
 .footer {
-  color: #a79db6;
+  color: rgb(240, 240, 240);
   display: flex;
-  justify-content:flex-start; /* o lo que necesites */
+  justify-content:center; /* o lo que necesites */
   background-color: #02020284;
+  gap: 50px;
 }
-
+.footer a{
+  color: rgb(230, 230, 230);
+  font-size: 10px;
+}
 
 .socials {
-  display: grid;
-  grid-template-columns: 50% 50%;
-  justify-content:baseline;
+  display: flex;        /* o block si querés apilarlos */
+  flex-direction: column; /* para que "Nuestras redes" quede arriba y los íconos abajo */
+  justify-content: flex-start;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.socialsIcons {
+  display: flex;
+  justify-content: space-around;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.socials img {
-      width: 25px;
+.socialsIcons img {
+      width: 35px;
 }
 
-a {
-    font-size: 12px;
-    color: #edf7da;
-}
 .small {
-  color: rgb(253, 228, 199);
+  margin-top: 30px;
+  font-size: 12px;
+  color: rgb(220 220, 220);
+  text-align: center
+}
+.small p{
+  margin: 2px;
+
 }
 
 /***********CSS del listado de camaras*************************/

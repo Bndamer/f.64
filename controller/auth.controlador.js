@@ -69,7 +69,8 @@ imagenAsubir = req.file.filename; // Si se sube una imagen, guarda el nombre del
           }
 
 
-          console.log("Contraseña que llegó:", password); 
+          console.log("mail que llego:", emailUsuario); // Verifica el email recibido
+          console.log("Contraseña que llegó:", password); //verifica contraseña recibida
 
           // Encriptar la contraseña
           const hash = bcrypt.hashSync(password, 8);
@@ -149,6 +150,10 @@ const login = (req, res) => {
       if (!passwordIsValid) { // Si la contraseña es inválida
         return res.status(401).send({ auth: false, token: null });
       }
+
+      console.log("*****Loggeo exitoso*****");
+      console.log("Mail que llego:", email); // Verifica el email recibido
+      console.log("Contraseña que llegó:", password); //verifica contraseña recibida
 
       const token = jwt.sign( // Generar el token JWT para el usuario
         { id: userData.idUsuario },
