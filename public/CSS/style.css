@@ -112,14 +112,14 @@ transition: 0.8s ease;
   justify-content: flex-start;
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 0;/* Los padding y margin 0 en ambas clases es debido a las listas anidadas,lo que genera margenes/padding por defecto */
 }
 .socialsIcons {
   display: flex;
   justify-content: space-around;
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 0;  /* Los padding y margin 0 en ambas clases es debido a las listas anidadas,lo que genera margenes/padding por defecto */
 }
 
 .socialsIcons img {
