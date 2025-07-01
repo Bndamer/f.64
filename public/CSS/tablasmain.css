@@ -1,0 +1,56 @@
+   /* <section class="fotografos">
+      <div class="gridFotografos">
+        <template id="cardFotografo">
+          <div class="card">
+            <img class="imagenFotografo" src="" alt="" />
+            <div class="divisioncard">
+            <h3 class="nombreCompleto"></h3>
+            <p class="nacionalidad"></p>
+            <p class="anoNacimiento"></p>
+            <p class="anoFallecimiento"></p>
+            <p class="estiloFotografico"></p>
+            <p class="biografia"></p>
+          </div>
+          </div>
+        </template>
+      </div>
+    </section> */
+.gridFotografos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+.imagenFotografo{
+    width: 100px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.card{
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+    background: linear-gradient(to right, #0000009d,#affbff26, #282f3493);
+    border-radius: 8px;
+    padding: 16px;
+    height: 210px;
+    width: 350px;
+    gap: 15px;
+}
+.card h3 {
+    font-size: 1rem;
+    color: rgb(183, 222, 216);
+}
+.card p {
+    font-size: 0.7rem;
+    color: rgb(127, 177, 171)
+}
+.card:hover {
+    transform: scale(1.05);
+    transition: 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}

@@ -3,33 +3,34 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Listado de Cámaras</title>
-    <link rel="stylesheet" href="CSS/style.css" />
+    <title>Artistas Destacados</title>
+    <link rel="stylesheet" href="/CSS/style.css" />
+    <link rel="stylesheet" href="/CSS/tablasmain.css" />
     <link rel="icon" type="image/x-icon" href="/images/favicon.png" />
-    <script src="/listado.js"></script>
   </head>
+
   <body>
- <header class="header">
+    <header class="header">
       <div class="menu_container">
         <!--<a class="logo" href="#">Gabinete de Curiosidades f.64 </a>-->
-        <a class="logo" href="index.html"
-          ><img src="images/diseño gabinete.png" alt="" />
+        <a class="logo" href="/index.html"
+          ><img src="/images/diseño gabinete.png" alt="" />
         </a>
         <nav class="navbar">
           <ul>
-            <li><a href="./desafios.html">desafío de la semana</a></li>
-            <li><a href="./historia.html">a & a</a></li>
-            <li><a href="./blog.html">blog & noticias</a></li>
-            <li><a href="./contacto.html">contacto</a></li>
+            <li><a href="/desafios.html">desafío de la semana</a></li>
+            <li><a href="/historia.html">a & a</a></li>
+            <li><a href="/blog.html">blog & noticias</a></li>
+            <li><a href="/contacto.html">contacto</a></li>
             <li>
               <a href="#"
-                ><img src="images/search.png" alt="Buscar" title="Buscar"
+                ><img src="/images/search.png" alt="Buscar" title="Buscar"
               /></a>
             </li>
             <li>
-              <a href="login.html"
+              <a href="/login.html"
                 ><img
-                  src="images/user.png"
+                  src="/images/user.png"
                   alt="Login"
                   title="Registrarse - Iniciar Sesión"
               /></a>
@@ -39,22 +40,28 @@
       </div>
     </header>
 
-    <section class="listadoCamaras">
-      <h2>Listado de cámaras</h2>
-      <p>Ingrese su cámara</p>
-      <input
-        type="text"
-        id="nuevaTarea"
-        placeholder="Ingrese su modelo de cámara"
-      />
-      <input type="text" id="nuevaMarca" placeholder="Ingrese la marca" />
-      <button onclick="agregarTarea()" class="btn-1">Agregar</button>
-
-      <ul id="listadoCamaras"></ul>
+    <section class="fotografos">
+      <div class="gridFotografos">
+        <template id="cardFotografo">
+          <div class="card">
+            <img class="imagenFotografo" src="" alt="" />
+            <div class="divisioncard">
+            <h3 class="nombreCompleto"></h3>
+            <p class="nacionalidad"></p>
+            <p class="anoNacimiento"></p>
+            <p class="anoFallecimiento"></p>
+            <p class="estiloFotografico"></p>
+            <p class="biografia"></p>
+          </div>
+          </div>
+        </template>
+        
+      </div>
     </section>
 
-    <hr />
+    <!--<hr />-->
 
+     
 <div class="footer">
   <div class="link">
             <p>Información Útil</p>
@@ -75,9 +82,9 @@
       <div class="socials">
           <p>Nuestras redes</p>
            <div class="socialsIcons">
-          <img src="images/footer/facebook.png" alt="Facebook" />
-          <img src="images/footer/social.png" alt="Instagram" />        
-          <img src="images/footer/twitter.png" alt="Twitter" /> 
+          <img src="/images/footer/facebook.png" alt="Facebook" />
+          <img src="/images/footer/social.png" alt="Instagram" />        
+          <img src="/images/footer/twitter.png" alt="Twitter" /> 
         </div>
       </div>
 
@@ -93,5 +100,8 @@
             Buenos Aires,Argentina.</p></small>
       </div>
 </div>
+
+  <script src="tablas.js"></script>
+
   </body>
 </html>

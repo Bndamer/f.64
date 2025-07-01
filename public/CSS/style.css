@@ -18,7 +18,7 @@ body {
   font-family: "SuckersGothicMedium", sans-serif;
   background-image: url("/images/pexels-derice-jason-fahnkow-745824-1595236.jpg");
   background-size:cover ;
-  /*background-color: #828282;*/
+  /*background-color: #d46e6e;*/
   padding:0;
   margin:  0 5rem 0 5rem ;
 }
@@ -31,7 +31,7 @@ body {
 }
 
 .logo img { 
-  width: 220px;
+  width: 200px;
 }
 .menu_container{
   display: flex;
@@ -69,24 +69,73 @@ body {
   width: 25px;
 }
 
-.carruselExpress { /* carrusel de imagenes de Bresson*/
-  display: flex;
-  width: 800px;
-  height: 300px;
+.mainGalery { /* carrusel de imagenes main*/
+  width: 100%;
+  height: 370px;
 }
-.carruselExpress img{
-width: 0;
-flex-grow: 1;
+.carruselmain{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+.carruselmain img{
 object-fit: cover;
 opacity: 1;
-transition: 0.8s ease;
+transition: 1s ease;
 }
-.carruselExpress img:hover{ /*cuando se apoya con el curso encima*/
-  cursor: crosshair;
+.carruselmain img:hover{ /*cuando se apoya con el curso encima*/
+  cursor: pointer;
   width: 300px;
   opacity: 1;
   filter: contrast(110%);
+  transition: 0.8s ease;
   }
+  .imgbaja{
+    width: 120px;
+    height: 260px;
+    border-radius: 15px;
+    object-fit: cover;
+  }
+  .imgalta{
+    width: 120px;
+    height: 340px;
+    border-radius: 15px;
+    object-fit: cover;
+  }
+
+.carruselmain {
+  position: relative;
+}
+
+.tituloHover {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  padding: 5px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+.itemCarrusel {
+  position: relative;
+  display: inline-block;
+}
+
+.itemCarrusel a {
+  display: block;
+  position: relative;
+}
+.itemCarrusel:hover .tituloHover {
+  opacity: 1;
+}
 
 
 /* hr {
@@ -96,10 +145,15 @@ transition: 0.8s ease;
 
 .footer {
   color: rgb(240, 240, 240);
-  display: flex;
-  justify-content:center; /* o lo que necesites */
+  /*gap: 50px;*/
+  outline: 2px solid lime;
   background-color: #02020284;
-  gap: 50px;
+  display: flex;
+  justify-content:space-around; /* o lo que necesites */
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  padding: 0px 3rem;
 }
 .footer a{
   color: rgb(230, 230, 230);
@@ -107,12 +161,13 @@ transition: 0.8s ease;
 }
 
 .socials {
-  display: flex;        /* o block si querés apilarlos */
+  display: flex;
   flex-direction: column; /* para que "Nuestras redes" quede arriba y los íconos abajo */
   justify-content: flex-start;
   list-style: none;
   padding: 0;
   margin: 0;/* Los padding y margin 0 en ambas clases es debido a las listas anidadas,lo que genera margenes/padding por defecto */
+  gap: 10px; /* Espacio entre "Nuestras redes" y los íconos */
 }
 .socialsIcons {
   display: flex;
@@ -127,14 +182,27 @@ transition: 0.8s ease;
 }
 
 .small {
-  margin-top: 30px;
   font-size: 12px;
-  color: rgb(220 220, 220);
-  text-align: center
+  color: rgb(220, 220, 220);
+  text-align: center;
 }
 .small p{
-  margin: 2px;
+  margin: 1px;
 
+}
+.footer p,
+.footer ul,
+.footer li,
+.footer small,div  {
+  margin: 0;
+  padding: 0;
+}
+.link{
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  gap: 5px;
 }
 
 /***********CSS del listado de camaras*************************/
