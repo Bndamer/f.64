@@ -24,6 +24,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+
+
+//////FUNCION PARA CARGAR FOTOGRAFOS DESDE EL ENDPOINT A LA TABLA DINAMICA DE ARTISTAS.HTML/////
 function cargarFotografos() { fetch("http://localhost:3000/fotografos") // mi endpoint
         .then((response) => response.json())
         .then((data) => {
@@ -65,5 +68,35 @@ function cargarFotografos() { fetch("http://localhost:3000/fotografos") // mi en
         })
         .catch((error) => {
             console.error("Error al cargar fotógrafos:", error);
+        })
+    };
+
+
+ //////FUNCION PARA CARGAR LENTES DESDE EL ENDPOINT A LA TABLA DINAMICA DE LENTES.HTML/////
+    function cargarLentes() { fetch("http://localhost:3000/lentes") // mi endpoint
+        .then((response) => response.json())
+        .then((data) => {
+            const contenedor = document.querySelector(".gridLentes");
+            const template = document.getElementById("cardLentes").content;
+
+            data.forEach((lente) => {
+                const clone = document.importNode(template, true);
+
+                clone.querySelector(".imagenLentes").src = `/images/lentes/${lente.imagenLentes}`;
+                clone.querySelector(".imagenLentes").alt = `Foto de ${lente.modeloLentes}`;
+
+                clone.querySelector(".modeloLentes").textContent = lente.modeloLentes;
+                clone.querySelector(".tipoLentes").textContent = `Tipo: ${lente.tipoLentes}`;
+                clone.querySelector(".aperturaMin").textContent = `Apertura mínima: ${lente.aperturaMinLentes}`;
+                clone.querySelector(".aperturaMax").textContent = `Apertura máxima: ${lente.aperturaMaxLentes}`;
+                clone.querySelector(".distanciaFocal").textContent = `Distancia focal: ${lente.distanciaFocalLentes}`;
+                clone.querySelector(".marcaid").textContent = `Marca: ${lente.nombreMarcas}`;                clone.querySelector(".precioLentes").textContent = `Precio: ${lente.precioLentes}`;
+                clone.querySelector(".fkReseñas").textContent = `Datos: ${lente.descripcionLentes}`;
+
+                contenedor.appendChild(clone);
+            });
+        })
+        .catch((error) => {
+            console.error("Error al cargar lentes:", error);
         })
     };

@@ -10,14 +10,15 @@ const db =require("../db/db");
 //distanciaFocalLentes
 //marca_id
 //precioLentes
-//fkReseñas 
+//descripcionLentes
+//imagenLentes
 
 
 /////////////////////////////////////////////////////////////////
 //////METODO GET//para todas las lentes/////////////////////////
 
 const allLens = (req, res) => {
-    const sql = "SELECT * FROM lentes"; // Consulta SQL para seleccionar todas las lentes
+    const sql = "SELECT lentes.*, marcas.nombreMarcas FROM lentes JOIN marcas ON lentes.marca_id = marcas.idMarcas"; // Consulta SQL para seleccionar todas las lentes
     db.query(sql, (error, rows) => { // Ejecutar la consulta
         if (error) {
             return res.status(500).json({ error: "ERROR: Intente más tarde por favor" }); // Manejo de errores
@@ -51,15 +52,25 @@ const showLens = (req, res) => {
 /////////////////
 //METODO POST///
 const storeLens = (req, res) => {
-    const { modelo, tipo, apertura_min, apertura_max, distancia_focal_mm, marca_id, precio } = req.body; // Extraer datos del cuerpo de la solicitud
-    const sql = "INSERT INTO lentes (modeloLentes, tipoLentes, aperturaMinLentes, aperturaMaxLentes, distanciaFocalLentes, marca_id, precioLentes) VALUES (?, ?, ?, ?, ?, ?, ?)"; // Consulta SQL para insertar un nuevo lente
-    db.query(sql, [modelo, tipo, apertura_min, apertura_max, distancia_focal_mm, marca_id, precio], (error, result) => { // Ejecutar la consulta
-        console.log(result); // Mostrar el resultado de la consulta en la consola
+    const { modelo, tipo, apertura_min, apertura_max,distancia_focal_mm, marca_id, precio, descripcion } = req.body;
+    const imagen = req.file?.filename || "default-lente.jpg"; // en caso de no subir imagen
+
+    const sql = `
+        INSERT INTO lentes 
+        (modeloLentes, tipoLentes, aperturaMinLentes, aperturaMaxLentes, distanciaFocalLentes, marca_id, precioLentes, descripcionLentes, imagenLentes) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+    const values = [modelo, tipo, apertura_min, apertura_max,distancia_focal_mm, marca_id, precio, descripcion, imagen];
+    console.log('distancia_focal_mm:', distancia_focal_mm);
+
+    db.query(sql, values, (error, result) => {
         if (error) {
-            return res.status(500).json({ error: "ERROR: Intente más tarde por favor" }); // Manejo de errores
+            console.error(error);
+            return res.status(500).json({ error: "ERROR: Intente más tarde por favor" });
         }
-        const lente = { ...req.body, id: result.insertId }; // Reconstruir el objeto del body y añadir el ID generado
-        res.status(201).json(lente); // Devuelve el lente creado con éxito
+
+        const lente = { ...req.body, imagen, id: result.insertId };
+        res.status(201).json(lente);
     });
 };
 
@@ -68,20 +79,44 @@ const storeLens = (req, res) => {
 //////////////////////
 //// METODO PUT - modificar lente ////
 const updateLens = (req, res) => {
-    const { id } = req.params; // Extraer el ID de los parámetros de la solicitud
-    const { modelo, tipo, apertura_min, apertura_max, distancia_focal_mm, marca_id, precio } = req.body; // Extraer datos del cuerpo de la solicitud
-    const sql = "UPDATE lentes SET modeloLentes = ?, tipoLentes = ?, aperturaMinLentes = ?, aperturaMaxLentes = ?, distanciaFocalLentes = ?, marca_id = ?, precioLentes = ? WHERE idLentes = ?"; // Consulta SQL para actualizar un lente
-    db.query(sql, [modelo, tipo, apertura_min, apertura_max, distancia_focal_mm, marca_id, precio, id], (error, result) => { // Ejecutar la consulta
-        console.log(result); // Mostrar el resultado de la consulta en la consola
+    const { id } = req.params;
+    const { modelo, tipo, apertura_min, apertura_max, distancia_focal_mm, marca_id, precio, descripcion } = req.body;
+    const nuevaImagen = req.file?.filename;
+
+    // Armar la consulta dinámica dependiendo si se sube una nueva imagen
+    let sql = `
+        UPDATE lentes SET 
+        modeloLentes = ?, 
+        tipoLentes = ?, 
+        aperturaMinLentes = ?, 
+        aperturaMaxLentes = ?, 
+        distanciaFocalLentes = ?, 
+        marca_id = ?, 
+        precioLentes = ?, 
+        descripcionLentes = ?`;
+
+    const values = [modelo, tipo, apertura_min, apertura_max, distancia_focal_mm, marca_id, precio, descripcion];
+
+    if (nuevaImagen) {
+        sql += `, imagenLentes = ?`;
+        values.push(nuevaImagen);
+    }
+
+    sql += ` WHERE idLentes = ?`;
+    values.push(id);
+
+    db.query(sql, values, (error, result) => {
         if (error) {
-            return res.status(500).json({ error: "ERROR: Intente más tarde por favor" }); // Manejo de errores
+            console.error(error);
+            return res.status(500).json({ error: "ERROR: Intente más tarde por favor" });
         }
-        if (result.affectedRows == 0) {
-            return res.status(404).send({ error: "ERROR: La lente a modificar no existe" }); // Si no se modifica ninguna fila
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ error: "ERROR: La lente a modificar no existe" });
         }
-        
-        const lente = { ...req.body, ...req.params }; // Reconstruir el objeto del body con los parámetros
-        res.json(lente); // Devuelve el lente actualizado
+
+        const lente = { ...req.body, id, imagen: nuevaImagen };
+        res.json(lente);
     });
 };
 

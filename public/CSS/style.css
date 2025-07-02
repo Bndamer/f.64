@@ -238,24 +238,47 @@ transition: 1s ease;
 /************************ESTILOS PARA LOGIN.HTML***********************************/
 .conteiner-loginregister{
   display: flex;
-  padding: 10px;
-  justify-content: space-around;
+  padding-bottom: 30px;
+  justify-content: space-evenly;
+  align-items: center;
 }
-fieldset {
-  display:flex;
-  flex-direction: column; /* Alinea los elementos en columna */
-  gap: 10px;
-}
+
 .login, .register {
-  padding: 20px;
-  background-color: #0000005e;
+  padding: 0 20px 40px 20px;
+  font-size: 11px;
 }
 .login{
-  color: #8b7e53;
+  display: flex;
+  align-items: center;
 }
+fieldset{
+  display: grid;
+  grid-template-columns: 200px 150px;
+  gap: 10px;
+  text-align: end;
+  justify-content: center;
+}
+.login{
+  color: #ead388;
+  background-image: url("/images/login.jpg");
+  background-size:cover;
+  border-radius: 10px;
+  height: 200px;
+  width: 380px;
+}
+
 .register {
-  color: #a79db6;
+  color: #dfbedd;
+  background-image: url("/images/register.jpg");
+  background-size:cover;
+  border-radius: 10px;
+  height: 300px;
+  width: 400px;
 }
+.register button {
+  grid-column: span 2;
+  justify-self: center; /* lo centra horizontalmente */
+ }
 
 
 /*--------------------------------Responsive abajo----------------------------------*/

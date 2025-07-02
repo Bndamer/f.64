@@ -15,14 +15,14 @@
         </template>
       </div>
     </section> */
-.gridFotografos {
+.gridFotografos,.gridLentes {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
     padding: 20px;
 }
-.imagenFotografo{
+.imagenFotografo {
     width: 100px;
     height: 200px;
     object-fit: cover;
@@ -49,6 +49,40 @@
     color: rgb(127, 177, 171)
 }
 .card:hover {
+    transform: scale(1.05);
+    transition: 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.imagenLentes {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.cardlens{
+    display:flex;
+    flex-direction: column;
+    justify-content:flex-start;
+    align-content: center;
+    align-items:center;
+    background: linear-gradient(to right, #0000009d,#affbff26, #282f3493);
+    border-radius: 8px;
+    height: 700px;
+    width: 300px;
+}
+.cardlens h3 {
+    font-size: 1rem;
+    color: rgb(183, 222, 216);
+}
+.cardlens p {
+    font-size: 0.7rem;
+    color: rgb(127, 177, 171);
+    text-align: center;
+    padding: 0 3px 0 3px;
+}
+.cardlens:hover {
     transform: scale(1.05);
     transition: 0.3s ease;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);

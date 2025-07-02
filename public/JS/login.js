@@ -32,7 +32,7 @@ document.getElementById('formLogin').addEventListener('submit', async (e) => {
                 localStorage.setItem('token', respuesta.token);
             }
             // Redirigir a la página de backoffice
-            window.location.href = '/backoffice.html';
+            window.location.href = '/regularUser/backoffice.html';
         } else {
             alert(respuesta?.message || 'Credenciales incorrectas');
         }

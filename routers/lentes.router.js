@@ -9,11 +9,11 @@ const multer=require("multer");
 const path =require("path");
 const storage =multer.diskStorage({
     destination:(req,file,cb) => {
-        cb(null, 'uploads');  //esta carpeta debe existir en el proyecto raiz
+        cb(null, path.join(__dirname, '../public/images/lentes'));  //esta carpeta debe existir en el proyecto raiz
     },
     filename: (req, file,cb) =>{
         console.log(file);
-        cb(null, Date,now() + path.extname(file.originalname)); //segundos desde 1970
+        cb(null, Date.now() + path.extname(file.originalname)); //segundos desde 1970
     }
 });
 //const upload= multer({storage:"storage"}); //si son iguales simplemente lo puedeo escribir como
@@ -31,11 +31,11 @@ router.get('/:id',controller.showLens);
 
 
 //METODO POST//
-router.post('/', controller.storeLens);
+router.post('/', upload.single("imagenLentes"), controller.storeLens);
 
 
 //// METODO PUT  ////
-router.put('/:id', controller.updateLens);
+router.put('/:id', upload.single("imagenLentes"), controller.updateLens);
 
 
 ///// METODO DELETE ////
