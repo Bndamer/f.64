@@ -5,8 +5,8 @@ const db =require("../db/db");
 //idFotografo
 //nombreCompleto	
 //nacionalidad
-//añoNacimiento
-//añoFallecimiento
+//anioNacimiento
+//anioFallecimiento
 //estiloFotografico
 //biografia
 //imagenFotografo
@@ -53,19 +53,19 @@ const showPh = (req, res) => {
 //////////METODO POST - agregar nuevo fotografo ////////////////////////
 
 const newPh = (req, res) => {
-    const { nombreCompleto, nacionalidad, añoNacimiento, añoFallecimiento, estiloFotografico, biografia } = req.body;
+    const { nombreCompleto, nacionalidad, anioNacimiento, anioFallecimiento, estiloFotografico, biografia } = req.body;
     const imagenFotografo = req.file?.filename || "NULL"; // Nombre de archivo o default
 
     const sql = `
         INSERT INTO fotografos 
-        (nombreCompleto, nacionalidad, añoNacimiento, añoFallecimiento, estiloFotografico, biografia, imagenFotografo) 
+        (nombreCompleto, nacionalidad, anioNacimiento, anioFallecimiento, estiloFotografico, biografia, imagenFotografo) 
         VALUES (?, ?, ?, ?, ?, ?, ?)`;
 
     const values = [
         nombreCompleto,
         nacionalidad,
-        añoNacimiento,
-        añoFallecimiento,
+        anioNacimiento,
+        anioFallecimiento,
         estiloFotografico,
         biografia,
         imagenFotografo
@@ -89,23 +89,23 @@ const newPh = (req, res) => {
 
 const updatePh = (req, res) => {
     const { id } = req.params;
-    const { nombreCompleto, nacionalidad, añoNacimiento, añoFallecimiento, estiloFotografico, biografia } = req.body;
+    const { nombreCompleto, nacionalidad, anioNacimiento, anioFallecimiento, estiloFotografico, biografia } = req.body;
     const nuevaImagen = req.file?.filename;
 
     let sql = `
         UPDATE fotografos SET 
         nombreCompleto = ?, 
         nacionalidad = ?, 
-        añoNacimiento = ?, 
-        añoFallecimiento = ?, 
+        anioNacimiento = ?, 
+        anioFallecimiento = ?, 
         estiloFotografico = ?, 
         biografia = ?`;
 
     const values = [
         nombreCompleto,
         nacionalidad,
-        añoNacimiento,
-        añoFallecimiento,
+        anioNacimiento,
+        anioFallecimiento,
         estiloFotografico,
         biografia
     ];

@@ -2,11 +2,11 @@
 const db = require("../db/db");
 
 //CAMPOS DE LA TABLA RESEÑAS/////
-//idReseñas
-//fkUsuarioReseñas
-//comentarioReseñas
-//fechaComentarioReseñas
-//imagenReseñas
+//idResenas
+//fkUsuarioResenas
+//comentarioResenas
+//fechaComentarioResenas
+//imagenResenas
 //fkLentes
 //fkAccesorios
 //fkCamaras
@@ -35,7 +35,7 @@ const allRes = (req, res) => {
 
 const showRes = (req, res) => {
     const { id } = req.params; // Extrae el ID de los parámetros de la ruta
-    const sql = "SELECT * FROM reseñas WHERE idReseñas = ?"; // Consulta SQL para seleccionar una reseña por su ID
+    const sql = "SELECT * FROM reseñas WHERE idResenas = ?"; // Consulta SQL para seleccionar una reseña por su ID
     db.query(sql, [id], (error, rows) => {
         console.log(rows); // Muestra en consola las filas obtenidas
         if (error) {
@@ -57,18 +57,19 @@ const showRes = (req, res) => {
 //////// Método POST para agregar una nueva reseña///////////
 
 const storeRes = (req, res) => {
-    const { fkUsuarioReseñas, comentarioReseñas, fechaComentarioReseñas, imagenReseñas, fkLentes, fkAccesorios, fkCamaras } = req.body;
+    const { fkUsuarioResenas, comentarioResenas, fechaComentarioResenas, fkLentes, fkAccesorios, fkCamaras } = req.body;
+    const imagenResenas = req.file?.filename || null; // el nombre del archivo subido por multer
 
     const sql = `
         INSERT INTO reseñas 
-        (fkUsuarioReseñas, comentarioReseñas, fechaComentarioReseñas, imagenReseñas, fkLentes, fkAccesorios, fkCamaras) 
+        (fkUsuarioResenas, comentarioResenas, fechaComentarioResenas, imagenResenas, fkLentes, fkAccesorios, fkCamaras) 
         VALUES (?, ?, ?, ?, ?, ?, ?)`;
 
     const values = [
-        fkUsuarioReseñas,
-        comentarioReseñas,
-        fechaComentarioReseñas,
-        imagenReseñas,
+        fkUsuarioResenas,
+        comentarioResenas,
+        fechaComentarioResenas,
+        imagenResenas,
         fkLentes || null,
         fkAccesorios || null,
         fkCamaras || null
@@ -79,7 +80,7 @@ const storeRes = (req, res) => {
             console.error("Error al insertar reseña:", error);
             return res.status(500).json({ error: "ERROR: Intente más tarde por favor" });
         }
-        const resena = { ...req.body, idReseñas: result.insertId };
+        const resena = { ...req.body, idResenas: result.insertId };
         res.status(201).json(resena);
     });
 };
@@ -92,27 +93,45 @@ const storeRes = (req, res) => {
 
 const updateRes = (req, res) => {
     const { id } = req.params;
-    const { comentarioReseñas, fechaComentarioReseñas, imagenReseñas, fkLentes, fkAccesorios, fkCamaras } = req.body;
+    const {
+        comentarioResenas,
+        fechaComentarioResenas,
+        fkLentes,
+        fkAccesorios,
+        fkCamaras
+    } = req.body;
 
-    const sql = `
+    const nuevaImagen = req.file?.filename;
+
+    // Armamos el SQL dinámicamente según haya imagen nueva o no
+    let sql = `
         UPDATE reseñas SET 
-        comentarioReseñas = ?, 
-        fechaComentarioReseñas = ?, 
-        imagenReseñas = ?, 
-        fkLentes = ?, 
-        fkAccesorios = ?, 
-        fkCamaras = ? 
-        WHERE idReseñas = ?`;
+        comentarioResenas = ?, 
+        fechaComentarioResenas = ?, 
+    `;
 
     const values = [
-        comentarioReseñas,
-        fechaComentarioReseñas,
-        imagenReseñas,
+        comentarioResenas,
+        fechaComentarioResenas
+    ];
+
+    if (nuevaImagen) {
+        sql += `imagenResenas = ?, `;
+        values.push(nuevaImagen);
+    }
+
+    sql += `
+        fkLentes = ?, 
+        fkAccesorios = ?, 
+        fkCamaras = ?
+        WHERE idResenas = ?`;
+
+    values.push(
         fkLentes || null,
         fkAccesorios || null,
         fkCamaras || null,
         id
-    ];
+    );
 
     db.query(sql, values, (error, result) => {
         if (error) {
@@ -124,7 +143,16 @@ const updateRes = (req, res) => {
             return res.status(404).send({ error: "ERROR: La reseña a modificar no existe" });
         }
 
-        const resena = { ...req.body, idReseñas: id };
+        const resena = {
+            idResenas: id,
+            comentarioResenas,
+            fechaComentarioResenas,
+            imagenResenas: nuevaImagen || req.body.imagenResenas, // mantenemos la anterior si no se actualiza
+            fkLentes,
+            fkAccesorios,
+            fkCamaras
+        };
+
         res.json(resena);
     });
 };
@@ -136,7 +164,7 @@ const updateRes = (req, res) => {
 
 const destroyRes = (req, res) => {
     const { id } = req.params; // Extrae el ID del parámetro de la URL
-    const sql = "DELETE FROM reseñas WHERE idReseñas = ?"; // Consulta SQL para eliminar una reseña por su ID
+    const sql = "DELETE FROM reseñas WHERE idResenas = ?"; // Consulta SQL para eliminar una reseña por su ID
 
     db.query(sql, [id], (error, result) => {
         if (error) {

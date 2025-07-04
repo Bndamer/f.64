@@ -32,11 +32,11 @@ router.get('/:id',controller.showRes);
 
 
 //METODO POST//
-router.post('/', upload.single("imagenReseñas"), controller.storeRes);
+router.post('/', upload.single("imagenResenas"), controller.storeRes);
 
 
 //// METODO PUT  ////
-router.put('/:id', upload.single("imagenReseñas"), controller.updateRes);
+router.put('/:id', upload.single("imagenResenas"), controller.updateRes);
 
 
 ///// METODO DELETE ////
