@@ -1,12 +1,15 @@
 // Controlador del módulo para manejar las reseñas
 const db = require("../db/db");
 
-//CAMPOS DE LA TABLA RESENAS/////
+//CAMPOS DE LA TABLA RESEÑAS/////
 //idReseñas
 //fkUsuarioReseñas
 //comentarioReseñas
 //fechaComentarioReseñas
 //imagenReseñas
+//fkLentes
+//fkAccesorios
+//fkCamaras
 
 
 
@@ -54,18 +57,30 @@ const showRes = (req, res) => {
 //////// Método POST para agregar una nueva reseña///////////
 
 const storeRes = (req, res) => {
-    const { fkUsuarioReseñas,comentarioReseñas, fechaComentarioReseñas, imagenReseñas } = req.body; // Extrae los campos del cuerpo de la solicitud
-    const sql = "INSERT INTO reseñas (fkUsuarioReseñas,comentarioReseñas, fechaComentarioReseñas, imagenReseñas) VALUES (?,?, ?, ?)"; // Consulta SQL para insertar una nueva reseña
-    db.query(sql, [fkUsuarioReseñas,comentarioReseñas, fechaComentarioReseñas, imagenReseñas], (error, result) => {
-        console.log(result); // Muestra en consola el resultado de la inserción
+    const { fkUsuarioReseñas, comentarioReseñas, fechaComentarioReseñas, imagenReseñas, fkLentes, fkAccesorios, fkCamaras } = req.body;
+
+    const sql = `
+        INSERT INTO reseñas 
+        (fkUsuarioReseñas, comentarioReseñas, fechaComentarioReseñas, imagenReseñas, fkLentes, fkAccesorios, fkCamaras) 
+        VALUES (?, ?, ?, ?, ?, ?, ?)`;
+
+    const values = [
+        fkUsuarioReseñas,
+        comentarioReseñas,
+        fechaComentarioReseñas,
+        imagenReseñas,
+        fkLentes || null,
+        fkAccesorios || null,
+        fkCamaras || null
+    ];
+
+    db.query(sql, values, (error, result) => {
         if (error) {
-            // Si hay un error en la consulta, responde con un error 500
+            console.error("Error al insertar reseña:", error);
             return res.status(500).json({ error: "ERROR: Intente más tarde por favor" });
         }
-        // Reconstruye el objeto de reseña incluyendo el ID generado
-        const resena = { ...req.body, idReseñas: result.insertId }; // ... permite crear un nuevo objeto combinando propiedades
-        // Responde con el objeto de reseña creado
-        res.status(201).json(resena); // Código 201 indica que se creó el recurso exitosamente
+        const resena = { ...req.body, idReseñas: result.insertId };
+        res.status(201).json(resena);
     });
 };
 
@@ -76,23 +91,41 @@ const storeRes = (req, res) => {
 //////// Método PUT para modificar datos existentes de una reseña//////////////
 
 const updateRes = (req, res) => {
-    const { id } = req.params; // Extrae el ID de los parámetros de la URL
-    const { comentarioReseñas, fechaComentarioReseñas, imagenReseñas } = req.body; // Extrae los campos del cuerpo de la solicitud
+    const { id } = req.params;
+    const { comentarioReseñas, fechaComentarioReseñas, imagenReseñas, fkLentes, fkAccesorios, fkCamaras } = req.body;
 
-    const sql = "UPDATE reseñas SET comentarioReseñas = ?, fechaComentarioReseñas = ?, imagenReseñas = ? WHERE idReseñas = ?"; // Consulta SQL para actualizar una reseña
+    const sql = `
+        UPDATE reseñas SET 
+        comentarioReseñas = ?, 
+        fechaComentarioReseñas = ?, 
+        imagenReseñas = ?, 
+        fkLentes = ?, 
+        fkAccesorios = ?, 
+        fkCamaras = ? 
+        WHERE idReseñas = ?`;
 
-    db.query(sql, [comentarioReseñas, fechaComentarioReseñas, imagenReseñas, id], (error, result) => {
+    const values = [
+        comentarioReseñas,
+        fechaComentarioReseñas,
+        imagenReseñas,
+        fkLentes || null,
+        fkAccesorios || null,
+        fkCamaras || null,
+        id
+    ];
+
+    db.query(sql, values, (error, result) => {
         if (error) {
-            // Si hay un error en la consulta, responde con un error 500
+            console.error("Error al actualizar reseña:", error);
             return res.status(500).json({ error: "ERROR: Intente más tarde por favor" });
         }
+
         if (result.affectedRows === 0) {
-            // Si no se afectaron filas, significa que la reseña no existe
             return res.status(404).send({ error: "ERROR: La reseña a modificar no existe" });
         }
-        // Devuelve el objeto de reseña actualizado
-        const resena = { ...req.body, idReseñas: id }; // Incluye el ID en el objeto actualizado
-        res.json(resena); // Responde con el objeto actualizado
+
+        const resena = { ...req.body, idReseñas: id };
+        res.json(resena);
     });
 };
 

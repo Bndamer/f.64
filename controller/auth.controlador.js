@@ -301,6 +301,7 @@ const updateUser = (req, res) => {
 
 
 
+
 ///////////////////////////////////////////////////////
 ///////METODO DELETE -ELIMINACION DE USUARIO//////////
 

@@ -76,47 +76,72 @@ const storeLens = (req, res) => {
 
 
 
-//////////////////////
+///////////////////////////////////////
 //// METODO PUT - modificar lente ////
 const updateLens = (req, res) => {
     const { id } = req.params;
-    const { modelo, tipo, apertura_min, apertura_max, distancia_focal_mm, marca_id, precio, descripcion } = req.body;
+    const {
+        modelo,
+        tipo,
+        apertura_min,
+        apertura_max,
+        distancia_focal_mm,
+        marca_id,
+        precio,
+        descripcion
+    } = req.body;
     const nuevaImagen = req.file?.filename;
 
-    // Armar la consulta dinámica dependiendo si se sube una nueva imagen
-    let sql = `
-        UPDATE lentes SET 
-        modeloLentes = ?, 
-        tipoLentes = ?, 
-        aperturaMinLentes = ?, 
-        aperturaMaxLentes = ?, 
-        distanciaFocalLentes = ?, 
-        marca_id = ?, 
-        precioLentes = ?, 
-        descripcionLentes = ?`;
-
-    const values = [modelo, tipo, apertura_min, apertura_max, distancia_focal_mm, marca_id, precio, descripcion];
-
-    if (nuevaImagen) {
-        sql += `, imagenLentes = ?`;
-        values.push(nuevaImagen);
-    }
-
-    sql += ` WHERE idLentes = ?`;
-    values.push(id);
-
-    db.query(sql, values, (error, result) => {
-        if (error) {
-            console.error(error);
-            return res.status(500).json({ error: "ERROR: Intente más tarde por favor" });
+    // Traer primero el lente actual
+    const sqlGet = "SELECT * FROM lentes WHERE idLentes = ?";
+    db.query(sqlGet, [id], (err, rows) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: "Error al buscar el lente existente" });
         }
 
-        if (result.affectedRows === 0) {
-            return res.status(404).json({ error: "ERROR: La lente a modificar no existe" });
+        if (rows.length === 0) {
+            return res.status(404).json({ error: "Lente no encontrado" });
         }
 
-        const lente = { ...req.body, id, imagen: nuevaImagen };
-        res.json(lente);
+        const lenteActual = rows[0];
+
+        // Usar los valores existentes si no se mandó algo nuevo
+        const sqlUpdate = `
+            UPDATE lentes SET 
+            modeloLentes = ?, 
+            tipoLentes = ?, 
+            aperturaMinLentes = ?, 
+            aperturaMaxLentes = ?, 
+            distanciaFocalLentes = ?, 
+            marca_id = ?, 
+            precioLentes = ?, 
+            descripcionLentes = ?, 
+            imagenLentes = ?
+            WHERE idLentes = ?
+        `;
+
+        const values = [
+            modelo || lenteActual.modeloLentes,
+            tipo || lenteActual.tipoLentes,
+            apertura_min || lenteActual.aperturaMinLentes,
+            apertura_max || lenteActual.aperturaMaxLentes,
+            distancia_focal_mm || lenteActual.distanciaFocalLentes,
+            marca_id || lenteActual.marca_id,
+            precio || lenteActual.precioLentes,
+            descripcion || lenteActual.descripcionLentes,
+            nuevaImagen || lenteActual.imagenLentes,
+            id
+        ];
+
+        db.query(sqlUpdate, values, (error, result) => {
+            if (error) {
+                console.error(error);
+                return res.status(500).json({ error: "Error al actualizar el lente" });
+            }
+
+            res.json({ message: "Lente actualizado correctamente" });
+        });
     });
 };
 

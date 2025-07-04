@@ -53,25 +53,33 @@ const showPh = (req, res) => {
 //////////METODO POST - agregar nuevo fotografo ////////////////////////
 
 const newPh = (req, res) => {
-    const { nombreCompleto,nacionalidad,añoNacimiento,añoFallecimiento,estiloFotografico,biografia,imagenFotografo
-    } = req.body; // Extrae los campos del cuerpo de la solicitud
-    const sql = `INSERT INTO fotografos 
+    const { nombreCompleto, nacionalidad, añoNacimiento, añoFallecimiento, estiloFotografico, biografia } = req.body;
+    const imagenFotografo = req.file?.filename || "NULL"; // Nombre de archivo o default
+
+    const sql = `
+        INSERT INTO fotografos 
         (nombreCompleto, nacionalidad, añoNacimiento, añoFallecimiento, estiloFotografico, biografia, imagenFotografo) 
-        VALUES (?, ?, ?, ?, ?, ?, ?)`; // Consulta SQL para insertar un nuevo photografo
-    db.query(sql, [nombreCompleto,
+        VALUES (?, ?, ?, ?, ?, ?, ?)`;
+
+    const values = [
+        nombreCompleto,
         nacionalidad,
         añoNacimiento,
         añoFallecimiento,
         estiloFotografico,
         biografia,
-        imagenFotografo], (error, result) => { // Ejecuta la consulta
-        console.log(result); // Muestra el resultado de la consulta en la consola para depuración
+        imagenFotografo
+    ];
+
+    db.query(sql, values, (error, result) => {
         if (error) {
-            return res.status(500).json({ error: "ERROR: Intente más tarde por favor" }); // Manejo de errores
+            console.error(error);
+            return res.status(500).json({ error: "ERROR: Intente más tarde por favor" });
         }
-        const photo = { ...req.body, idFotografo: result.insertId }; // Reconstruye el objeto de la cámara con el ID generado
-        res.status(201).json(photo); // Devuelve el ph creado con exito
-    }); 
+
+        const photo = { ...req.body, idFotografo: result.insertId, imagenFotografo };
+        res.status(201).json(photo);
+    });
 };
 
 
@@ -81,38 +89,46 @@ const newPh = (req, res) => {
 
 const updatePh = (req, res) => {
     const { id } = req.params;
-    const {
-        nombreCompleto,nacionalidad,añoNacimiento,añoFallecimiento,estiloFotografico,biografia,imagenFotografo
-    } = req.body;
+    const { nombreCompleto, nacionalidad, añoNacimiento, añoFallecimiento, estiloFotografico, biografia } = req.body;
+    const nuevaImagen = req.file?.filename;
 
-    const sql = `UPDATE fotografos SET 
+    let sql = `
+        UPDATE fotografos SET 
         nombreCompleto = ?, 
         nacionalidad = ?, 
         añoNacimiento = ?, 
         añoFallecimiento = ?, 
         estiloFotografico = ?, 
-        biografia = ?, 
-        imagenFotografo = ?
-        WHERE idFotografo = ?`;
+        biografia = ?`;
 
-    db.query(sql, [
+    const values = [
         nombreCompleto,
         nacionalidad,
         añoNacimiento,
         añoFallecimiento,
         estiloFotografico,
-        biografia,
-        imagenFotografo,
-        id
-    ], (error, result) => {
+        biografia
+    ];
+
+    if (nuevaImagen) {
+        sql += `, imagenFotografo = ?`;
+        values.push(nuevaImagen);
+    }
+
+    sql += ` WHERE idFotografo = ?`;
+    values.push(id);
+
+    db.query(sql, values, (error, result) => {
         if (error) {
+            console.error(error);
             return res.status(500).json({ error: "ERROR: Intente más tarde por favor" });
         }
+
         if (result.affectedRows === 0) {
             return res.status(404).json({ error: "ERROR: El fotógrafo no existe" });
         }
 
-        const photo = { ...req.body, idFotografo: id };
+        const photo = { ...req.body, idFotografo: id, imagenFotografo: nuevaImagen };
         res.json(photo);
     });
 };

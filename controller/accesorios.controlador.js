@@ -5,7 +5,7 @@
 //tipoAccesorios
 //precioAccesorios
 //fk_marcas
-//fkReseñas
+//imagenAccesorios
 
 
 //controlador del modulo//
@@ -49,17 +49,33 @@ const showAccesories = (req,res) => {
 ///////////METODO POST/////////////////////////////////////
 
 const storeAccesories = (req, res) => {
-    const {nombreAccesorios, descripcionAccesorios, tipoAccesorios, precioAccesorios, fk_marcas, fkReseñas} = req.body;
-    const sql = "INSERT INTO accesorios (nombreAccesorios, descripcionAccesorios, tipoAccesorios, precioAccesorios,fk_marcas, fkReseñas) VALUES (?, ?, ?, ?,?,?)";
-    db.query(sql, [nombreAccesorios, descripcionAccesorios, tipoAccesorios, precioAccesorios, fk_marcas, fkReseñas], (error, result) => {
-        console.log(result);
-        if(error){
-            return res.status(500).json({error : "ERROR: Intente mas tarde por favor"});
-        }
-        const accesorio = {...req.body, idAccesorios: result.insertId}; // ... reconstruir el objeto del body
-        res.status(201).json(accesorio); // muestra creado con exito el elemento
-    }); 
+    const {
+        nombreAccesorios,
+        descripcionAccesorios,
+        tipoAccesorios,
+        precioAccesorios,
+        fk_marcas
+    } = req.body;
 
+    const imagenAccesorios = req.file?.filename || "NULL";
+
+    const sql = `
+        INSERT INTO accesorios 
+        (nombreAccesorios, descripcionAccesorios, tipoAccesorios, precioAccesorios, fk_marcas, imagenAccesorios) 
+        VALUES (?, ?, ?, ?, ?, ?)
+    `;
+
+    const values = [nombreAccesorios, descripcionAccesorios, tipoAccesorios, precioAccesorios, fk_marcas, imagenAccesorios];
+
+    db.query(sql, values, (error, result) => {
+        if (error) {
+            console.error("Error al guardar accesorio:", error);
+            return res.status(500).json({ error: "ERROR: Intente más tarde por favor" });
+        }
+
+        const accesorio = { ...req.body, imagenAccesorios, idAccesorios: result.insertId };
+        res.status(201).json(accesorio);
+    });
 };
 
 
@@ -68,21 +84,48 @@ const storeAccesories = (req, res) => {
 //// METODO PUT - actualizar accesorio ////
 
 const updateAccesories = (req, res) => {
-    const { id } = req.params; // El 'id' viene del parámetro en la URL
-    const { nombreAccesorios, descripcionAccesorios, tipoAccesorios, precioAccesorios, fk_marcas, fkReseñas } = req.body; // Asegúrate de usar los nombres correctos de los campos
+    const { id } = req.params;
+    const {
+        nombreAccesorios,
+        descripcionAccesorios,
+        tipoAccesorios,
+        precioAccesorios,
+        fk_marcas
+    } = req.body;
 
-    const sql = "UPDATE accesorios SET nombreAccesorios = ?, descripcionAccesorios = ?, tipoAccesorios = ?, precioAccesorios = ? , fk_marcas = ?, fkReseñas = ? WHERE idAccesorios = ?";
+    const nuevaImagen = req.file?.filename;
 
-    db.query(sql, [nombreAccesorios, descripcionAccesorios, tipoAccesorios, precioAccesorios, fk_marcas, fkReseñas,id], (error, result) => {
+    let sql = `
+        UPDATE accesorios SET 
+        nombreAccesorios = ?, 
+        descripcionAccesorios = ?, 
+        tipoAccesorios = ?, 
+        precioAccesorios = ?, 
+        fk_marcas = ?
+    `;
+
+    const values = [nombreAccesorios, descripcionAccesorios, tipoAccesorios, precioAccesorios, fk_marcas];
+
+    if (nuevaImagen) {
+        sql += `, imagenAccesorios = ?`;
+        values.push(nuevaImagen);
+    }
+
+    sql += ` WHERE idAccesorios = ?`;
+    values.push(id);
+
+    db.query(sql, values, (error, result) => {
         if (error) {
+            console.error("Error al actualizar accesorio:", error);
             return res.status(500).json({ error: "ERROR: Intente más tarde por favor" });
         }
+
         if (result.affectedRows === 0) {
             return res.status(404).send({ error: "ERROR: El accesorio a modificar no existe" });
         }
 
-        const accesorio = { ...req.body, idAccesorios: id }; // Incluyes el ID en el objeto actualizado
-        res.json(accesorio); // Devuelves el objeto actualizado
+        const accesorio = { ...req.body, idAccesorios: id, imagenAccesorios: nuevaImagen };
+        res.json(accesorio);
     });
 };
 
