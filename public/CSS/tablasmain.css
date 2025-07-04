@@ -88,3 +88,103 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     cursor: pointer;
 }
+
+    /*<section class="camaras">
+      <div class="gridCamaras">
+        <template id="cardCamaras">
+          <div class="card">
+            <img class="imagenCamaras" src="" alt="" />
+            <div class="divisioncard">
+            <h3 class="modeloCamaras"></h3>
+            <p class="tipoCamaras"></p>
+            <p class="sensorCamaras"></p>
+            <p class="resolucionCamaras"></p>
+            <p class="isoMinCamaras"></p>
+            <p class="isoMaxCamaras"></p>
+            <p class="marca_id"></p>
+            <p class="precioCamaras"></p>
+          </div>
+          </div>
+        </template>
+        
+      </div>
+    </section>*/
+.gridCamaras {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+.imagenCamaras {
+    width: 150px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.cardCam {
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+    background: linear-gradient(to right, #0000009d,#affbff26, #282f3493);
+    border-radius: 8px;
+    padding: 16px;
+    height: 400px;
+    width: 350px;
+    gap: 15px;
+    color: rgb(176, 198, 223);
+}
+
+/*<section class="tecnicas">
+      <div class="gridTecnicas">
+        <template id="cardTecnica">
+          <div class="card">
+            <img class="imagenTecnica" src="" alt="" />
+            <div class="divisioncard">
+            <h3 class="nombreTecnica"></h3>
+            <p class="descripcionTecnica"></p>
+          </div>
+          </div>
+        </template>   
+      </div>
+    </section>*/
+.gridTecnicas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+.imagenTecnica {
+    width: 300px;
+    height: 200px;
+    object-fit: fill;
+    border-radius: 8px;
+}
+.cardTecnica {
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+    background: linear-gradient(to right, #0000009d,#affbff26, #282f3493);
+    border-radius: 8px;
+    padding: 16px;
+    height: 400px;
+    width: 350px;
+    gap: 15px;
+    color: rgb(176, 198, 223);
+}
+.cardTec {
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+    background: linear-gradient(to right, #0000009d,#affbff26, #282f3493);
+    border-radius: 8px;
+    padding: 16px;
+    height: 250px;
+    width: 500px;
+    gap: 15px;
+    color: rgb(176, 198, 223);
+}

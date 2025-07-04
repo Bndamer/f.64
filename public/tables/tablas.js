@@ -50,12 +50,12 @@ function cargarFotografos() { fetch("http://localhost:3000/fotografos") // mi en
                 ).textContent = `Nacionalidad: ${fotografo.nacionalidad}`;
                 clone.querySelector(
                     ".anoNacimiento"
-                ).textContent = `Año de nacimiento: ${fotografo.añoNacimiento}`;
+                ).textContent = `Año de nacimiento: ${fotografo.anioNacimiento}`;
 
                 // Validamos si está fallecido o no
                 clone.querySelector(".anoFallecimiento").textContent =
-                    fotografo.añoFallecimiento
-                        ? `Falleció en: ${fotografo.añoFallecimiento}`
+                    fotografo.anioFallecimiento
+                        ? `Falleció en: ${fotografo.anioFallecimiento}`
                         : "Aún con vida";
 
                 clone.querySelector(
@@ -71,7 +71,7 @@ function cargarFotografos() { fetch("http://localhost:3000/fotografos") // mi en
         })
     };
 
-
+    
  //////FUNCION PARA CARGAR LENTES DESDE EL ENDPOINT A LA TABLA DINAMICA DE LENTES.HTML/////
     function cargarLentes() { fetch("http://localhost:3000/lentes") // mi endpoint
         .then((response) => response.json())
@@ -90,8 +90,63 @@ function cargarFotografos() { fetch("http://localhost:3000/fotografos") // mi en
                 clone.querySelector(".aperturaMin").textContent = `Apertura mínima: ${lente.aperturaMinLentes}`;
                 clone.querySelector(".aperturaMax").textContent = `Apertura máxima: ${lente.aperturaMaxLentes}`;
                 clone.querySelector(".distanciaFocal").textContent = `Distancia focal: ${lente.distanciaFocalLentes}`;
-                clone.querySelector(".marcaid").textContent = `Marca: ${lente.nombreMarcas}`;                clone.querySelector(".precioLentes").textContent = `Precio: ${lente.precioLentes}`;
+                clone.querySelector(".marcaid").textContent = `Marca: ${lente.nombreMarcas}`;                
+                clone.querySelector(".precioLentes").textContent = `Precio: ${lente.precioLentes}`;
                 clone.querySelector(".fkReseñas").textContent = `Datos: ${lente.descripcionLentes}`;
+
+                contenedor.appendChild(clone);
+            });
+        })
+        .catch((error) => {
+            console.error("Error al cargar lentes:", error);
+        })
+    };
+
+     //////FUNCION PARA CARGAR camaras DESDE EL ENDPOINT A LA TABLA DINAMICA DE camaras.HTML/////
+    function cargarCamaras() { fetch("http://localhost:3000/camaras") // mi endpoint
+        .then((response) => response.json())
+        .then((data) => {
+            const contenedor = document.querySelector(".gridCamaras");
+            const template = document.getElementById("cardCamaras").content;
+
+            data.forEach((camara) => {
+                const clone = document.importNode(template, true);
+
+                clone.querySelector(".imagenCamaras").src = `/images/camaras/${camara.imagenCamaras}`;
+                clone.querySelector(".imagenCamaras").alt = `Foto de ${camara.modeloCamaras}`;
+
+                clone.querySelector(".modeloCamaras").textContent = camara.modeloCamaras;
+                clone.querySelector(".tipoCamaras").textContent = `Tipo: ${camara.tipoCamaras}`;
+                clone.querySelector(".sensorCamaras").textContent = `Sensor: ${camara.sensorCamaras}`;
+                clone.querySelector(".resolucionCamaras").textContent = `Resolución: ${camara.resolucionCamaras}`;
+                clone.querySelector(".isoMinCamaras").textContent = `ISO mínimo: ${camara.isoMinCamaras}`;
+                clone.querySelector(".isoMaxCamaras").textContent = `ISO máximo: ${camara.isoMaxCamaras}`;
+                clone.querySelector(".marca_id").textContent = `Marca: ${camara.marca_id}`;
+                clone.querySelector(".precioCamaras").textContent = `Precio: ${camara.precioCamaras}`;
+
+                contenedor.appendChild(clone);
+            });
+        })
+        .catch((error) => {
+            console.error("Error al cargar lentes:", error);
+        })
+    };
+
+    //////FUNCION PARA CARGAR tecnicas fotograficas DESDE EL ENDPOINT A LA TABLA DINAMICA DE tecnicas.HTML/////
+    function cargarTecnicas() { fetch("http://localhost:3000/tecnicas") // mi endpoint
+        .then((response) => response.json())
+        .then((data) => {
+            const contenedor = document.querySelector(".gridTecnicas");
+            const template = document.getElementById("cardTecnica").content;
+
+            data.forEach((tecnica) => {
+                const clone = document.importNode(template, true);
+
+                clone.querySelector(".imagenTecnica").src = `/images/tecnicas/${tecnica.imagenTecnica}`;
+                clone.querySelector(".imagenTecnica").alt = `Foto de ${tecnica.nombreTecnica}`;
+
+                clone.querySelector(".nombreTecnica").textContent = tecnica.nombreTecnica;
+                clone.querySelector(".descripcionTecnica").textContent = tecnica.descripcionTecnica;
 
                 contenedor.appendChild(clone);
             });
