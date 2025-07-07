@@ -1,10 +1,16 @@
 
 @import url("https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"); 
 
-
+/*////////////// importacion de fuentes utilizadas////////////*/
 @font-face {
   font-family:'SuckersGothicMedium';
   src: url('/fonts/sackersgothicstd-medium.otf') format('truetype');
+ font-weight: normal;
+  font-style: normal;
+}
+@font-face { /*fuente SONY*/
+  font-family:'ClarendonRegular';
+  src: url('/fonts/ClarendonRegular.otf') format('truetype');
  font-weight: normal;
   font-style: normal;
 }
