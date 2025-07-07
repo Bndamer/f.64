@@ -128,11 +128,11 @@ const login = (req, res) => {
     (error, user) => {
       if (error) {  //chequeo de errores
         console.error(error);
-        return res.status(500).send("There was a problem logging in."); //error de loggin
+        return res.status(500).send("Hubo un problema al iniciar sesión."); //error de loggin
       }
 
       if (user.length === 0) {
-        return res.status(404).send("User not found."); //usuario no encontrado
+        return res.status(404).send("Usuario no encontrado."); //usuario no encontrado
       }
 
       // Aquí se asume que 'user' es un arreglo, tomamos el primer elemento
@@ -163,7 +163,7 @@ const login = (req, res) => {
         }
       );
 
-      res.send({ auth: true, token }); // Respuesta exitosa con el token
+      res.send({ auth: true, token, esAdmin: userData.esAdmin }); // Respuesta exitosa con el token
     }
   );
 };

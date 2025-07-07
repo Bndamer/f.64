@@ -25,14 +25,21 @@ document.getElementById('formLogin').addEventListener('submit', async (e) => {
 
         const respuesta = await res.json().catch(() => null);
 
-        if (res.ok) {
+         if (res.ok) {
             alert('Login exitoso');
+
             // Guardar token en localStorage si lo necesitás más adelante
             if (respuesta.token) {
                 localStorage.setItem('token', respuesta.token);
             }
-            // Redirigir a la página de backoffice
-            window.location.href = '/regularUser/backoffice.html';
+
+            // 🔥 Redirigir según si es admin o no
+            if (respuesta.esAdmin === 1) {
+                window.location.href = '/admin/adminMain.html';
+            } else {
+                window.location.href = '/regularUser/backoffice.html';
+            }
+
         } else {
             alert(respuesta?.message || 'Credenciales incorrectas');
         }

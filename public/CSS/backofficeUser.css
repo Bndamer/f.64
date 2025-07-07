@@ -1,0 +1,104 @@
+ /*<section id="mainbackoffice">
+        <div>
+        <h3> ¡Bienvenido Lechuza Viajera!</h3>
+        <img class="avatarUser" src="../images/avatar-user/8.png" alt="">
+        </div>
+        <div class="menuMain">
+        <a class="itemuser" href=""><img class="imguser" src="../images/mainUser/perfil.jpg" alt="" /><span class="name">Perfil</span></a>
+        <a class="itemuser" href=""><img class="imguser" src="../images/mainUser/comunidad.jpg" alt="" /><span class="name">Comunidad</span></a>
+        <a class="itemuser" href=""><img class="imguser" src="../images/mainUser/desafios.jpg" alt="" /><span class="name">Progreso Desafíos</span></a>
+        <a class="itemuser" href=""><img class="imguser" src="../images/mainUser/migaleria.jpg" alt="" /><span class="name">Mi Galería</span></a>
+        </div>
+        <button id="logoutBtn">Cerrar Sesión</button>
+      </section>*/
+
+      body {
+            display: flex;
+             flex-direction: column;
+             align-items: center;        /* centra verticalmente */
+}  
+      .mainbackoffice{
+        background-image: url('../images/mainUser/background.jpg');
+        background-size: cover;
+        border-radius: 25px;
+        width: 95%;
+        height: 380px;
+        font-family: "SuckersGothicMedium", sans-serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+      }
+      .tituloMainUser{
+        color: #d9d9d9;
+        font-size: 15px;
+        display: flex;
+        gap: 10px;
+        padding-left: 30px;
+    
+      }
+    .avatarUser{
+        width: 50px;
+        height: 50px;
+    }
+    .imguser{
+        height: 200px;
+        width: 200px;
+        object-fit: cover;
+        border-radius: 15px;
+        box-shadow: 8px 8px 0px #000000;
+    }
+    .itemuser {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  width: 200px; /* o el ancho que estés usando */
+}
+.itemuser .name {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0,0,0,0.6); /* Fondo negro semiopaco */
+  color: white;
+  padding: 5px 0;
+  font-size: 10px;
+} 
+.itemuser .notificacion {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: black;
+  color: white;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  border-radius: 999px;
+  font-weight: bold;
+  z-index: 10;
+  padding: 2px;
+}
+.menuMain{
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+}
+#logoutBtn {
+  align-self: flex-end;
+  margin-right: 30px;
+  width: auto;
+  padding: 5px 10px;
+  font-size: 14px;
+  background-color: #ff5757;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.itemuser:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+

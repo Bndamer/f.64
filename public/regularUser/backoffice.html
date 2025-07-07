@@ -5,7 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Sistema Backoffice</title>
         <link rel="stylesheet" href="/CSS/style.css" />
-        <link rel="icon" type="image/x-icon" href="/public/images/favicon.png" />
+        <link rel="stylesheet" href="/CSS/backofficeUser.css" />
+        <link rel="icon" type="image/x-icon" href="../images/favicon.png" />
         <script src="/JS/backoffice.js" defer></script>
         <script src="/JS/logout.js" defer></script>
       </head>
@@ -40,16 +41,18 @@
       </div>
     </header>
 
-      <section id="mainbackoffice">
-        <div>
+      <section id="mainbackoffice" class="mainbackoffice">
+        <div class="tituloMainUser">
         <h3> ¡Bienvenido Lechuza Viajera!</h3>
-        <img src="/public/images/avatar-user/8.png" alt="">
+        <img class="avatarUser"src="../images/avatar-user/8.png" alt="">
         </div>
         <div class="menuMain">
-          <a class="" href=""><img src="" alt=""></a>
+        <a class="itemuser" href=""><img class="imguser" src="../images/mainUser/perfil.jpg" alt="" /><span class="name">PERFIL</span></a>
+        <a class="itemuser" href=""><img class="imguser" src="../images/mainUser/comunidad.jpg" alt="" /><span class="name">COMUNIDAD</span><span class="notificacion">0</span></a>
+        <a class="itemuser" href=""><img class="imguser" src="../images/mainUser/desafios.jpg" alt="" /><span class="name">PROGRESO DESAFÍOS</span><span class="notificacion">5</span></a>
+        <a class="itemuser" href=""><img class="imguser" src="../images/mainUser/migaleria.jpg" alt="" /><span class="name">MI GALERÍA</span></a>
         </div>
-
-        <button id="logoutBtn">SALIR</button>
+        <button id="logoutBtn">CERRAR SESIÓN</button>
       </section>
 
     <div class="footer">
