@@ -25,6 +25,12 @@ router.delete('/user/:id', authMiddleware, controller.deleteUser); // Elimina el
 ////METODO PATCH/////
 router.patch('/user/:id', authMiddleware, controller.UpdateOneParameterUser); // Actualiza parametros determinados del usuario//
 
+//// CAMBIO DE CONTRASEÑA POR EL USUARIO (requiere estar logueado) ////
+router.patch('/user/password/change', authMiddleware, controller.changePassword);
+
+//// RESETEO DE CONTRASEÑA POR EL ADMINISTRADOR (requiere ser admin) ////
+router.patch('/user/password/reset/:id', authMiddleware, controller.resetPasswordByAdmin);
+
 
 // Ruta protegida para verificar que el middleware funciona
 router.get("/protected", authMiddleware, (req, res) => {

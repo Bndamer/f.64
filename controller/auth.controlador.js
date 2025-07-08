@@ -14,6 +14,7 @@ const db = require("../db/db"); // Conexión a la base de datos
 //emailUsuario
 //passwordUsuario
 //img_usuarios
+//edAdmin
 
 
 
@@ -217,52 +218,53 @@ const showUser = (req, res) => {
 ///////////////METODO GET- TODOS LOS USUARIOS///////////////////
 
 const showAllUser = (req, res) => {
-  // Verificar si el token fue decodificado correctamente y obtener el userId
-  const userId = req.userId; // El userId debería haber sido puesto por el middleware
+  const userId = req.userId; // viene del middleware que decodifica el token
+
   if (!userId) {
     return res.status(400).send("No se obtuvo el userId.");
   }
 
-  // Consulta a la base de datos para buscar el usuario por el ID
-  db.query(
-    "SELECT * FROM usuarios WHERE idUsuario = ?",
-    [userId],
-    (error, results) => {
-      if (error) {
-        console.error("Error al obtener el usuario:", error);
-        return res.status(500).send("Error al obtener el usuario.");
-      }
-
-      if (results.length === 0) {
-        return res.status(404).send("Usuario no encontrado.");
-      }
-
-      // Si se encuentra el usuario, proceder a obtener todos los usuarios
-      db.query("SELECT * FROM usuarios", (error, users) => {
-        if (error) {
-          console.error("Error al obtener todos los usuarios:", error);
-          return res.status(500).send("Error al obtener todos los usuarios.");
-        }
-
-        // Si se encuentran usuarios, devolver la información
-        const userResponses = users.map((user) => ({
-          id: user.idUsuario,
-          email: user.emailUsuario,
-          alias: user.aliasUsuario,
-          nombre: user.nombreCompletoUsuario,
-          Dni: user.DniUsuario,
-          ultimoLogeo: user.ultimologeoUsuario,
-          fotoPerfil : user.img_usuarios
-        }));
-
-        res.status(200).send({ // Responde con la lista de usuarios
-          count: userResponses.length, // Inclui un conteo de usuarios
-          users: userResponses, //Muestra la lista de usuarios
-          message: "Datos de los usuarios obtenidos con éxito.", //mensaje de exito
-        });
-      });
+  // Primero buscamos al usuario que está haciendo la solicitud
+  db.query("SELECT * FROM usuarios WHERE idUsuario = ?", [userId], (error, results) => {
+    if (error) {
+      console.error("Error al obtener el usuario:", error);
+      return res.status(500).send("Error al obtener el usuario.");
     }
-  );
+
+    if (results.length === 0) {
+      return res.status(404).send("Usuario no encontrado.");
+    }
+
+    // ✅ Acá SÍ podemos verificar si es admin
+    if (results[0].esAdmin !== 1) {
+      return res.status(403).send("Acceso denegado. Solo administradores.");
+    }
+
+    // Si es admin, obtener todos los usuarios
+    db.query("SELECT * FROM usuarios", (error, users) => {
+      if (error) {
+        console.error("Error al obtener todos los usuarios:", error);
+        return res.status(500).send("Error al obtener todos los usuarios.");
+      }
+
+      const userResponses = users.map((user) => ({
+        id: user.idUsuario,
+        email: user.emailUsuario,
+        alias: user.aliasUsuario,
+        nombre: user.nombreCompletoUsuario,
+        Dni: user.DniUsuario,
+        ultimoLogeo: user.ultimologeoUsuario,
+        fotoPerfil: user.img_usuarios,
+        esAdmin: user.esAdmin === 1 ? true : false //
+      }));
+
+      res.status(200).send({
+        count: userResponses.length,
+        users: userResponses,
+        message: "Datos de los usuarios obtenidos con éxito."
+      });
+    });
+  });
 };
 
 
@@ -329,6 +331,7 @@ const deleteUser = (req, res) => {
 // en la base de datos sin necesidad de actualizar todos los datos.
 // Se utiliza un mapeo para permitir el uso de nombres de campo más amigables
 // en lugar de los nombres exactos en la base de datos.
+////////METODO EXCLUSIVO PARA ADMINISTRADORES,PERMITE EDITAR LA PROPIEDAD ADMIN////////
 
 const UpdateOneParameterUser = (req, res) => {
     const userId = req.params.id; // Obtener el ID del usuario desde la ruta
@@ -349,7 +352,8 @@ const UpdateOneParameterUser = (req, res) => {
         nombre: "nombreCompletoUsuario",
         email: "emailUsuario",
         alias: "aliasUsuario",
-        dni: "DniUsuario"
+        dni: "DniUsuario",
+        admin: "esAdmin"
     };
 
     // Crear una lista de campos a actualizar y valores
@@ -383,6 +387,73 @@ const UpdateOneParameterUser = (req, res) => {
     });
 };
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////// cambio de contraseña de usuario regular,ingresando la contraseña anterior y la nueva////////
+
+const changePassword = (req, res) => {
+  const userId = req.userId; // Viene del middleware auth
+  const { actualPassword, nuevaPassword } = req.body;
+
+  if (!actualPassword || !nuevaPassword) {
+    return res.status(400).send("Se requieren la contraseña actual y la nueva.");
+  }
+
+  db.query("SELECT passwordUsuario FROM usuarios WHERE idUsuario = ?", [userId], (error, results) => {
+    if (error) {
+      console.error("Error al buscar el usuario:", error);
+      return res.status(500).send("Error del servidor.");
+    }
+
+    if (results.length === 0) {
+      return res.status(404).send("Usuario no encontrado.");
+    }
+
+    const passwordValida = bcrypt.compareSync(actualPassword, results[0].passwordUsuario);
+
+    if (!passwordValida) {
+      return res.status(401).send("La contraseña actual es incorrecta.");
+    }
+
+    const nuevoHash = bcrypt.hashSync(nuevaPassword, 8);
+
+    db.query("UPDATE usuarios SET passwordUsuario = ? WHERE idUsuario = ?", [nuevoHash, userId], (error) => {
+      if (error) {
+        console.error("Error al actualizar contraseña:", error);
+        return res.status(500).send("No se pudo actualizar la contraseña.");
+      }
+
+      res.status(200).send("Contraseña actualizada con éxito.");
+    });
+  });
+};
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////// cambio de contraseña de usuario desde el admin,el admin no accede a la contraseña anterior ni la requiere ////////
+
+const resetPasswordByAdmin = (req, res) => {
+  const userId = req.params.id; // El usuario que el admin quiere actualizar
+  const { nuevaPassword } = req.body;
+
+  if (!nuevaPassword) {
+    return res.status(400).send("Debes ingresar la nueva contraseña.");
+  }
+
+  const nuevoHash = bcrypt.hashSync(nuevaPassword, 8);
+
+  db.query("UPDATE usuarios SET passwordUsuario = ? WHERE idUsuario = ?", [nuevoHash, userId], (error, result) => {
+    if (error) {
+      console.error("Error al resetear contraseña:", error);
+      return res.status(500).send("No se pudo resetear la contraseña.");
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).send("Usuario no encontrado.");
+    }
+
+    res.status(200).send("Contraseña reseteada correctamente.");
+  });
+};
+
 
 
 
@@ -393,5 +464,7 @@ module.exports = {
   showAllUser,
   updateUser,
   deleteUser,
-  UpdateOneParameterUser
+  UpdateOneParameterUser,
+  changePassword,
+  resetPasswordByAdmin
 };
