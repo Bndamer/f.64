@@ -29,11 +29,11 @@ router.get('/:id',controller.showCamera);
 
 
 //METODO POST//
-router.post('/', upload.single("imagenAccesorios"), controller.storeCamera);
+router.post('/', upload.single("imagenCamaras"), controller.storeCamera);
 
 
 //// METODO PUT  ////
-router.put('/:id', upload.single("imagenAccesorios"), controller.updateCamera);
+router.put('/:id', upload.single("imagenCamaras"), controller.updateCamera);
 
 
 ///// METODO DELETE ////

@@ -53,7 +53,7 @@ const showLens = (req, res) => {
 //METODO POST///
 const storeLens = (req, res) => {
     const { modelo, tipo, apertura_min, apertura_max,distancia_focal_mm, marca_id, precio, descripcion } = req.body;
-    const imagen = req.file?.filename || "default-lente.jpg"; // en caso de no subir imagen
+    const imagen = req.file?.filename ? req.file.filename : null;
 
     const sql = `
         INSERT INTO lentes 

@@ -55,21 +55,21 @@ const showCamera = (req, res) => {
 
 const storeCamera = (req, res) => {
     const { modeloCamaras, tipoCamaras, sensorCamaras, resolucionCamaras, isoMinCamaras, isoMaxCamaras, precioCamaras, marca_id } = req.body;
-    const imagen = req.file?.filename || "NULL"; // Por si no sube imagen
+const imagenCamaras = req.file ? req.file.filename : null;
 
     const sql = `
         INSERT INTO camaras 
         (modeloCamaras, tipoCamaras, sensorCamaras, resolucionCamaras, isoMinCamaras, isoMaxCamaras, marca_id, precioCamaras, imagenCamaras) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
-    const values = [modeloCamaras, tipoCamaras, sensorCamaras, resolucionCamaras, isoMinCamaras, isoMaxCamaras, marca_id, precioCamaras, imagen];
+    const values = [modeloCamaras, tipoCamaras, sensorCamaras, resolucionCamaras, isoMinCamaras, isoMaxCamaras, marca_id, precioCamaras, imagenCamaras];
 
     db.query(sql, values, (error, result) => {
         if (error) {
             console.error(error);
             return res.status(500).json({ error: "ERROR: Intente más tarde por favor" });
         }
-        const camera = { ...req.body, idCamaras: result.insertId, imagenCamaras: imagen };
+const camera = { ...req.body, idCamaras: result.insertId, imagenCamaras };
         res.status(201).json(camera);
     });
 };

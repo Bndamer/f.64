@@ -1,0 +1,77 @@
+
+/* Ocultar modal cuando tiene la clase hidden */
+.hidden {
+  display: none !important;
+}
+
+/* Estilos del formulario */
+.modalNuevaCamara,.modalEditarCamara {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* El formulario flotante */
+.formNuevaCamara,.formEditarCamara {
+  background-image: url("/images/register.jpg");
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  padding: 30px 20px;
+  width: 300px;
+  color: #dfbedd;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  position: relative
+}
+
+/* Inputs y labels alineados uno debajo del otro */
+.formNuevaCamara,.formEditarCamara label {
+  text-align: right;
+}
+
+.formNuevaCamara input,.formEditarCamara input[type="text"],
+.formNuevaCamara input,.formEditarCamara input[type="file"] {
+  padding: 6px;
+  border-radius: 5px;
+  border: none;
+  font-size: 13px;
+  width: 150px;
+}
+
+/* Botones */
+.formNuevaCamara button,.formEditarCamara button[type="submit"],
+.formNuevaCamara button,.formEditarCamara button[type="button"] {
+  margin-top: 10px;
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  background-color: #ead388;
+  color: #333;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100px;
+}
+
+.formNuevaCamara button[type="submit"]:hover,
+.formNuevaCamara button[type="button"]:hover {
+  background-color: #c5a83b;
+}
+
+/* Botón de cerrar (❌) */
+.modalNuevaCamara > div {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}

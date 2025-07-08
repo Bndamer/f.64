@@ -33,9 +33,11 @@
         color: #d9d9d9;
         font-size: 15px;
         display: flex;
-        gap: 10px;
-        padding-left: 30px;
-    
+        gap: 15px;
+        padding-left: 80px;
+        padding-top: 25px;
+        align-items: center;
+        flex-wrap: wrap;
       }
     .avatarAdmin{
         width: 50px;
@@ -101,5 +103,137 @@
     transform: scale(1.05);
     transition: transform 0.3s ease;
 }
+/************** pagina de contenido***********/
+#backsistemBtn {
+  align-self: flex-end;
+  margin-right: 30px;
+  width: auto;
+  padding: 5px 10px;
+  font-size: 12px;
+  background-color: #0097b2;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.imgcontent {
+        height: 80px;
+        width: 200px;
+        object-fit: cover;
+        border-radius: 15px;
+        box-shadow: 8px 8px 0px #000000;
+        filter: brightness(70%);
 
+    }
+  .itemContent {
+  position: relative;
+  flex-wrap: wrap;
+  display: inline-block;
+  text-align: center;
+  width: 200px; /* o el ancho que estés usando */
+}
+.itemContent .name {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 17px;
+  border-radius: 8px;
+}
+.menuContent{
+    display: grid;
+    grid-template-columns: 200px 200px 200px 200px;
+    gap: 50px;
+    justify-content: center;
+    align-content:center;
+
+}
+.itemContent:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+/***************estilos para listas y ABM**************/
+.camara-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 500px;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.fila {
+  display: grid;
+  grid-template-columns: 50px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 100px 180px;
+  gap: 10px;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.307);
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+}
+
+.fila-header {
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.thumb {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.acciones button {
+  margin-right: 5px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+}
+
+.upload {
+  background-color: #00BCD4;
+}
+
+.delete {
+  background-color: #F44336;
+}
+
+.botones {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+ .nuevoBtn,.volverbtn,.listbtn {
+  align-self: flex-end;
+  width: auto;
+  padding: 5px 10px;
+  font-size: 12px;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: "SuckersGothicMedium", sans-serif;
+
+}
+.nuevoBtn{
+  background-color: #ff5757;
+}
+.volverbtn{
+  background-color: #00BCD4;
+}
+.listbtn{
+  background-color: blueviolet;
+}
+.tituloMainAdmin input{
+  background-color: #307ce81e;
+  border-radius: 10px;
+  height: 35px;
+  color: #d9d9d9;
+}
 

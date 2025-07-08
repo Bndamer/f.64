@@ -156,7 +156,7 @@ transition: 1s ease;
 .footer {
   color: rgb(240, 240, 240);
   /*gap: 50px;*/
-  outline: 2px solid lime;
+  /*outline: 2px solid lime;*/
   background-color: #02020284;
   display: flex;
   justify-content:space-around; /* o lo que necesites */
