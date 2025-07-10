@@ -3,13 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin - Gestión de Contenido</title>
+    <title>ABM - Cámaras</title>
     <link rel="stylesheet" href="/CSS/style.css" />
     <link rel="stylesheet" href="/CSS/backofficeAdmin.css" />
     <link rel="stylesheet" href="/CSS/modal.css" />
     <link rel="icon" type="image/x-icon" href="../images/favicon.png" />
     <script src="/JS/backoffice.js" defer></script>
-    <script src="/JS/listas.js" defer></script>
+    <script src="/JS/listadoCamaras.js" defer></script>
+    <script src="/JS/buscadorCamaras.js" defer></script>
+
   </head>
   <body>
     <header class="header">
@@ -45,8 +47,8 @@
     <section id="mainbackAdmin" class="mainbackAdmin">
       <div class="tituloMainAdmin">
         <h3>ABM - LISTADO CÁMARAS</h3>
-        <label for="buscador">| FILTRO POR ID/NOMBRE:</label>
-        <input id="buscador"type="text" placeholder="Buscar Cámara" />
+        <label for="buscadorcamaras">| FILTRO POR ID/NOMBRE:</label>
+        <input id="buscadorcamaras"type="text" placeholder="Buscar Cámara" />
         <div class="buttonABM">
           <a href= "adminMain.html" class="volverbtn">Volver al menú principal</a>
           <a href= "gestionContenido.html" class="listbtn">Volver al listado</a>
@@ -128,14 +130,23 @@
 <section id="modalEditarCamara" class="modalEditarCamara hidden">
   <form id="formEditarCamara" class="formEditarCamara">
     <input type="hidden" name="idCamaras" />
+    <label for="edit-modelo">Modelo</label>
     <input type="text" id="edit-modelo" placeholder="Modelo" name="modeloCamaras" />
+    <label for="edit-tipo">Tipo</label>
     <input type="text" id="edit-tipo" placeholder="Tipo" name="tipoCamaras" />
+    <label for="edit-sensor">Sensor</label>
     <input type="text" id="edit-sensor" placeholder="Sensor" name="sensorCamaras" />
+    <label for="nuevo-tipo">Tipo</label>
     <input type="text" id="edit-resolucion" placeholder="Resolución" name="resolucionCamaras" />
+    <label for="edit-isoMin">ISO Mínimo</label>
     <input type="text" id="edit-isoMin" placeholder="ISO Mínimo" name="isoMinCamaras" />
+    <label for="edit-isoMax">ISO Máximo</label>
     <input type="text" id="edit-isoMax" placeholder="ISO Máximo" name="isoMaxCamaras" />
+    <label for="edit-marca">Marca</label>
     <input type="text" id="edit-marca" placeholder="Marca" name="marca_id" />
+    <label for="edit-precio">Precio</label>
     <input type="text" id="edit-precio" placeholder="Precio" name="precioCamaras" />
+    <label for="edit-img">Imagen</label>
     <input type="file" id="edit-img" name="imgCamaras" />
 
     <button type="submit">Actualizar</button>
@@ -147,8 +158,8 @@
 <section id="modalConfirmarEliminacion" class="modalEliminacion hidden">
   <div class="modaldelete">
     <p>¿Estás seguro de que querés eliminar esta cámara?</p>
-    <button id="confirmarEliminar">Sí, eliminar</button>
-    <button onclick="cerrarModal('modalConfirmarEliminacion')">Cancelar</button>
+    <button class="btn-eliminar" id="confirmarEliminar">Sí, eliminar</button>
+    <button class="btn-eliminar"onclick="cerrarModal('modalConfirmarEliminacion')">Cancelar</button>
   </div>
 </section>
 

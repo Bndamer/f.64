@@ -5,7 +5,7 @@
 }
 
 /* Estilos del formulario */
-.modalNuevaCamara,.modalEditarCamara {
+.modalNuevaCamara,.modalEditarCamara,.modalEliminacion,.modalNuevaLente,.modalEditarLente {
   position: fixed;
   top: 0;
   left: 0;
@@ -19,7 +19,7 @@
 }
 
 /* El formulario flotante */
-.formNuevaCamara,.formEditarCamara {
+.formNuevaCamara,.formEditarCamara,.modaldelete,.formNuevaLente,.formEditarLente {
   background-image: url("/images/register.jpg");
   background-size: cover;
   background-position: center;
@@ -36,12 +36,14 @@
 }
 
 /* Inputs y labels alineados uno debajo del otro */
-.formNuevaCamara,.formEditarCamara label {
+.formNuevaCamara,.formEditarCamara label ,.formNuevaLente, .formEditarLente label{
   text-align: right;
 }
 
 .formNuevaCamara input,.formEditarCamara input[type="text"],
-.formNuevaCamara input,.formEditarCamara input[type="file"] {
+.formNuevaCamara input,.formEditarCamara input[type="file"],
+.formNuevaLente input,.formEditarLente input[type="text"],
+.formNuevaLente input,.formEditarLente input[type="file"] {
   padding: 6px;
   border-radius: 5px;
   border: none;
@@ -51,7 +53,10 @@
 
 /* Botones */
 .formNuevaCamara button,.formEditarCamara button[type="submit"],
-.formNuevaCamara button,.formEditarCamara button[type="button"] {
+.formNuevaCamara button,.formEditarCamara button[type="button"],
+.formNuevaLente button,.formEditarLente button[type="submit"],
+.formNuevaLente button,.formEditarLente button[type="button"],
+.btn-eliminar {
   margin-top: 10px;
   padding: 8px;
   border: none;
@@ -65,7 +70,9 @@
 }
 
 .formNuevaCamara button[type="submit"]:hover,
-.formNuevaCamara button[type="button"]:hover {
+.formNuevaCamara button[type="button"]:hover,
+.formNuevaLente button[type="submit"]:hover,
+.formNuevaLente button[type="button"]:hover {
   background-color: #c5a83b;
 }
 

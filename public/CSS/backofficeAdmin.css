@@ -236,4 +236,26 @@
   height: 35px;
   color: #d9d9d9;
 }
-
+/********************* css para lista lentes*/
+.lente-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 500px;
+  overflow-y: auto;
+  padding: 20px;
+}
+.fila-lente {
+  display: grid;
+  grid-template-columns: 40px 1fr 1fr 90px 90px 110px 1fr 100px 1.5fr 70px 130px;
+  gap: 8px;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.25);
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+  font-size: 13px;
+}
+.fila-header > div {
+  font-size: 10px;
+}
