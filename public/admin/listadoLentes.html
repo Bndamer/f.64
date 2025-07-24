@@ -57,7 +57,7 @@
       </div>
       <div class="lente-lista">
         <!-- FILA DE ENCABEZADO -->
-        <div class="fila fila-header">
+        <div class="fila-lente fila-header">
           <div>ID</div>
           <div>MODELO</div>
           <div>TIPO</div>
@@ -85,8 +85,8 @@
             <div class="descripcion"></div>
             <div><img class="thumb" src="" alt="img camara" /></div>
             <div class="acciones">
-              <button class="upload">UPLOAD</button>
-              <button class="delete">DELETE</button>
+              <button class="upload">MODIF</button>
+              <button class="delete">ELIMINAR</button>
             </div>
           </div>
         </template>
@@ -105,11 +105,11 @@
     <button type="button" onclick="cerrarModal('modalNuevaLente')" style="background:none;border:none;font-size:20px;color:white;">❌</button>
   </div>
   <form id="formNuevaLente" class="formNuevaLente">
-    <label for="nuevo-modelo-lente">Modelo</label>
-    <input type="text" id="nuevo-modelo-lente" name="modeloLente" />
+    <label for="nuevo-modelo">Modelo</label>
+    <input type="text" id="nuevo-modelo" name="modeloLente" />
 
-    <label for="nuevo-tipo-lente">Tipo</label>
-    <input type="text" id="nuevo-tipo-lente" name="tipoLente" />
+    <label for="nuevo-tipo">Tipo</label>
+    <input type="text" id="nuevo-tipo" name="tipoLente" />
 
     <label for="nuevo-aperturaMin">Apertura Mínima</label>
     <input type="text" id="nuevo-aperturaMin" name="aperturaMin" />
@@ -130,7 +130,7 @@
     <input type="text" id="nuevo-precio" name="precioLente" />
 
     <label for="nuevo-img">Imagen</label>
-    <input type="file" id="nuevo-img-lente" name="imagenLente" />
+    <input type="file" id="nuevo-img" name="imagenLente" />
 
     <button type="submit">Guardar</button>
     <button type="button" onclick="cerrarModal('modalNuevaLente')">Cancelar</button>
@@ -142,11 +142,11 @@
   <form id="formEditarLente" class="formEditarLente">
     <input type="hidden" name="idLente" />
 
-    <label for="edit-modelo-lente">Modelo</label>
-    <input type="text" id="edit-modelo-lente" name="modeloLente" />
+    <label for="edit-modelo">Modelo</label>
+    <input type="text" id="edit-modelo" name="modeloLente" />
 
-    <label for="edit-tipo-lente">Tipo</label>
-    <input type="text" id="edit-tipo-lente" name="tipoLente" />
+    <label for="edit-tipo">Tipo</label>
+    <input type="text" id="edit-tipo" name="tipoLente" />
 
     <label for="edit-aperturaMin">Apertura Mínima</label>
     <input type="text" id="edit-aperturaMin" name="aperturaMin" />
@@ -167,7 +167,7 @@
     <input type="text" id="edit-precio" name="precioLente" />
 
     <label for="edit-img">Imagen</label>
-    <input type="file" id="edit-img-lente" name="imagenLente" />
+    <input type="file" id="edit-img" name="imagenLente" />
 
     <button type="submit">Actualizar</button>
     <button type="button" onclick="cerrarModal('modalEditarLente')">Cancelar</button>
@@ -177,8 +177,8 @@
 <!-- CONFIRMACIÓN: ELIMINAR LENTE -->
 <section id="modalConfirmarEliminacion" class="modalEliminacion hidden">
   <div class="modaldelete">
-    <p>¿Estás seguro de que querés eliminar este lente?</p>
-    <button class="btn-eliminar" id="confirmarEliminarLente">Sí, eliminar</button>
+    <p>¿Estás seguro de que querés eliminar este ítem?</p>
+    <button class="btn-eliminar" id="confirmarEliminar">Sí, eliminar</button>
     <button class="btn-eliminar"onclick="cerrarModal('modalConfirmarEliminacion')">Cancelar</button>
   </div>
 </section>

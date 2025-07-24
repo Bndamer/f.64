@@ -23,9 +23,9 @@ document.getElementById("formEditarLente").addEventListener("submit", function (
   const formData = new FormData();
   formData.append("modeloLentes", document.getElementById("edit-modelo").value);
   formData.append("tipoLentes", document.getElementById("edit-tipo").value);
-  formData.append("aperturaMin", document.getElementById("edit-aperturaMin").value);
-  formData.append("aperturaMax", document.getElementById("edit-aperturaMax").value);
-  formData.append("distanciaFocal", document.getElementById("edit-distanciaFocal").value);
+  formData.append("aperturaMinLentes", document.getElementById("edit-aperturaMin").value);
+  formData.append("aperturaMaxLentes", document.getElementById("edit-aperturaMax").value);
+  formData.append("distanciaFocalLentes", document.getElementById("edit-distanciaFocal").value);
   formData.append("marca_id", document.getElementById("edit-marca").value);
   formData.append("precioLentes", document.getElementById("edit-precio").value);
   formData.append("descripcionLentes", document.getElementById("edit-descripcion").value);
@@ -49,8 +49,8 @@ document.getElementById("formEditarLente").addEventListener("submit", function (
 });
 
 // CONFIRMAR ELIMINACIÓN
-document.getElementById("confirmarEliminarLente").addEventListener("click", () => {
-  const modal = document.getElementById("modalConfirmarEliminacionLente");
+document.getElementById("confirmarEliminar").addEventListener("click", () => {
+  const modal = document.getElementById("modalConfirmarEliminacion");
   const idLente = modal.dataset.lenteId;
 
   fetch(`http://localhost:3000/lentes/${idLente}`, {
@@ -58,7 +58,7 @@ document.getElementById("confirmarEliminarLente").addEventListener("click", () =
   })
     .then(res => {
       if (!res.ok) throw new Error("Error al eliminar");
-      cerrarModal("modalConfirmarEliminacionLente");
+      cerrarModal("modalConfirmarEliminacion");
       location.reload();
     })
     .catch(err => {
@@ -102,9 +102,9 @@ fetch("http://localhost:3000/lentes")
           .then(data => {
             document.getElementById("edit-modelo").value = data.modeloLentes;
             document.getElementById("edit-tipo").value = data.tipoLentes;
-            document.getElementById("edit-aperturaMin").value = data.aperturaMin;
-            document.getElementById("edit-aperturaMax").value = data.aperturaMax;
-            document.getElementById("edit-distanciaFocal").value = data.distanciaFocal;
+            document.getElementById("edit-aperturaMin").value = data.aperturaMinLentes;
+            document.getElementById("edit-aperturaMax").value = data.aperturaMaxLentes;
+            document.getElementById("edit-distanciaFocal").value = data.distanciaFocalLentes;
             document.getElementById("edit-marca").value = data.marca_id;
             document.getElementById("edit-precio").value = data.precioLentes;
             document.getElementById("edit-descripcion").value = data.descripcionLentes;
@@ -112,7 +112,7 @@ fetch("http://localhost:3000/lentes")
       });
 
       btnDelete.addEventListener("click", () => {
-        abrirModal('modalConfirmarEliminacionLente', lente.idLentes);
+        abrirModal('modalConfirmarEliminacion', lente.idLentes);
       });
 
       contenedor.appendChild(clone);
@@ -126,9 +126,9 @@ document.getElementById("formNuevaLente").addEventListener("submit", function (e
   const formData = new FormData();
   formData.append("modeloLentes", document.getElementById("nuevo-modelo").value);
   formData.append("tipoLentes", document.getElementById("nuevo-tipo").value);
-  formData.append("aperturaMin", document.getElementById("nuevo-aperturaMin").value);
-  formData.append("aperturaMax", document.getElementById("nuevo-aperturaMax").value);
-  formData.append("distanciaFocal", document.getElementById("nuevo-distanciaFocal").value);
+  formData.append("aperturaMinLentes", document.getElementById("nuevo-aperturaMin").value);
+  formData.append("aperturaMaxLentes", document.getElementById("nuevo-aperturaMax").value);
+  formData.append("distanciaFocalLentes", document.getElementById("nuevo-distanciaFocal").value);
   formData.append("marca_id", document.getElementById("nuevo-marca").value);
   formData.append("precioLentes", document.getElementById("nuevo-precio").value);
   formData.append("descripcionLentes", document.getElementById("nuevo-descripcion").value);

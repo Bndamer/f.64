@@ -117,7 +117,7 @@ fetch("http://localhost:3000/camaras")
       contenedor.appendChild(clone);
     });
   });
-
+//NUEVO INGRESO
   document.getElementById("formNuevaCamara").addEventListener("submit", function (e) {
   e.preventDefault();
 

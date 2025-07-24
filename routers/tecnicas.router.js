@@ -3,6 +3,20 @@ const router = express.Router();
 
 const controller = require("../controller/tecnicas.controlador"); // Asegurate que el archivo se llame así
 
+const multer = require("multer");
+const path = require("path");
+
+// Configuración de Multer
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, path.join(__dirname, '../public/images/tecnicas'));
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname));
+    }
+});
+const upload = multer({ storage });
+
 // GET - Todas las técnicas
 router.get('/', controller.allTech);
 
@@ -10,10 +24,10 @@ router.get('/', controller.allTech);
 router.get('/:id', controller.showTech);
 
 // POST - Crear técnica
-router.post('/', controller.newTech);
+router.post('/', upload.single("imagenTecnica"), controller.newTech);
 
 // PUT - Actualizar técnica
-router.put('/:id', controller.updateTech);
+router.put('/:id', upload.single("imagenTecnica"), controller.updateTech);
 
 // DELETE - Eliminar técnica
 router.delete('/:id', controller.destroyTech);

@@ -52,7 +52,16 @@ const showLens = (req, res) => {
 /////////////////
 //METODO POST///
 const storeLens = (req, res) => {
-    const { modelo, tipo, apertura_min, apertura_max,distancia_focal_mm, marca_id, precio, descripcion } = req.body;
+    const {
+  modeloLentes,
+  tipoLentes,
+  aperturaMinLentes,
+  aperturaMaxLentes,
+  distanciaFocalLentes,
+  marca_id,
+  precioLentes,
+  descripcionLentes
+} = req.body;
     const imagen = req.file?.filename ? req.file.filename : null;
 
     const sql = `
@@ -60,8 +69,17 @@ const storeLens = (req, res) => {
         (modeloLentes, tipoLentes, aperturaMinLentes, aperturaMaxLentes, distanciaFocalLentes, marca_id, precioLentes, descripcionLentes, imagenLentes) 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
-    const values = [modelo, tipo, apertura_min, apertura_max,distancia_focal_mm, marca_id, precio, descripcion, imagen];
-    console.log('distancia_focal_mm:', distancia_focal_mm);
+    const values = [
+  modeloLentes,
+  tipoLentes,
+  aperturaMinLentes,
+  aperturaMaxLentes,
+  distanciaFocalLentes,
+  marca_id,
+  precioLentes,
+  descripcionLentes,
+  imagen
+];
 
     db.query(sql, values, (error, result) => {
         if (error) {
@@ -81,14 +99,14 @@ const storeLens = (req, res) => {
 const updateLens = (req, res) => {
     const { id } = req.params;
     const {
-        modelo,
-        tipo,
-        apertura_min,
-        apertura_max,
-        distancia_focal_mm,
-        marca_id,
-        precio,
-        descripcion
+        modeloLentes,
+  tipoLentes,
+  aperturaMinLentes,
+  aperturaMaxLentes,
+  distanciaFocalLentes,
+  marca_id,
+  precioLentes,
+  descripcionLentes
     } = req.body;
     const nuevaImagen = req.file?.filename;
 
@@ -122,14 +140,14 @@ const updateLens = (req, res) => {
         `;
 
         const values = [
-            modelo || lenteActual.modeloLentes,
-            tipo || lenteActual.tipoLentes,
-            apertura_min || lenteActual.aperturaMinLentes,
-            apertura_max || lenteActual.aperturaMaxLentes,
-            distancia_focal_mm || lenteActual.distanciaFocalLentes,
+            modeloLentes || lenteActual.modeloLentes,
+            tipoLentes || lenteActual.tipoLentes,
+            aperturaMinLentes || lenteActual.aperturaMinLentes,
+            aperturaMaxLentes || lenteActual.aperturaMaxLentes,
+            distanciaFocalLentes || lenteActual.distanciaFocalLentes,
             marca_id || lenteActual.marca_id,
-            precio || lenteActual.precioLentes,
-            descripcion || lenteActual.descripcionLentes,
+            precioLentes || lenteActual.precioLentes,
+            descripcionLentes || lenteActual.descripcionLentes,
             nuevaImagen || lenteActual.imagenLentes,
             id
         ];

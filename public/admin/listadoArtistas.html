@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ABM - Fotógrafos</title>
+    <link rel="stylesheet" href="/CSS/style.css" />
+    <link rel="stylesheet" href="/CSS/backofficeAdmin.css" />
+    <link rel="stylesheet" href="/CSS/modal.css" />
+    <link rel="icon" type="image/x-icon" href="../images/favicon.png" />
+    <script src="/JS/backoffice.js" defer></script>
+    <script src="/JS/listadoArtistas.js" defer></script>
+    <script src="/JS/buscadorArtistas.js" defer></script>
+
+  </head>
+  <body>
+    <header class="header">
+      <div class="menu_container">
+        <!--<a class="logo" href="#">Gabinete de Curiosidades f.64 </a>-->
+        <a class="logo" href="../index.html"
+          ><img src="/images/diseño gabinete.png" alt="" />
+        </a>
+        <nav class="navbar">
+          <ul>
+            <li><a href="../desafios.html">desafío de la semana</a></li>
+            <li><a href="../historia.html">a & a</a></li>
+            <li><a href="../blog.html">blog & noticias</a></li>
+            <li><a href="../contacto.html">contacto</a></li>
+            <li>
+              <a href="#"
+                ><img src="/images/search.png" alt="Buscar" title="Buscar"
+              /></a>
+            </li>
+            <li>
+              <a href="../login.html"
+                ><img
+                  src="/images/user.png"
+                  alt="Login"
+                  title="Registrarse - Iniciar Sesión"
+              /></a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <section id="mainbackAdmin" class="mainbackAdmin">
+      <div class="tituloMainAdmin">
+        <h3>ABM - LISTADO FOTÓGRAFOS</h3>
+        <label for="buscadorartistas">| FILTRO POR ID/NOMBRE:</label>
+        <input id="buscadorartistas" type="text" placeholder="Buscar Fotógrafo" />
+        <div class="buttonABM">
+          <a href= "adminMain.html" class="volverbtn">Volver al menú principal</a>
+          <a href= "gestionContenido.html" class="listbtn">Volver al listado</a>
+          <button class="nuevoBtn">Nuevo ingreso</button>
+        </div>
+      </div>
+      <div class="artista-lista">
+        <!-- FILA DE ENCABEZADO -->
+        <div class="fila-artista fila-header">
+          <div>ID</div>
+          <div>NOMBRE</div>
+          <div>NACIONALIDAD</div>
+          <div>AÑO NACIMIENTO</div>
+          <div>AÑO FALLECIMIENTO</div>
+          <div>ESTILO</div>
+          <div>BIOGRAFÍA</div>
+          <div>IMAGEN</div>
+          <div>ACCIONES</div>
+        </div>
+
+        <!-- TEMPLATE OCULTO -->
+        <template id="template-artista">
+          <div class="fila fila-artista">
+            <div class="id"></div>
+            <div class="nombre"></div>
+            <div class="nacionalidad"></div>
+            <div class="anioNacimiento"></div>
+            <div class="anioFallecimiento"></div>
+            <div class="estilo"></div>
+            <div class="biografia"></div>
+            <div><img class="thumb" src="" alt="img artista" /></div>
+            <div class="acciones">
+              <button class="upload">MODIF</button>
+              <button class="delete">ELIMINAR</button>
+            </div>
+          </div>
+        </template>
+
+      </div>
+    </section>
+
+    <!-- MODAL: nuevo artista -->
+
+   <section id="modalNuevoArtista" class="modalNuevoArtista hidden">
+  <div style="text-align: right;">
+    <button type="button" onclick="cerrarModal('modalNuevoArtista')" style="background:none;border:none;font-size:20px;color:white;">❌</button>
+  </div>
+  <form id="formNuevoArtista" class="formNuevoArtista">
+    <label for="nuevo-artista">Nombre</label>
+    <input type="text" id="nuevo-artista" name="nombreArtista" />
+
+    <label for="nuevo-nacionalidad">Nacionalidad</label>
+    <input type="text" id="nuevo-nacionalidad" name="nacionalidad" />
+
+    <label for="nuevo-anioNacimiento">Año de Nacimiento</label>
+    <input type="text" id="nuevo-anioNacimiento" name="anioNacimiento" />
+
+    <label for="nuevo-anioFallecimiento">Año de Fallecimiento</label>
+    <input type="text" id="nuevo-anioFallecimiento" name="anioFallecimiento" />
+
+    <label for="nuevo-estilo">Estilo</label>
+    <input type="text" id="nuevo-estilo" name="estilo" />
+
+    <label for="nuevo-biografia">Biografía</label>
+    <textarea id="nuevo-biografia" name="biografia"></textarea>
+
+    <label for="nuevo-img">Imagen</label>
+    <input type="file" id="nuevo-img" name="imagenFotografo" />
+
+    <button type="submit">Guardar</button>
+    <button type="button" onclick="cerrarModal('modalNuevoArtista')">Cancelar</button>
+  </form>
+</section>
+
+<!-- FORMULARIO: EDITAR ARTISTA -->
+<section id="modalEditarArtista" class="modalEditarArtista hidden">
+  <form id="formEditarArtista" class="formEditarArtista">
+    <input type="hidden" name="idArtista" />
+
+    <label for="edit-nombre">Nombre</label>
+    <input type="text" id="edit-nombre" name="nombreArtista" />
+
+    <label for="edit-nacionalidad">Nacionalidad</label>
+    <input type="text" id="edit-nacionalidad" name="nacionalidad" />
+
+    <label for="edit-anioNacimiento">Año de Nacimiento</label>
+    <input type="text" id="edit-anioNacimiento" name="anioNacimiento" />
+
+    <label for="edit-anioFallecimiento">Año de Fallecimiento</label>
+    <input type="text" id="edit-anioFallecimiento" name="anioFallecimiento" />
+
+    <label for="edit-estilo">Estilo</label>
+    <input type="text" id="edit-estilo" name="estilo" />
+
+    <label for="edit-biografia">Biografía</label>
+    <textarea id="edit-biografia" name="biografia"></textarea>
+
+    <label for="edit-img">Imagen</label>
+    <input type="file" id="edit-img" name="imagenFotografo" />
+
+    <button type="submit">Actualizar</button>
+    <button type="button" onclick="cerrarModal('modalEditarArtista')">Cancelar</button>
+  </form>
+</section>
+
+<!-- CONFIRMACIÓN: ELIMINAR ARTISTA -->
+<section id="modalConfirmarEliminacion" class="modalEliminacion hidden">
+  <div class="modaldelete">
+    <p>¿Estás seguro de que querés eliminar este ítem?</p>
+    <button class="btn-eliminar" id="confirmarEliminar">Sí, eliminar</button>
+    <button class="btn-eliminar"onclick="cerrarModal('modalConfirmarEliminacion')">Cancelar</button>
+  </div>
+</section>
+
+    <div class="footer">
+      <div class="link">
+        <p>Información Útil</p>
+        <a href="#">Sobre Nosotros</a>
+        <a href="#">Términos y Condiciones</a>
+        <a href="#">Contacto</a>
+        <a href="#">Soporte</a>
+      </div>
+
+      <div class="link">
+        <p>Recursos</p>
+        <a href="#">Técnicas de Fotografía</a>
+        <a href="#">Guía de Cámaras</a>
+        <a href="#">Comunidad Fotográfica</a>
+        <a href="#">Newsletter</a>
+      </div>
+
+      <div class="socials">
+        <p>Nuestras redes</p>
+        <div class="socialsIcons">
+          <img src="../images/footer/facebook.png" alt="Facebook" />
+          <img src="../images/footer/social.png" alt="Instagram" />
+          <img src="../images/footer/twitter.png" alt="Twitter" />
+        </div>
+      </div>
+
+      <div class="small">
+        <p>"Tus primeras 10.000 fotografías serán tus peores fotografías."</p>
+        <p>Henri Cartier-Bresson</p>
+
+        <small>
+          <p>Gabinete de Curiosidades F.64. Todos los derechos reservados.</p>
+          <p>2024. Buenos Aires,Argentina.</p></small
+        >
+      </div>
+    </div>
+  </body>
+</html>

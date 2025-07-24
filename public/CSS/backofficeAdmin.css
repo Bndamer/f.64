@@ -1,18 +1,4 @@
- /* <section id="mainbackAdmin" class="mainbackAdmin">
-        <div class="tituloMainAdmin">
-        <h3> ¡Bienvenido Lechuza Viajera!</h3>
-        <img class="avatarAdmin"src="../images/avatar-user/8.png" alt="">
-        </div>
-        <div class="menuMain">
-        <a class="itemadmin" href=""><img class="imgadmin" src="../images/mainAdmin/perfiladmin.jpg" alt="" /><span class="name">MI CUENTA</span></a>
-        <a class="itemadmin" href=""><img class="imgadmin" src="../images/mainAdmin/usuariosreportes.jpg" alt="" /><span class="name">USUARIOS & REPORTES</span><span class="notificacion">0</span></a>
-        <a class="itemadmin" href=""><img class="imgadmin" src="../images/mainAdmin/contenido.jpg" alt="" /><span class="name">CONTENIDO PÁGINA</span><span class="notificacion">5</span></a>
-        <a class="itemadmin" href=""><img class="imgadmin" src="../images/mainAdmin/soporte.jpg" alt="" /><span class="name">TICKETS SOPORTE</span></a>
-        </div>
-        <button id="logoutBtn">CERRAR SESIÓN</button>
-      </section>*/
-
-      body {
+     body {
             display: flex;
              flex-direction: column;
              align-items: center;        /* centra verticalmente */
@@ -155,28 +141,8 @@
 }
 
 /***************estilos para listas y ABM**************/
-.camara-lista {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  max-height: 500px;
-  overflow-y: auto;
-  padding: 20px;
-}
-
-.fila {
-  display: grid;
-  grid-template-columns: 50px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 100px 180px;
-  gap: 10px;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.307);
-  padding: 10px;
-  border-radius: 10px;
-  color: white;
-}
 
 .fila-header {
-  font-weight: bold;
   background-color: rgba(0, 0, 0, 0.7);
 }
 
@@ -236,6 +202,29 @@
   height: 35px;
   color: #d9d9d9;
 }
+
+/* css para lista camaras*/
+.camara-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 500px;
+  overflow-y: auto;
+  padding: 15px;
+}
+
+.fila-camara {
+  display: grid;
+  grid-template-columns: 25px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 100px 180px;
+  gap: 10px;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+  font-size: 11px;
+}
+
 /********************* css para lista lentes*/
 .lente-lista {
   display: flex;
@@ -243,19 +232,58 @@
   gap: 10px;
   max-height: 500px;
   overflow-y: auto;
-  padding: 20px;
+  padding: 15px;
 }
 .fila-lente {
   display: grid;
-  grid-template-columns: 40px 1fr 1fr 90px 90px 110px 1fr 100px 1.5fr 70px 130px;
-  gap: 8px;
+  grid-template-columns: 25px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 3fr 100px 180px;
+  gap: 10px;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: rgba(0, 0, 0, 0.7);
   padding: 10px;
   border-radius: 10px;
   color: white;
-  font-size: 13px;
+  font-size: 11px;
 }
-.fila-header > div {
-  font-size: 10px;
+
+/********************* css para lista tecnicas*/
+.tecnica-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 500px;
+  overflow-y: auto;
+  padding: 15px;
+}
+.fila-tecnica {
+  display: grid;
+  grid-template-columns: 1fr 1fr 3fr 1fr 2fr 1fr;
+  gap: 10px;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+  font-size: 11px;
+}
+
+/********************* css para lista artistas*/
+.artista-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 500px;
+  overflow-y: auto;
+  padding: 15px;
+}
+.fila-artista {
+  display: grid;
+  grid-template-columns: 25px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 10px;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+  font-size: 11px;
 }

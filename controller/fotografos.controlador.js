@@ -54,7 +54,7 @@ const showPh = (req, res) => {
 
 const newPh = (req, res) => {
     const { nombreCompleto, nacionalidad, anioNacimiento, anioFallecimiento, estiloFotografico, biografia } = req.body;
-    const imagenFotografo = req.file?.filename || "NULL"; // Nombre de archivo o default
+    const imagenFotografo = req.file ? req.file.filename : null;
 
     const sql = `
         INSERT INTO fotografos 

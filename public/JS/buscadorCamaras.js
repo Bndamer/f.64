@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const filtro = inputBuscador.value.toLowerCase();
 
     // Seleccionamos todas las filas que no sean encabezado
-    const filas = document.querySelectorAll(".fila:not(.fila-header)");
+const filas = document.querySelectorAll(".fila-camara:not(.fila-header)");
 
     filas.forEach(fila => {
       const id = fila.querySelector(".id")?.textContent.toLowerCase() || "";
