@@ -13,7 +13,9 @@
 .modalNuevaTecnica,
 .modalEditarTecnica,
 .modalNuevoArtista,
-.modalEditarArtista {
+.modalEditarArtista,
+.modalNuevoAccesorio,
+.modalEditarAccesorio {
   position: fixed;
   top: 0;
   left: 0;
@@ -36,7 +38,9 @@
 .formNuevaTecnica,
 .formEditarTecnica,
 .formNuevoArtista,
-.formEditarArtista {
+.formEditarArtista,
+.formNuevoAccesorio,
+.formEditarAccesorio {
   background-image: url("/images/register.jpg");
   background-size: cover;
   background-position: center;
@@ -60,7 +64,9 @@
 .formNuevaTecnica,
 .formEditarTecnica label,
 .formNuevoArtista,
-.formEditarArtista label  {
+.formEditarArtista label,
+.formNuevoAccesorio,
+.formEditarAccesorio label {
   text-align: right;
 }
 
@@ -71,7 +77,9 @@
 .formNuevaTecnica input,.formEditarTecnica input[type="text"],
 .formNuevaTecnica input,.formEditarTecnica input[type="file"],
 .formNuevoArtista input,.formEditarArtista input[type="text"],
-.formNuevoArtista input,.formEditarArtista input[type="file"] {
+.formNuevoArtista input,.formEditarArtista input[type="file"],
+.formNuevoAccesorio input,.formEditarAccesorio input[type="text"],
+.formNuevoAccesorio input,.formEditarAccesorio input[type="file"] {
   padding: 6px;
   border-radius: 5px;
   border: none;
@@ -88,6 +96,8 @@
 .formNuevaTecnica button,.formEditarTecnica button[type="button"],
 .formNuevoArtista button,.formEditarArtista button[type="submit"],
 .formNuevoArtista button,.formEditarArtista button[type="button"],
+.formNuevoAccesorio button,.formEditarAccesorio button[type="submit"],
+.formNuevoAccesorio button,.formEditarAccesorio button[type="button"],
 .btn-eliminar {
   margin-top: 10px;
   padding: 8px;
@@ -108,7 +118,9 @@
 .formNuevaTecnica button[type="submit"]:hover,
 .formNuevaTecnica button[type="button"]:hover,
 .formNuevoArtista button[type="submit"]:hover,
-.formNuevoArtista button[type="button"]:hover {
+.formNuevoArtista button[type="button"]:hover,
+.formNuevoAccesorio button[type="submit"]:hover,
+.formNuevoAccesorio button[type="button"]:hover {
   background-color: #c5a83b;
 }
 

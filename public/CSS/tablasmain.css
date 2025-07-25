@@ -28,7 +28,7 @@
     object-fit: cover;
     border-radius: 8px;
 }
-.card{
+.card {
     display: flex;
     justify-content: space-around;
     align-content: center;
@@ -186,5 +186,34 @@
     height: 250px;
     width: 500px;
     gap: 15px;
+    color: rgb(176, 198, 223);
+}
+
+/*css accesorios*/
+.gridAccesorios {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+.imagenAccesorios {
+    width: 220px;
+    height: 200px;
+    object-fit: fill;
+    border-radius: 8px;
+}
+.cardAccess {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+    background: linear-gradient(to right, #0000009d,#affbff26, #282f3493);
+    border-radius: 8px;
+    padding: 16px;
+    height: 400px;
+    width: 250px;
+    gap: 2px;
     color: rgb(176, 198, 223);
 }

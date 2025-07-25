@@ -13,12 +13,13 @@ document.addEventListener("DOMContentLoaded", () => {
     cargarCamaras();
   } else if (path.includes("tecnicas.html")) {
     cargarTecnicas();
+  } else if (path.includes("accesorios.html")) {
+    cargarAccesorios();
   } else if (path.includes("sony.html")) {
     cargarSony();
   } else if (path.includes("canonnikon.html")) {
     cargarCanonNikon();
-  } else if (path.includes("film.html")) {
-    cargarFilm();
+  
   } else {
     console.error("Página no reconocida para cargar datos dinámicos.");
   }
@@ -153,5 +154,32 @@ function cargarFotografos() { fetch("http://localhost:3000/fotografos") // mi en
         })
         .catch((error) => {
             console.error("Error al cargar lentes:", error);
+        })
+    };
+
+    //////FUNCION PARA CARGAR tecnicas fotograficas DESDE EL ENDPOINT A LA TABLA DINAMICA DE accesorios.HTML/////
+    function cargarAccesorios() { fetch("http://localhost:3000/accesorios") // mi endpoint
+        .then((response) => response.json())
+        .then((data) => {
+            const contenedor = document.querySelector(".gridAccesorios");
+            const template = document.getElementById("cardAccesorios").content;
+
+            data.forEach((accesorio) => {
+                const clone = document.importNode(template, true);
+
+                clone.querySelector(".imagenAccesorios").src = `/images/accesorios/${accesorio.imagenAccesorios}`;
+                clone.querySelector(".imagenAccesorios").alt = `Foto de ${accesorio.nombreAccesorios}`;
+
+                clone.querySelector(".nombreAccesorios").textContent = accesorio.nombreAccesorios;
+                clone.querySelector(".descripcionAccesorios").textContent = accesorio.descripcionAccesorios;
+                clone.querySelector(".tipoAccesorios").textContent = `Tipo: ${accesorio.tipoAccesorios}`;
+                clone.querySelector(".precioAccesorios").textContent = `Precio: ${accesorio.precioAccesorios}`;
+                clone.querySelector(".marcaAccesorios").textContent = `Marca: ${accesorio.fk_marcas}`;
+
+                contenedor.appendChild(clone);
+            });
+        })
+        .catch((error) => {
+            console.error("Error al cargar accesorios:", error);
         })
     };
