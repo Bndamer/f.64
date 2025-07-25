@@ -14,7 +14,6 @@ router.get('/',controller.allMarc);
 router.get('/:id',controller.showMarc);
 
 
-
 //METODO POST//
 router.post('/', controller.storeMarc);
 

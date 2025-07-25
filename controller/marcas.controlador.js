@@ -5,7 +5,7 @@ const db =require("../db/db");
 //idMarcas
 //nombreMarcas
 //paisOrigenMarcas
-//añoFundacionMarcas
+//anioFundacionMarcas
 
 
 //////////////////////////////////////////////////////////////////////
@@ -47,9 +47,9 @@ const showMarc = (req, res) => {
 ////////////////////METODO POST///agregar marca nueva ////////////////
 
 const storeMarc = (req, res) => {
-    const { nombreMarcas, paisOrigenMarcas, añoFundacionMarcas } = req.body; // Extrae los datos del cuerpo de la solicitud
-    const sql = "INSERT INTO marcas (nombreMarcas, paisOrigenMarcas, añoFundacionMarcas) VALUES (?, ?, ?)"; // Consulta SQL para insertar una nueva marca
-    db.query(sql, [nombreMarcas, paisOrigenMarcas, añoFundacionMarcas], (error, result) => { // Ejecutar la consulta
+    const { nombreMarcas, paisOrigenMarcas, anioFundacionMarcas	 } = req.body; // Extrae los datos del cuerpo de la solicitud
+    const sql = "INSERT INTO marcas (nombreMarcas, paisOrigenMarcas, anioFundacionMarcas) VALUES (?, ?, ?)"; // Consulta SQL para insertar una nueva marca
+    db.query(sql, [nombreMarcas, paisOrigenMarcas, anioFundacionMarcas], (error, result) => { // Ejecutar la consulta
         console.log(result); // Log del resultado de la consulta
         if (error) { // Manejo de errores
             return res.status(500).json({ error: "ERROR: Intente más tarde por favor" });
@@ -66,11 +66,11 @@ const storeMarc = (req, res) => {
 
 const updateMarc = (req, res) => {
     const { id } = req.params; // El 'id' viene del parámetro en la URL
-    const { nombreMarcas, paisOrigenMarcas, añoFundacionMarcas } = req.body; // Extrae los datos del cuerpo de la solicitud
+    const { nombreMarcas, paisOrigenMarcas, anioFundacionMarcas } = req.body; // Extrae los datos del cuerpo de la solicitud
 
-    const sql = "UPDATE marcas SET nombreMarcas = ?, paisOrigenMarcas = ?, añoFundacionMarcas = ? WHERE idMarcas = ?"; // Consulta SQL para actualizar la marca
+    const sql = "UPDATE marcas SET nombreMarcas = ?, paisOrigenMarcas = ?, anioFundacionMarcas = ? WHERE idMarcas = ?"; // Consulta SQL para actualizar la marca
 
-    db.query(sql, [nombreMarcas, paisOrigenMarcas, añoFundacionMarcas,id], (error, result) => { // Ejecutar la consulta y verificacion
+    db.query(sql, [nombreMarcas, paisOrigenMarcas, anioFundacionMarcas,id], (error, result) => { // Ejecutar la consulta y verificacion
         if (error) {
             return res.status(500).json({ error: "ERROR: Intente más tarde por favor" });
         }

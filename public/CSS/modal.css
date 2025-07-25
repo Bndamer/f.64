@@ -15,7 +15,9 @@
 .modalNuevoArtista,
 .modalEditarArtista,
 .modalNuevoAccesorio,
-.modalEditarAccesorio {
+.modalEditarAccesorio,
+.modalNuevoMarca,
+.modalEditarMarca {
   position: fixed;
   top: 0;
   left: 0;
@@ -40,7 +42,9 @@
 .formNuevoArtista,
 .formEditarArtista,
 .formNuevoAccesorio,
-.formEditarAccesorio {
+.formEditarAccesorio,
+.formNuevoMarca,
+.formEditarMarca {
   background-image: url("/images/register.jpg");
   background-size: cover;
   background-position: center;
@@ -66,7 +70,9 @@
 .formNuevoArtista,
 .formEditarArtista label,
 .formNuevoAccesorio,
-.formEditarAccesorio label {
+.formEditarAccesorio label,
+.formNuevoMarca,
+.formEditarMarca label {
   text-align: right;
 }
 
@@ -79,7 +85,9 @@
 .formNuevoArtista input,.formEditarArtista input[type="text"],
 .formNuevoArtista input,.formEditarArtista input[type="file"],
 .formNuevoAccesorio input,.formEditarAccesorio input[type="text"],
-.formNuevoAccesorio input,.formEditarAccesorio input[type="file"] {
+.formNuevoAccesorio input,.formEditarAccesorio input[type="file"],
+.formNuevoMarca input,.formEditarMarca input[type="text"],
+.formNuevoMarca input,.formEditarMarca input[type="file"] {
   padding: 6px;
   border-radius: 5px;
   border: none;
@@ -98,6 +106,8 @@
 .formNuevoArtista button,.formEditarArtista button[type="button"],
 .formNuevoAccesorio button,.formEditarAccesorio button[type="submit"],
 .formNuevoAccesorio button,.formEditarAccesorio button[type="button"],
+.formNuevoMarca button,.formEditarMarca button[type="submit"],
+.formNuevoMarca button,.formEditarMarca button[type="button"],
 .btn-eliminar {
   margin-top: 10px;
   padding: 8px;
@@ -120,13 +130,17 @@
 .formNuevoArtista button[type="submit"]:hover,
 .formNuevoArtista button[type="button"]:hover,
 .formNuevoAccesorio button[type="submit"]:hover,
-.formNuevoAccesorio button[type="button"]:hover {
+.formNuevoAccesorio button[type="button"]:hover,
+.formNuevoMarca button[type="submit"]:hover,
+.formNuevoMarca button[type="button"]:hover {
   background-color: #c5a83b;
 }
 
 /* Botón de cerrar (❌) */
 .modalNuevaCamara > div,.modalNuevaLente > div,
-.modalNuevaTecnica > div,.modalNuevoArtista > div {
+.modalNuevaTecnica > div,.modalNuevoArtista > div,
+.modalNuevoAccesorio > div,.modalNuevoMarca > div,
+.modalEditarMarca > div {
   position: absolute;
   top: 10px;
   right: 10px;
