@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ABM - Reseñas</title>
+    <link rel="stylesheet" href="/CSS/style.css" />
+    <link rel="stylesheet" href="/CSS/backofficeAdmin.css" />
+    <link rel="stylesheet" href="/CSS/modal.css" />
+    <link rel="icon" type="image/x-icon" href="../images/favicon.png" />
+    <script src="/JS/backoffice.js" defer></script>
+    <script src="/JS/listadoResenas.js" defer></script>
+    <!--<script src="/JS/buscadorResenas.js" defer></script>-->
+
+  </head>
+  <body>
+    <header class="header">
+      <div class="menu_container">
+        <!--<a class="logo" href="#">Gabinete de Curiosidades f.64 </a>-->
+        <a class="logo" href="../index.html"
+          ><img src="/images/diseño gabinete.png" alt="" />
+        </a>
+        <nav class="navbar">
+          <ul>
+            <li><a href="../desafios.html">desafío de la semana</a></li>
+            <li><a href="../historia.html">a & a</a></li>
+            <li><a href="../blog.html">blog & noticias</a></li>
+            <li><a href="../contacto.html">contacto</a></li>
+            <li>
+              <a href="#"
+                ><img src="/images/search.png" alt="Buscar" title="Buscar"
+              /></a>
+            </li>
+            <li>
+              <a href="../login.html"
+                ><img
+                  src="/images/user.png"
+                  alt="Login"
+                  title="Registrarse - Iniciar Sesión"
+              /></a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <section id="mainbackAdmin" class="mainbackAdmin">
+      <div class="tituloMainAdmin">
+        <h3>ABM - LISTADO RESEÑAS</h3>
+        <label for="buscadorResenas">| FILTRO POR ID/NOMBRE:</label>
+        <input id="buscadorResenas" type="text" placeholder="Buscar Reseña" />
+        <div class="buttonABM">
+          <a href= "adminMain.html" class="volverbtn">Volver al menú principal</a>
+          <a href= "gestionContenido.html" class="listbtn">Volver al listado</a>
+          <button class="nuevoBtn">Nuevo ingreso</button>
+        </div>
+      </div>
+      <div class="resena-lista">
+        <!-- FILA DE ENCABEZADO -->
+        <div class="fila-resena fila-header">
+          <div>ID</div>
+          <div>NOMBRE USUARIO</div>
+          <div>COMENTARIO</div>
+          <div>FECHA</div>
+          <div>LENTES</div>
+          <div>ACCESORIOS</div>
+          <div>CÁMARAS</div>
+          <div>IMAGEN</div>
+          <div>ACCIONES</div>
+        </div>
+
+        <!-- TEMPLATE OCULTO -->
+        <template id="template-resena">
+          <div class="fila fila-resena">
+            <div class="id"></div>
+            <div class="nombre"></div>
+            <div class="comentario"></div>
+            <div class="fecha"></div>
+            <div class="lentes"></div>
+            <div class="accesorios"></div>
+            <div class="camaras"></div>
+            <div><img class="thumb" src="" alt="img resena" /></div>
+            <div class="acciones">
+              <button class="upload">MODIF</button>
+              <button class="delete">ELIMINAR</button>
+            </div>
+          </div>
+        </template>
+        <!-- CONTENEDOR -->
+        <div class="resena-contenedor">
+          <!-- acá se insertan las copias del template -->
+        </div>
+      </div>
+    </section>
+
+    <!-- MODAL: nueva tecnica -->
+
+   <section id="modalNuevaResena" class="modalNuevaResena hidden">
+  <div style="text-align: right;">
+    <button type="button" onclick="cerrarModal('modalNuevaResena')" style="background:none;border:none;font-size:20px;color:white;">❌</button>
+  </div>
+
+  <form id="formNuevaResena" class="formNuevaResena">
+    <label for="nuevo-nombre">Nombre</label>
+    <input type="text" id="nuevo-nombre" name="nombreResena" required />
+
+    <label for="nuevo-comentario">Comentario</label>
+    <input type="text" id="nuevo-comentario" name="comentarioResena" required />
+
+    <label for="nuevo-fecha">Fecha</label>
+    <input type="date" id="nuevo-fecha" name="fechaResena" required />
+
+    <label for="nuevo-lentes">Lente</label>
+    <select id="nuevo-lentes" name="lentesResena">
+      <option value="">-- Seleccionar lente --</option>
+    </select>
+
+    <label for="nuevo-accesorios">Accesorio</label>
+    <select id="nuevo-accesorios" name="accesoriosResena">
+      <option value="">-- Seleccionar accesorio --</option>
+    </select>
+
+    <label for="nuevo-camaras">Cámara</label>
+    <select id="nuevo-camaras" name="camarasResena">
+      <option value="">-- Seleccionar cámara --</option>
+    </select>
+
+    <label for="nuevo-img">Imagen</label>
+    <input type="file" id="nuevo-img" name="imagenResena" accept="image/*" />
+
+    <button type="submit">Guardar</button>
+    <button type="button" onclick="cerrarModal('modalNuevaResena')">Cancelar</button>
+  </form>
+</section>
+
+<!-- FORMULARIO: EDITAR RESEÑA-->
+<section id="modalEditarResena" class="modalEditarResena hidden">
+  <div style="text-align: right;">
+    <button type="button" onclick="cerrarModal('modalEditarResena')" style="background:none;border:none;font-size:20px;color:white;">❌</button>
+  </div>
+
+  <form id="formEditarResena" class="formEditarResena">
+    <label for="edit-nombre">Nombre</label>
+    <input type="text" id="edit-nombre" name="nombreResena" required />
+
+    <label for="edit-comentario">Comentario</label>
+    <input type="text" id="edit-comentario" name="comentarioResena" required />
+
+    <label for="edit-fecha">Fecha</label>
+    <input type="date" id="edit-fecha" name="fechaResena" required />
+
+    <label for="edit-lentes">Lente</label>
+    <select id="edit-lentes" name="lentesResena">
+      <option value="">-- Seleccionar lente --</option>
+    </select>
+
+    <label for="edit-accesorios">Accesorio</label>
+    <select id="edit-accesorios" name="accesoriosResena">
+      <option value="">-- Seleccionar accesorio --</option>
+    </select>
+
+    <label for="edit-camaras">Cámara</label>
+    <select id="edit-camaras" name="camarasResena">
+      <option value="">-- Seleccionar cámara --</option>
+    </select>
+
+    <label for="edit-img">Imagen</label>
+    <input type="file" id="edit-img" name="imagenResena" accept="image/*" />
+
+    <label for="edit-camaras">Cámara</label>
+    <select id="edit-camaras" name="camarasResena">
+      <option value="">-- Seleccionar cámara --</option>
+    </select>
+
+    <label for="edit-img">Imagen</label>
+    <input type="file" id="edit-img" name="imagenResena" accept="image/*" />
+
+    <button type="submit">Guardar</button>
+    <button type="button" onclick="cerrarModal('modalEditarResena')">Cancelar</button>
+  </form>
+</section>
+
+<!-- CONFIRMACIÓN: ELIMINAR TECNICA -->
+<section id="modalConfirmarEliminacion" class="modalEliminacion hidden">
+  <div class="modaldelete">
+    <p>¿Estás seguro de que querés eliminar este ítem?</p>
+    <button class="btn-eliminar" id="confirmarEliminar">Sí, eliminar</button>
+    <button class="btn-eliminar"onclick="cerrarModal('modalConfirmarEliminacion')">Cancelar</button>
+  </div>
+</section>
+
+    <div class="footer">
+      <div class="link">
+        <p>Información Útil</p>
+        <a href="#">Sobre Nosotros</a>
+        <a href="#">Términos y Condiciones</a>
+        <a href="#">Contacto</a>
+        <a href="#">Soporte</a>
+      </div>
+
+      <div class="link">
+        <p>Recursos</p>
+        <a href="#">Técnicas de Fotografía</a>
+        <a href="#">Guía de Cámaras</a>
+        <a href="#">Comunidad Fotográfica</a>
+        <a href="#">Newsletter</a>
+      </div>
+
+      <div class="socials">
+        <p>Nuestras redes</p>
+        <div class="socialsIcons">
+          <img src="../images/footer/facebook.png" alt="Facebook" />
+          <img src="../images/footer/social.png" alt="Instagram" />
+          <img src="../images/footer/twitter.png" alt="Twitter" />
+        </div>
+      </div>
+
+      <div class="small">
+        <p>"Tus primeras 10.000 fotografías serán tus peores fotografías."</p>
+        <p>Henri Cartier-Bresson</p>
+
+        <small>
+          <p>Gabinete de Curiosidades F.64. Todos los derechos reservados.</p>
+          <p>2024. Buenos Aires,Argentina.</p></small
+        >
+      </div>
+    </div>
+  </body>
+</html>
