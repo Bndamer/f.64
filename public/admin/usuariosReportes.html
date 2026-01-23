@@ -3,16 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Login</title>
+    <title>ABM - Usuarios y Reportes</title>
     <link rel="stylesheet" href="/CSS/style.css" />
     <link rel="stylesheet" href="/CSS/backofficeAdmin.css" />
+    <link rel="stylesheet" href="/CSS/modal.css" />
     <link rel="icon" type="image/x-icon" href="../images/favicon.png" />
     <script src="/JS/backoffice.js" defer></script>
-    <script src="/JS/logout.js" defer></script>
 
   </head>
   <body>
- <header class="header">
+    <header class="header">
       <div class="menu_container">
         <!--<a class="logo" href="#">Gabinete de Curiosidades f.64 </a>-->
         <a class="logo" href="../index.html"
@@ -42,21 +42,21 @@
       </div>
     </header>
 
-      <section id="mainbackAdmin" class="mainbackAdmin">
+    <section id="mainbackAdmin" class="mainbackAdmin">
         <div class="tituloMainAdmin">
-        <h3> ¡Bienvenido al Sistema F.64!</h3>
+        <h3> Elija Lista a Gestionar</h3>
         <img class="avatarAdmin"src="../images/avatar-admin/2.png" alt="">
+        <div class="buttonABM">
+          <a href= "adminMain.html" class="volverbtn">Volver al menú principal</a>
+        </div>
         </div>
         <div class="menuMain">
-        <a class="itemadmin" href="adminProfile.html"><img class="imgadmin" src="../images/mainAdmin/perfiladmin.jpg" alt="" /><span class="name">MI CUENTA</span></a>
-        <a class="itemadmin" href="usuariosReportes.html"><img class="imgadmin" src="../images/mainAdmin/usuariosreportes.jpg" alt="" /><span class="name">USUARIOS & REPORTES</span><span class="notificacion">0</span></a>
-        <a class="itemadmin" href="gestionContenido.html"><img class="imgadmin" src="../images/mainAdmin/contenido.jpg" alt="" /><span class="name">CONTENIDO PÁGINA</span><span class="notificacion">5</span></a>
-        <a class="itemadmin" href="gestionSoporte.html"><img class="imgadmin" src="../images/mainAdmin/soporte.jpg" alt="" /><span class="name">TICKETS SOPORTE</span><span class="notificacion">7</span></a>
+        <a class="itemadmin" href="listadoUsuarios.html"><img class="imgadmin" src="../images/mainUser/perfil.jpg" alt="" /><span class="name">USUARIOS</span></a>
+        <a class="itemadmin" href="listadoReportes.html"><img class="imgadmin" src="../images/mainAdmin/usuariosreportes.jpg" alt="" /><span class="name">REPORTES</span><span class="notificacion">0</span></a>
         </div>
         <button id="logoutBtn">CERRAR SESIÓN</button>
       </section>
 
-    
 
     <div class="footer">
       <div class="link">

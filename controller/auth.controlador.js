@@ -22,10 +22,8 @@ const db = require("../db/db"); // Conexión a la base de datos
 //////////////////METODO POST - registro de usuarios ///////////////////////
 
 const register = (req, res) => {
-  let imagenAsubir =""; // Variable para almacenar el nombre de la imagen si se sube
-if (req.file){
-imagenAsubir = req.file.filename; // Si se sube una imagen, guarda el nombre del archivo
-}
+    const imagenAsubir = req.file ? req.file.filename : null;
+
   const {  //informacion traida del cuerpo del body
     emailUsuario,
     aliasUsuario,
@@ -105,7 +103,7 @@ imagenAsubir = req.file.filename; // Si se sube una imagen, guarda el nombre del
                 }
               );
 
-              res.status(201).send({ auth: true, token }); //en postman,aparecera respuesta exitosa si todo sale bien.
+              res.status(201).send({ auth: true, token, id: result.insertId }); //en postman,aparecera respuesta exitosa si todo sale bien.
             }
           );
         }
@@ -156,6 +154,18 @@ const login = (req, res) => {
       console.log("Mail que llego:", email); // Verifica el email recibido
       console.log("Contraseña que llegó:", password); //verifica contraseña recibida
 
+      // Actualizar último logeo
+      const now = new Date();
+      db.query(
+        "UPDATE usuarios SET ultimoLogeoUsuario = ? WHERE idUsuario = ?",
+        [now, userData.idUsuario],
+        (err) => {
+          if (err) {
+            console.error("Error actualizando ultimo logeo:", err);
+          }
+        }
+      );
+
       const token = jwt.sign( // Generar el token JWT para el usuario
         { id: userData.idUsuario },
         process.env.SECRET_KEY, // Clave secreta del entorno
@@ -163,6 +173,7 @@ const login = (req, res) => {
           expiresIn: "1h", // Expiración del token en 1 hora
         }
       );
+      
 
       res.send({ auth: true, token, esAdmin: userData.esAdmin }); // Respuesta exitosa con el token
     }
@@ -253,7 +264,7 @@ const showAllUser = (req, res) => {
         alias: user.aliasUsuario,
         nombre: user.nombreCompletoUsuario,
         Dni: user.DniUsuario,
-        ultimoLogeo: user.ultimologeoUsuario,
+        ultimoLogeo: user.ultimoLogeoUsuario,
         fotoPerfil: user.img_usuarios,
         esAdmin: user.esAdmin === 1 ? true : false //
       }));
@@ -453,6 +464,7 @@ const resetPasswordByAdmin = (req, res) => {
     res.status(200).send("Contraseña reseteada correctamente.");
   });
 };
+
 
 
 

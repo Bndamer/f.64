@@ -80,6 +80,7 @@
 document.getElementById('register_form').addEventListener('submit', async (e) => {
     e.preventDefault();
 
+    
     const formData = new FormData();
     
     // Obtener valores del formulario

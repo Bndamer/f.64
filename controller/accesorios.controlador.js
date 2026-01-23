@@ -150,6 +150,23 @@ const destroyAccesories = (req, res) => {
 };
 
 
+/////////////////////////////////////////////////////////////////
+/////////////METODO GET  para todas las accesorios con el campo id y nombre de accesorio solamente///////////
+
+const idModelAccesories =   (req,res) =>{
+    const sql="SELECT idAccesorios,nombreAccesorios FROM accesorios";
+    db.query(sql,(error,rows )=> {
+        if(error){
+            return res.status(500).json({error : "ERROR: Intente mas tarde por favor"});
+        }
+        res.json(rows);
+    });
+};
+
+
+
+
+
 
 //exportar todas las funciones del modulo
 module.exports={
@@ -157,5 +174,6 @@ module.exports={
     showAccesories,
     storeAccesories,
     updateAccesories,
-    destroyAccesories
+    destroyAccesories,
+    idModelAccesories
 };

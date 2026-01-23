@@ -18,8 +18,9 @@
 .modalEditarAccesorio,
 .modalNuevoMarca,
 .modalEditarMarca,
-.modalNuevoResena,
-.modalEditarResena {
+.modalEditarResena,
+.modalNuevoUsuario,
+.modalEditarUsuario {
   position: fixed;
   top: 0;
   left: 0;
@@ -47,8 +48,9 @@
 .formEditarAccesorio,
 .formNuevoMarca,
 .formEditarMarca,
-.formNuevoResena,
-.formEditarResena {
+.formEditarResena,
+.formNuevoUsuario,
+.formEditarUsuario {
   background-image: url("/images/register.jpg");
   background-size: cover;
   background-position: center;
@@ -77,8 +79,9 @@
 .formEditarAccesorio label,
 .formNuevoMarca,
 .formEditarMarca label,
-.formNuevoResena,
-.formEditarResena label {
+.formEditarResena label,
+.formNuevoUsuario,
+.formEditarUsuario label {
   text-align: right;
 }
 
@@ -93,7 +96,14 @@
 .formNuevoAccesorio input,.formEditarAccesorio input[type="text"],
 .formNuevoAccesorio input,.formEditarAccesorio input[type="file"],
 .formNuevoMarca input,.formEditarMarca input[type="text"],
-.formNuevoMarca input,.formEditarMarca input[type="file"] {
+.formNuevoMarca input,.formEditarMarca input[type="file"],
+.formEditarResena input[type="text"],
+.formEditarResena input[type="file"],
+.formEditarResena select,
+.formNuevoUsuario input[type="text"],
+.formNuevoUsuario input[type="file"],
+.formEditarUsuario input[type="text"],
+.formEditarUsuario input[type="file"] {
   padding: 6px;
   border-radius: 5px;
   border: none;
@@ -114,10 +124,12 @@
 .formNuevoAccesorio button,.formEditarAccesorio button[type="button"],
 .formNuevoMarca button,.formEditarMarca button[type="submit"],
 .formNuevoMarca button,.formEditarMarca button[type="button"],
-.formNuevoResena button[type="submit"],
-.formNuevoResena button[type="button"],
 .formEditarResena button[type="submit"],
 .formEditarResena button[type="button"],
+.formNuevoUsuario button[type="submit"],
+.formNuevoUsuario button[type="button"],
+.formEditarUsuario button[type="submit"],
+.formEditarUsuario button[type="button"],
 .btn-eliminar {
   margin-top: 10px;
   padding: 8px;
@@ -142,7 +154,11 @@
 .formNuevoAccesorio button[type="submit"]:hover,
 .formNuevoAccesorio button[type="button"]:hover,
 .formNuevoMarca button[type="submit"]:hover,
-.formNuevoMarca button[type="button"]:hover {
+.formNuevoMarca button[type="button"]:hover,
+.formNuevoUsuario button[type="submit"]:hover,
+.formNuevoUsuario button[type="button"]:hover,
+.formEditarUsuario button[type="submit"]:hover,
+.formEditarUsuario button[type="button"]:hover {
   background-color: #c5a83b;
 }
 
@@ -150,7 +166,8 @@
 .modalNuevaCamara > div,.modalNuevaLente > div,
 .modalNuevaTecnica > div,.modalNuevoArtista > div,
 .modalNuevoAccesorio > div,.modalNuevoMarca > div,
-.modalNuevoResena > div {
+.modalNuevoUsuario > div,.modalEditarUsuario > div
+ {
   position: absolute;
   top: 10px;
   right: 10px;

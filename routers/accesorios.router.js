@@ -20,13 +20,16 @@ const storage =multer.diskStorage({
 const upload= multer({storage});
 
 
+// METODO GET Ruta para traer solo id y nombre
+router.get('/id-nombre', controller.idModelAccesories);
+
+
 //METODO GET//
 //para tooos los accesorio//
 router.get('/',controller.allAccesories);
 
 //para un producto,item o accesorio en mi caso
 router.get('/:id',controller.showAccesories);
-
 
 
 //METODO POST//
@@ -39,6 +42,9 @@ router.put('/:id', upload.single("imagenAccesorios"), controller.updateAccesorie
 
 ///// METODO DELETE ////
 router.delete('/:id', controller.destroyAccesories);
+
+
+
 
 
 

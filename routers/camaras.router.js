@@ -19,6 +19,11 @@ const storage =multer.diskStorage({
 //const upload= multer({storage:"storage"}); //si son iguales simplemente lo puedeo escribir como
 const upload= multer({storage});
 
+
+
+//METODO GET  Ruta para traer solo id y nombre//
+router.get('/id-nombre', controller.idModelCameras);
+
 //METODO GET//
 //para tooos los accesorio//
 router.get('/',controller.allCameras);

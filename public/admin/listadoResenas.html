@@ -52,7 +52,6 @@
         <div class="buttonABM">
           <a href= "adminMain.html" class="volverbtn">Volver al menú principal</a>
           <a href= "gestionContenido.html" class="listbtn">Volver al listado</a>
-          <button class="nuevoBtn">Nuevo ingreso</button>
         </div>
       </div>
       <div class="resena-lista">
@@ -93,46 +92,6 @@
       </div>
     </section>
 
-    <!-- MODAL: nueva tecnica -->
-
-   <section id="modalNuevaResena" class="modalNuevaResena hidden">
-  <div style="text-align: right;">
-    <button type="button" onclick="cerrarModal('modalNuevaResena')" style="background:none;border:none;font-size:20px;color:white;">❌</button>
-  </div>
-
-  <form id="formNuevaResena" class="formNuevaResena">
-    <label for="nuevo-nombre">Nombre</label>
-    <input type="text" id="nuevo-nombre" name="nombreResena" required />
-
-    <label for="nuevo-comentario">Comentario</label>
-    <input type="text" id="nuevo-comentario" name="comentarioResena" required />
-
-    <label for="nuevo-fecha">Fecha</label>
-    <input type="date" id="nuevo-fecha" name="fechaResena" required />
-
-    <label for="nuevo-lentes">Lente</label>
-    <select id="nuevo-lentes" name="lentesResena">
-      <option value="">-- Seleccionar lente --</option>
-    </select>
-
-    <label for="nuevo-accesorios">Accesorio</label>
-    <select id="nuevo-accesorios" name="accesoriosResena">
-      <option value="">-- Seleccionar accesorio --</option>
-    </select>
-
-    <label for="nuevo-camaras">Cámara</label>
-    <select id="nuevo-camaras" name="camarasResena">
-      <option value="">-- Seleccionar cámara --</option>
-    </select>
-
-    <label for="nuevo-img">Imagen</label>
-    <input type="file" id="nuevo-img" name="imagenResena" accept="image/*" />
-
-    <button type="submit">Guardar</button>
-    <button type="button" onclick="cerrarModal('modalNuevaResena')">Cancelar</button>
-  </form>
-</section>
-
 <!-- FORMULARIO: EDITAR RESEÑA-->
 <section id="modalEditarResena" class="modalEditarResena hidden">
   <div style="text-align: right;">
@@ -140,8 +99,9 @@
   </div>
 
   <form id="formEditarResena" class="formEditarResena">
-    <label for="edit-nombre">Nombre</label>
-    <input type="text" id="edit-nombre" name="nombreResena" required />
+
+    <label for="edit-autor">Autor</label>
+<input type="text" id="edit-autor" readonly />
 
     <label for="edit-comentario">Comentario</label>
     <input type="text" id="edit-comentario" name="comentarioResena" required />
@@ -158,14 +118,6 @@
     <select id="edit-accesorios" name="accesoriosResena">
       <option value="">-- Seleccionar accesorio --</option>
     </select>
-
-    <label for="edit-camaras">Cámara</label>
-    <select id="edit-camaras" name="camarasResena">
-      <option value="">-- Seleccionar cámara --</option>
-    </select>
-
-    <label for="edit-img">Imagen</label>
-    <input type="file" id="edit-img" name="imagenResena" accept="image/*" />
 
     <label for="edit-camaras">Cámara</label>
     <select id="edit-camaras" name="camarasResena">

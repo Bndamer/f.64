@@ -47,6 +47,9 @@ app.use('/fotografos', fotografosRouter);
 
 app.use(express.static(__dirname + "/public"));  //configuracion acceso a la carpeta public///
 
+app.use("/uploads", express.static(path.join(__dirname, "images/uploads")));
+
+
 
 app.get("/", (req, res) => {   //Ruta Raiz del proyecto
     res.sendFile(path.join(__dirname, "public", "index.html"));

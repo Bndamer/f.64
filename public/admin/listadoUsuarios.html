@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ABM - Usuarios</title>
+    <link rel="stylesheet" href="/CSS/style.css" />
+    <link rel="stylesheet" href="/CSS/backofficeAdmin.css" />
+    <link rel="stylesheet" href="/CSS/modal.css" />
+    <link rel="icon" type="image/x-icon" href="../images/favicon.png" />
+    <script src="/JS/backoffice.js" defer></script>
+    <script src="/JS/listadoUsuarios.js" defer></script>
+    <script src="/JS/buscadorUsuarios.js" defer></script>
+
+  </head>
+  <body>
+    <header class="header">
+      <div class="menu_container">
+        <!--<a class="logo" href="#">Gabinete de Curiosidades f.64 </a>-->
+        <a class="logo" href="../index.html"
+          ><img src="/images/diseño gabinete.png" alt="" />
+        </a>
+        <nav class="navbar">
+          <ul>
+            <li><a href="../desafios.html">desafío de la semana</a></li>
+            <li><a href="../historia.html">a & a</a></li>
+            <li><a href="../blog.html">blog & noticias</a></li>
+            <li><a href="../contacto.html">contacto</a></li>
+            <li>
+              <a href="#"
+                ><img src="/images/search.png" alt="Buscar" title="Buscar"
+              /></a>
+            </li>
+            <li>
+              <a href="../login.html"
+                ><img
+                  src="/images/user.png"
+                  alt="Login"
+                  title="Registrarse - Iniciar Sesión"
+              /></a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <section id="mainbackAdmin" class="mainbackAdmin">
+      <div class="tituloMainAdmin">
+        <h3>ABM - LISTADO USUARIOS</h3>
+        <label for="buscadorusuarios">| FILTRO POR ID/NOMBRE/ADMIN(TRUE):</label>
+        <input id="buscadorusuarios"type="text" placeholder="Buscar Usuario" />
+        <div class="buttonABM">
+          <a href= "adminMain.html" class="volverbtn">Volver al menú principal</a>
+          <a href= "usuariosReportes.html" class="listbtn">Volver al listado</a>
+          <button class="nuevoBtn">Nuevo ingreso</button>
+        </div>
+      </div>
+      <div class="usuario-lista">
+        <!-- FILA DE ENCABEZADO -->
+        <div class="fila-usuario fila-header">
+          <div>ID</div>
+          <div>NOMBRE COMPLETO</div>
+          <div>ALIAS</div>
+          <div>DNI</div>
+          <div>ULTIMO LOGGEO</div>
+          <div>EMAIL</div>
+          <div>ES ADMIN</div>
+          <div>IMAGEN</div>
+          <div>ACCIONES</div>
+        </div>
+
+
+        <!-- TEMPLATE OCULTO -->
+        <template id="template-usuario">
+          <div class="fila-usuario">
+            <div class="id"></div>
+            <div class="nombreCompleto"></div>
+            <div class="alias"></div>
+            <div class="dni"></div>
+            <div class="ultimoLogeo"></div>
+            <div class="email"></div>
+            <div class="esAdmin"></div>
+            <div><img class="thumb" src="" alt="img usuario" /></div>
+            <div class="acciones">
+              <button class="upload">MODIF</button>
+              <button class="admin">ROL</button>
+              <button class="delete">ELIMINAR</button>
+            </div>
+          </div>
+        </template>
+
+        <!-- CONTENEDOR -->
+        <div class="usuario-lista">
+          <!-- acá se insertan las copias del template -->
+        </div>
+      </div>
+    </section>
+
+    <!-- FORMULARIO: NUEVO USUARIO -->
+<section id="modalNuevoUsuario" class="modalNuevoUsuario hidden">
+    <div style="text-align: right;">
+      <button type="button" onclick="cerrarModal('modalNuevoUsuario')" style="background:none;border:none;font-size:20px;color:white;">❌</button>
+    </div>
+  <form id="formNuevoUsuario" class="formNuevoUsuario">
+
+    <label for="nuevo-nombre">Nombre Completo</label>
+    <input type="text" id="nuevo-nombre" placeholder="Nombre" name="nombreUsuario" />
+    <label for="nuevo-alias">Alias</label>
+    <input type="text" id="nuevo-alias" placeholder="Alias" name="aliasUsuario" />
+    <label for="nuevo-dni">DNI</label>
+    <input type="text" id="nuevo-dni" placeholder="DNI" name="dniUsuario" />
+    <label for="nuevo-email">Email</label>
+    <input type="text" id="nuevo-email" placeholder="Email" name="emailUsuario" />
+    <label for="nuevo-password">Contraseña</label>
+    <input type="password" id="nuevo-password" placeholder="Contraseña" name="passwordUsuario" />
+    <label for="nuevo-img">Imagen</label>
+    <input type="file" id="nuevo-img" name="img_usuarios" />
+    <button type="submit">Guardar</button>
+    <button type="button" onclick="cerrarModal('modalNuevoUsuario')">Cancelar</button>
+  </form>
+</section>
+
+<!-- FORMULARIO: EDITAR USUARIO -->
+<section id="modalEditarUsuario" class="modalEditarUsuario hidden">
+  <form id="formEditarUsuario" class="formEditarUsuario">
+
+    <input type="hidden" name="idUsuario" />
+    <label for="edit-nombreCompleto">Nombre Completo</label>
+    <input type="text" id="edit-nombreCompleto" placeholder="Nombre Completo" name="nombreCompletoUsuario" />
+    <label for="edit-alias">Alias</label>
+    <input type="text" id="edit-alias" placeholder="Alias" name="aliasUsuario" />
+    <label for="edit-dni">DNI</label>
+    <input type="text" id="edit-dni" placeholder="DNI" name="dniUsuario" />
+    <label for="edit-ultimoLogeo">Último Logeo</label>
+    <input type="text" id="edit-ultimoLogeo" placeholder="Último Logeo" name="ultimoLogeoUsuario" />
+    <label for="edit-email">Email</label>
+    <input type="text" id="edit-email" placeholder="Email" name="emailUsuario" />
+    <label for="edit-password">Contraseña</label>
+    <input type="password" id="edit-password" placeholder="Contraseña" name="passwordUsuario" />
+    <label for="edit-img">Imagen</label>
+    <input type="file" id="edit-img" name="imgUsuarios" />
+
+    <button type="submit">Actualizar</button>
+    <button type="button" onclick="cerrarModal('modalEditarUsuario')">Cancelar</button>
+  </form>
+</section>
+
+<!-- CONFIRMACIÓN: ELIMINAR CÁMARA -->
+<section id="modalConfirmarEliminacion" class="modalEliminacion hidden">
+  <div class="modaldelete">
+    <p>¿Estás seguro de que querés eliminar este ítem?</p>
+    <button class="btn-eliminar" id="confirmarEliminar">Sí, eliminar</button>
+    <button class="btn-eliminar"onclick="cerrarModal('modalConfirmarEliminacion')">Cancelar</button>
+  </div>
+</section>
+
+<!-- modificacion de rol -->
+
+<section id="modalRolUsuario" class="modalRolUsuario hidden">
+  <div style="text-align: right;">
+    <button type="button" onclick="cerrarModal('modalRolUsuario')" style="background:none;border:none;font-size:20px;color:white;">❌</button>
+  </div>
+  <form id="formRolUsuario" class="formRolUsuario">
+    <input type="hidden" name="idUsuario" />
+    <label for="edit-rol">Rol</label>
+    <select id="edit-rol" name="rolUsuario">
+      <option value="usuario">Usuario</option>
+      <option value="admin">Administrador</option>
+    </select>
+    <button type="submit">Actualizar Rol</button>
+    <button type="button" onclick="cerrarModal('modalRolUsuario')">Cancelar</button>
+  </form>
+</section>
+
+    <div class="footer">
+      <div class="link">
+        <p>Información Útil</p>
+        <a href="#">Sobre Nosotros</a>
+        <a href="#">Términos y Condiciones</a>
+        <a href="#">Contacto</a>
+        <a href="#">Soporte</a>
+      </div>
+
+      <div class="link">
+        <p>Recursos</p>
+        <a href="#">Técnicas de Fotografía</a>
+        <a href="#">Guía de Cámaras</a>
+        <a href="#">Comunidad Fotográfica</a>
+        <a href="#">Newsletter</a>
+      </div>
+
+      <div class="socials">
+        <p>Nuestras redes</p>
+        <div class="socialsIcons">
+          <img src="../images/footer/facebook.png" alt="Facebook" />
+          <img src="../images/footer/social.png" alt="Instagram" />
+          <img src="../images/footer/twitter.png" alt="Twitter" />
+        </div>
+      </div>
+
+      <div class="small">
+        <p>"Tus primeras 10.000 fotografías serán tus peores fotografías."</p>
+        <p>Henri Cartier-Bresson</p>
+
+        <small>
+          <p>Gabinete de Curiosidades F.64. Todos los derechos reservados.</p>
+          <p>2024. Buenos Aires,Argentina.</p></small
+        >
+      </div>
+    </div>
+  </body>
+</html>

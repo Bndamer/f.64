@@ -183,6 +183,20 @@ const destroyLens = (req, res) => {
 };
 
 
+///////////////////////////////////////////////////////////////////////
+//////////////METODO GET/////// solo traer el //idLentes y modeloLentes ///////////
+
+const idModelLens = (req, res) => {
+    const sql = "SELECT idLentes, modeloLentes FROM lentes"; // Consulta SQL para seleccionar solo id y modelo
+    db.query(sql, (error, rows) => { // Ejecuta la consulta
+        if (error) {
+            return res.status(500).json({ error: "ERROR: Intente más tarde por favor" }); // Manejo de errores
+        }
+        res.json(rows); // Devuelve todas las filas (cámaras) en formato JSON
+    });
+};
+
+
 
 //exportar todas las funciones del modulo
 module.exports={
@@ -190,5 +204,6 @@ module.exports={
     showLens,
     storeLens,
     updateLens,
-    destroyLens
+    destroyLens,
+    idModelLens
 };

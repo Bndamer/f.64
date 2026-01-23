@@ -3,16 +3,39 @@ function abrirModal(id, resenaId = null) {
   const modal = document.getElementById(id);
   modal.classList.remove("hidden");
   if (resenaId !== null) modal.dataset.resenaId = resenaId;
+  cargarOpcionesSelect("lentes", "edit-lentes");
+  cargarOpcionesSelect("accesorios", "edit-accesorios");
+  cargarOpcionesSelect("camaras", "edit-camaras");
 }
 
 function cerrarModal(id) {
   document.getElementById(id).classList.add("hidden");
 }
 
-// NUEVO INGRESO
-document.querySelector('.nuevoBtn').addEventListener('click', () => {
-  abrirModal('modalNuevaResena');
-});
+
+function cargarOpcionesSelect(endpoint, selectId) {
+  return fetch(`http://localhost:3000/${endpoint}/id-nombre`)
+    .then(res => res.json())
+    .then(data => {
+      const select = document.getElementById(selectId);
+      select.innerHTML = '<option value="">Seleccione una opción</option>';
+      data.forEach(item => {
+        const option = document.createElement("option");
+        option.value = item[`id${capitalize(endpoint)}`];
+        option.textContent = item[`nombre${capitalize(endpoint)}`] || item[`modelo${capitalize(endpoint)}`];
+        select.appendChild(option);
+      });
+    })
+    .catch(err => {
+      console.error(`Error cargando ${endpoint}:`, err);
+    });
+}
+
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+
 
 // FORMULARIO DE UPDATE - evento ÚNICO
 document.getElementById("formEditarResena").addEventListener("submit", function (e) {
@@ -21,8 +44,18 @@ document.getElementById("formEditarResena").addEventListener("submit", function 
   const idResena = modal.dataset.resenaId;
 
   const formData = new FormData();
-  formData.append("nombreResena", document.getElementById("edit-nombre").value);
-  formData.append("descripcionResena", document.getElementById("edit-descripcion").value);
+
+  formData.append("comentarioResena", document.getElementById("edit-comentario").value);
+  formData.append("fechaResena", document.getElementById("edit-fecha").value);
+
+  const lente = document.getElementById("edit-lentes").value;
+  const accesorio = document.getElementById("edit-accesorios").value;
+  const camara = document.getElementById("edit-camaras").value;
+
+  // Agregá solo si el usuario seleccionó alguno
+  if (lente) formData.append("lentesResena", lente);
+  if (accesorio) formData.append("accesoriosResena", accesorio);
+  if (camara) formData.append("camarasResena", camara);
 
   const imagen = document.getElementById("edit-img").files[0];
   if (imagen) formData.append("imagenResena", imagen);
@@ -87,19 +120,19 @@ fetch("http://localhost:3000/resenas")
       btnDelete.dataset.id = resena.idResenas;
 
       btnUpload.addEventListener("click", () => {
-        abrirModal('modalEditarResena', resena.idResenas);
+  abrirModal('modalEditarResena', resena.idResenas);
 
-        fetch(`http://localhost:3000/resenas/${resena.idResenas}`)
-          .then(res => res.json())
-          .then(data => {
-            document.getElementById("edit-nombre").value = data.nombreResenas;
-            document.getElementById("edit-comentario").value = data.comentarioResenas;
-            document.getElementById("edit-fecha").value = data.fechaComentarioResenas;
-            document.getElementById("edit-lentes").value = data.fkLentes;
-            document.getElementById("edit-accesorios").value = data.fkAccesorios;
-            document.getElementById("edit-camaras").value = data.fkCamaras;
-          });
-      });
+  fetch(`http://localhost:3000/resenas/${resena.idResenas}`)
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("edit-autor").value = data.fkUsuarioResenas;
+      document.getElementById("edit-comentario").value = data.comentarioResenas;
+      document.getElementById("edit-fecha").value = data.fechaComentarioResenas;
+      document.getElementById("edit-lentes").value = data.fkLentes;
+      document.getElementById("edit-accesorios").value = data.fkAccesorios;
+      document.getElementById("edit-camaras").value = data.fkCamaras;
+    });
+});
 
       btnDelete.addEventListener("click", () => {
         abrirModal('modalConfirmarEliminacion', resena.idResenas);
@@ -108,33 +141,3 @@ fetch("http://localhost:3000/resenas")
       contenedor.appendChild(clone);
     });
   });
-
-// NUEVO reseña
-document.getElementById("formNuevaResena").addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  const formData = new FormData();
-  formData.append("nombreResena", document.getElementById("nuevo-nombre").value);
-  formData.append("comentarioResena", document.getElementById("nuevo-comentario").value);
-  formData.append("fechaComentarioResenas", document.getElementById("nuevo-fecha").value);
-  formData.append("fkLentes", document.getElementById("nuevo-lentes").value);
-  formData.append("fkAccesorios", document.getElementById("nuevo-accesorios").value);
-  formData.append("fkCamaras", document.getElementById("nuevo-camaras").value);
-
-  const imagen = document.getElementById("nuevo-img").files[0];
-  if (imagen) formData.append("imagenResena", imagen);
-
-  fetch("http://localhost:3000/resenas", {
-    method: "POST",
-    body: formData
-  })
-    .then(res => {
-      if (!res.ok) throw new Error("Error al guardar");
-      cerrarModal("modalNuevaResena");
-      location.reload();
-    })
-    .catch(err => {
-      console.error(err);
-      alert("No se pudo guardar la reseña.");
-    });
-});

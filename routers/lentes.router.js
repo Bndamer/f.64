@@ -20,6 +20,8 @@ const storage =multer.diskStorage({
 const upload= multer({storage});
 
 
+// METODO GET Ruta para traer solo id y nombre///////
+router.get('/id-nombre', controller.idModelLens);
 
 //METODO GET//
 //para tooos los lentes//
@@ -40,6 +42,8 @@ router.put('/:id', upload.single("imagenLentes"), controller.updateLens);
 
 ///// METODO DELETE ////
 router.delete('/:id', controller.destroyLens);
+
+
 
 
 

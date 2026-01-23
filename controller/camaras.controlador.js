@@ -139,11 +139,27 @@ const destroyCamera = (req, res) => {
 };
 
 
+///////////////////////////////////////////////////////////////////////
+//////////////METODO GET/////// solo traer el id Camaras y modeloCamaras ///////////
+
+const idModelCameras = (req, res) => {
+    const sql = "SELECT idCamaras, modeloCamaras FROM camaras"; // Consulta SQL para seleccionar todas las cámaras
+    db.query(sql, (error, rows) => { // Ejecuta la consulta
+        if (error) {
+            return res.status(500).json({ error: "ERROR: Intente más tarde por favor" }); // Manejo de errores
+        }
+        res.json(rows); // Devuelve todas las filas (cámaras) en formato JSON
+    });
+};
+
+
+
 //exportar todas las funciones del modulo para las rutas
 module.exports={
     allCameras,
     showCamera,
     storeCamera,
     updateCamera,
-    destroyCamera
+    destroyCamera,
+    idModelCameras
 };
