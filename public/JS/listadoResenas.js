@@ -2,10 +2,15 @@
 function abrirModal(id, resenaId = null) {
   const modal = document.getElementById(id);
   modal.classList.remove("hidden");
-  if (resenaId !== null) modal.dataset.resenaId = resenaId;
-  cargarOpcionesSelect("lentes", "edit-lentes");
-  cargarOpcionesSelect("accesorios", "edit-accesorios");
-  cargarOpcionesSelect("camaras", "edit-camaras");
+  if (resenaId !== null)
+    { modal.dataset.resenaId = resenaId;}
+
+  // IMPORTANTE: Retornamos el Promise.all para poder encadenar el .then() después
+  return Promise.all([
+    cargarOpcionesSelect("lentes", "edit-lentes"),
+    cargarOpcionesSelect("accesorios", "edit-accesorios"),
+    cargarOpcionesSelect("camaras", "edit-camaras")
+  ]);
 }
 
 function cerrarModal(id) {
@@ -43,22 +48,33 @@ document.getElementById("formEditarResena").addEventListener("submit", function 
   const modal = document.getElementById("modalEditarResena");
   const idResena = modal.dataset.resenaId;
 
+  if (!idResena) {
+        alert("Error: No se encontró el ID de la reseña.");
+        return;
+    }
+
   const formData = new FormData();
 
-  formData.append("comentarioResena", document.getElementById("edit-comentario").value);
-  formData.append("fechaResena", document.getElementById("edit-fecha").value);
+  formData.append("comentarioResenas", document.getElementById("edit-comentario").value);
+  formData.append("fechaComentarioResenas", document.getElementById("edit-fecha").value);
 
   const lente = document.getElementById("edit-lentes").value;
   const accesorio = document.getElementById("edit-accesorios").value;
   const camara = document.getElementById("edit-camaras").value;
 
   // Agregá solo si el usuario seleccionó alguno
-  if (lente) formData.append("lentesResena", lente);
-  if (accesorio) formData.append("accesoriosResena", accesorio);
-  if (camara) formData.append("camarasResena", camara);
+  if (lente) formData.append("fkLentes", lente);
+  if (accesorio) formData.append("fkAccesorios", accesorio);
+  if (camara) formData.append("fkCamaras", camara);
 
   const imagen = document.getElementById("edit-img").files[0];
-  if (imagen) formData.append("imagenResena", imagen);
+  if (imagen) formData.append("imagenResenas", imagen);
+
+  // Adentro del submit, antes del fetch:
+console.log("ID de reseña a enviar:", idResena);
+for (let pair of formData.entries()) {
+    console.log(pair[0] + ': ' + pair[1]); 
+}
 
   fetch(`http://localhost:3000/resenas/${idResena}`, {
     method: "PUT",
@@ -90,7 +106,7 @@ document.getElementById("confirmarEliminar").addEventListener("click", () => {
     })
     .catch(err => {
       console.error(err);
-      alert("No se pudo eliminar el lente.");
+      alert("No se pudo eliminar la reseña.");
     });
 });
 
@@ -107,7 +123,7 @@ fetch("http://localhost:3000/resenas")
       clone.querySelector(".id").textContent = resena.idResenas;
       clone.querySelector(".nombre").textContent = resena.nombreCompletoUsuario;
       clone.querySelector(".comentario").textContent = resena.comentarioResenas;
-      clone.querySelector(".fecha").textContent = resena.fechaComentarioResenas;
+      clone.querySelector(".fecha").textContent = resena.fechaComentarioResenas.split('T')[0];
       clone.querySelector(".lentes").textContent = resena.modeloLentes;
       clone.querySelector(".accesorios").textContent = resena.nombreAccesorios;
       clone.querySelector(".camaras").textContent = resena.modeloCamaras;
@@ -119,19 +135,47 @@ fetch("http://localhost:3000/resenas")
       btnUpload.dataset.id = resena.idResenas;
       btnDelete.dataset.id = resena.idResenas;
 
-      btnUpload.addEventListener("click", () => {
-  abrirModal('modalEditarResena', resena.idResenas);
 
-  fetch(`http://localhost:3000/resenas/${resena.idResenas}`)
+// Función para seleccionar una opción buscando por su TEXTO (el nombre de la cámara)
+function seleccionarPorTexto(selectId, textoBusqueda) {
+  const select = document.getElementById(selectId);
+  const opciones = select.options;
+
+  for (let i = 0; i < opciones.length; i++) {
+    if (opciones[i].textContent === textoBusqueda) {
+      select.selectedIndex = i;
+      break;
+    }
+  }
+}
+
+
+/////////evento editar////////
+
+    btnUpload.addEventListener("click", () => {
+  // Abre el modal y espera a que los selects se llenen
+  abrirModal('modalEditarResena', resena.idResenas)
+    .then(() => {
+      // 2. Ahora que los selects TIENEN las opciones, pedimos la reseña
+      return fetch(`http://localhost:3000/resenas/${resena.idResenas}`);
+    })
     .then(res => res.json())
     .then(data => {
+
+      // Llena los campos
       document.getElementById("edit-autor").value = data.fkUsuarioResenas;
       document.getElementById("edit-comentario").value = data.comentarioResenas;
-      document.getElementById("edit-fecha").value = data.fechaComentarioResenas;
-      document.getElementById("edit-lentes").value = data.fkLentes;
-      document.getElementById("edit-accesorios").value = data.fkAccesorios;
-      document.getElementById("edit-camaras").value = data.fkCamaras;
-    });
+
+      // La fecha debe estar en formato YYYY-MM-DD para el input date
+      if (data.fechaComentarioResenas) {
+        document.getElementById("edit-fecha").value = data.fechaComentarioResenas.split('T')[0];
+      }
+
+     seleccionarPorTexto("edit-lentes", data.fkLentes);
+     seleccionarPorTexto("edit-accesorios", data.fkAccesorios);
+     seleccionarPorTexto("edit-camaras", data.fkCamaras);
+    })
+    .catch(err => console.error("Error al poblar el modal:", err));
 });
 
       btnDelete.addEventListener("click", () => {
