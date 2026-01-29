@@ -42,13 +42,17 @@ app.use('/tecnicas', tecnicasRouter);
 const fotografosRouter = require('./routers/fotografos.router');
 app.use('/fotografos', fotografosRouter);
 
+// Rutas para desafios
+const desafiosRouter = require('./routers/desafios.router');
+app.use('/desafios', desafiosRouter);
 
-
+// Rutas para tabla intermedia usuarios_ desafios
+const usuariosdesafiosRouter = require('./routers/usuarios_desafios.router');
+app.use('/usuarios-desafios', usuariosdesafiosRouter);
 
 app.use(express.static(__dirname + "/public"));  //configuracion acceso a la carpeta public///
 
 app.use("/uploads", express.static(path.join(__dirname, "images/uploads")));
-
 
 
 app.get("/", (req, res) => {   //Ruta Raiz del proyecto

@@ -7,6 +7,9 @@ const db =require("../db/db");
 //paisOrigenMarcas
 //anioFundacionMarcas
 
+//NOTA : esta tabla no lleva multer dado que no tiene carga de imagenes
+
+
 
 //////////////////////////////////////////////////////////////////////
 /////////////METODO GET/// consultar todas las marcas existentes/////
