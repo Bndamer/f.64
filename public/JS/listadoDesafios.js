@@ -20,16 +20,20 @@ document.getElementById("formEditarDesafio").addEventListener("submit", function
   const modal = document.getElementById("modalEditarDesafio");
   const idDesafio = modal.dataset.desafioId;
 
-  const formData = new FormData();
-  formData.append("nombreDesafio", document.getElementById("edit-nombre").value);
-  formData.append("consignaDesafio", document.getElementById("edit-consigna").value);
-  formData.append("nivelDificultad", document.getElementById("edit-dificultad").value);
-  formData.append("tiempoVigenciaDias", document.getElementById("edit-vigencia").value);
-  formData.append("premioDesafio", document.getElementById("edit-premio").value);
+  const body = {
+    nombreDesafio: document.getElementById("edit-nombre").value,
+    consignaDesafio: document.getElementById("edit-consigna").value,
+    nivelDificultad: document.getElementById("edit-dificultad").value,
+    tiempoVigenciaDias: document.getElementById("edit-vigencia").value,
+    premioDesafio: document.getElementById("edit-premio").value
+  };
 
   fetch(`http://localhost:3000/desafios/${idDesafio}`, {
-    method: "PUT",
-    body: formData
+   method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(body)
   })
     .then(res => {
       if (!res.ok) throw new Error("Error al actualizar");
@@ -111,13 +115,13 @@ fetch("http://localhost:3000/desafios")
   document.getElementById("formNuevoDesafio").addEventListener("submit", function (e) {
   e.preventDefault();
 
-  const formData = new FormData();
-  formData.append("nombreDesafio", document.getElementById("nuevo-nombre").value);
-  formData.append("consignaDesafio", document.getElementById("nuevo-consigna").value);
-  formData.append("dificultadDesafio", document.getElementById("nuevo-dificultad").value);
-  formData.append("vigenciaDesafio", document.getElementById("nuevo-vigencia").value);
-  formData.append("premioDesafio", document.getElementById("nuevo-premio").value);
-
+ const body = {
+    nombreDesafio: document.getElementById("nuevo-nombre").value,
+    consignaDesafio: document.getElementById("nuevo-consigna").value,
+    nivelDificultad: document.getElementById("nuevo-dificultad").value,
+    tiempoVigenciaDias: document.getElementById("nuevo-vigencia").value, 
+    premioDesafio: document.getElementById("nuevo-premio").value
+  };
   fetch("http://localhost:3000/desafios", {
     method: "POST",
     headers: {
