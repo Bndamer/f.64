@@ -17,13 +17,13 @@ router.get('/user/:id', authMiddleware, controller.showUser); // Obtiene la info
 router.get('/user', authMiddleware, controller.showAllUser); // Obtiene la información del usuario//
 
 //// METODO PUT ////
-router.put('/user/:id', authMiddleware, controller.updateUser); // Actualiza la información del usuario//
+router.put('/user/:id',uploads.single('img_usuarios'), authMiddleware, controller.updateUser); // Actualiza la información del usuario//
 
 //// METODO DELETE ////
 router.delete('/user/:id', authMiddleware, controller.deleteUser); // Elimina el usuario//
 
 ////METODO PATCH/////
-router.patch('/user/:id', authMiddleware, controller.UpdateOneParameterUser); // Actualiza parametros determinados del usuario//
+router.patch('/user/:id',uploads.single('img_usuarios'), authMiddleware, controller.UpdateOneParameterUser); // Actualiza parametros determinados del usuario//
 
 //// CAMBIO DE CONTRASEÑA POR EL USUARIO (requiere estar logueado) ////
 router.patch('/user/password/change', authMiddleware, controller.changePassword);

@@ -21,11 +21,11 @@ document.getElementById("formEditarUsuario").addEventListener("submit", function
   const idUsuario = modal.dataset.usuarioId;
 
   const formData = new FormData();
-  formData.append("nombreCompletoUsuario", document.getElementById("edit-nombreCompleto").value);
-  formData.append("aliasUsuario", document.getElementById("edit-alias").value);
-  formData.append("dniUsuario", document.getElementById("edit-dni").value);
+  formData.append("nombre", document.getElementById("edit-nombreCompleto").value);
+  formData.append("alias", document.getElementById("edit-alias").value);
+  formData.append("dni", document.getElementById("edit-dni").value);
   formData.append("ultimoLogeoUsuario", document.getElementById("edit-ultimoLogeo").value);
-  formData.append("emailUsuario", document.getElementById("edit-email").value);
+  formData.append("email", document.getElementById("edit-email").value);
   formData.append("passwordUsuario", document.getElementById("edit-password").value);
   formData.append("img_usuarios", document.getElementById("edit-img").value);
   formData.append("edAdmin", document.getElementById("edit-admin").checked);
@@ -111,20 +111,22 @@ fetch("http://localhost:3000/auth/user", {
       btnDelete.dataset.id = usuario.id;
 
       btnUpload.addEventListener("click", () => {
-        abrirModal('modalEditarUsuario', usuario.idUsuario);
+  // Usamos usuario.id porque así viene del mapeo del controlador
+  abrirModal('modalEditarUsuario', usuario.id); 
 
-        fetch(`http://localhost:3000/auth/user/${usuario.idUsuario}`)
-          .then(res => res.json())
-          .then(data => {
-            document.getElementById("edit-nombreCompleto").value = data.nombre;
-            document.getElementById("edit-alias").value = data.alias;
-            document.getElementById("edit-dni").value = data.Dni;
-            document.getElementById("edit-ultimoLogeo").value = data.ultimoLogeoUsuario;
-            document.getElementById("edit-email").value = data.email;
-            document.getElementById("edit-password").value = data.passwordUsuario;
-
-          });
-      });
+  fetch(`http://localhost:3000/auth/user/${usuario.id}`, {
+    headers: { "Authorization": `Bearer ${token}` }
+  })
+    .then(res => res.json())
+    .then(data => {
+      // Usamos los nombres que devuelve tu showUser
+      document.getElementById("edit-nombreCompleto").value = data.nombre;
+      document.getElementById("edit-alias").value = data.alias;
+      document.getElementById("edit-dni").value = data.Dni;
+      document.getElementById("edit-email").value = data.email;
+      document.getElementById("edit-admin").checked = data.esAdmin === 1;
+    });
+});
 
       btnDelete.addEventListener("click", () => {
         abrirModal('modalConfirmarEliminacion', usuario.id);

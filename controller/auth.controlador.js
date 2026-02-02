@@ -284,31 +284,27 @@ const showAllUser = (req, res) => {
 ////////////////METODO PUT,ACTUALIZAR USUARIO //////////////////
 
 const updateUser = (req, res) => {
-    const userId = req.params.id; // Obtener el ID del usuario de la ruta
-    const { email, alias, nombre, dni } = req.body; // Obtener los datos del cuerpo de la solicitud
+    const userId = req.params.id;
+    const { email, alias, nombre, dni } = req.body;
+    const nuevaImagen = req.file ? req.file.filename : null; // Capturamos la foto nueva
+    const esAdminValue = edAdmin === 'true' || edAdmin === true ? 1 : 0;
 
-    // Validar que se haya proporcionado el ID
-    if (!userId) {
-        return res.status(400).send("No se proporcionó un ID de usuario.");
+    let sql = "UPDATE usuarios SET emailUsuario = ?, aliasUsuario = ?, nombreCompletoUsuario = ?, DniUsuario = ?, esAdmin = ?";
+    let values = [email, alias, nombre, dni, esAdminValue];
+
+    // Si el admin subió una foto, la sumamos a la query
+    if (nuevaImagen) {
+        sql += ", img_usuarios = ?";
+        values.push(nuevaImagen);
     }
 
-    // Consulta para actualizar los datos del usuario
-    db.query(
-        "UPDATE usuarios SET emailUsuario = ?, aliasUsuario = ?, nombreCompletoUsuario = ?, DniUsuario = ? WHERE idUsuario = ?",
-        [email, alias, nombre, dni, userId],
-        (error, results) => {
-            if (error) {  //chequeo de errores
-                console.error("Error al actualizar el usuario:", error); //muestra el error en consola
-                return res.status(500).send("Error al actualizar el usuario."); //muestra en error en caso de falla
-            }
+    sql += " WHERE idUsuario = ?";
+    values.push(userId);
 
-            if (results.affectedRows === 0) {
-                return res.status(404).send("Usuario no encontrado."); //error en caso de usuario no encontrado
-            }
-
-            res.status(200).send("Usuario actualizado con éxito."); //mensaje exitoso
-        }
-    );
+    db.query(sql, values, (error, results) => {
+        if (error) return res.status(500).send("Error al actualizar.");
+        res.status(200).send("Usuario actualizado con éxito.");
+    });
 };
 
 
@@ -345,21 +341,11 @@ const deleteUser = (req, res) => {
 ////////METODO EXCLUSIVO PARA ADMINISTRADORES,PERMITE EDITAR LA PROPIEDAD ADMIN////////
 
 const UpdateOneParameterUser = (req, res) => {
-    const userId = req.params.id; // Obtener el ID del usuario desde la ruta
-    const updates = req.body; // Obtener los datos que se desean actualizar desde el cuerpo de la solicitud
+    const userId = req.params.id;
+    const updates = req.body;
+    const nuevaImagen = req.file ? req.file.filename : null;
 
-    if (!userId) {
-        return res.status(400).send("No se obtuvo el ID de usuario.");
-    }
-
-    // Verificar si hay campos para actualizar
-    if (Object.keys(updates).length === 0) {
-        return res.status(400).send("No se proporcionaron campos para actualizar.");
-    }
-
-     // Mapeo de campos-mediante este mapeo puedo ingresar "nombre","email","alias" y "dni" en la consulta en postman 
-     //y no necesito usar los nombres exactos que tiene estos campos en la base de datos
-     const fieldMap = {
+    const fieldMap = {
         nombre: "nombreCompletoUsuario",
         email: "emailUsuario",
         alias: "aliasUsuario",
@@ -367,34 +353,26 @@ const UpdateOneParameterUser = (req, res) => {
         admin: "esAdmin"
     };
 
-    // Crear una lista de campos a actualizar y valores
-    const fields = Object.keys(updates)
-        .filter(key => fieldMap[key]) // Filtra solo los campos válidos
-        .map(key => `${fieldMap[key]} = ?`) // Usa el mapeo para obtener el nombre correcto
-        .join(", ");
-    const values = Object.values(updates)
-        .filter((_, index) => Object.keys(updates)[index] in fieldMap); // Filtra los valores de acuerdo con el mapeo
-
-    // Si no hay campos válidos para actualizar
-    if (fields.length === 0) {
-        return res.status(400).send("No se proporcionaron campos válidos para actualizar.");
-    }
+    // 1. Armamos los campos de texto como ya hacías
+    let fields = Object.keys(updates)
+        .filter(key => fieldMap[key])
+        .map(key => `${fieldMap[key]} = ?`);
     
-    // Agregar el ID al final de los valores para la consulta
+    let values = Object.values(updates)
+        .filter((_, index) => Object.keys(updates)[index] in fieldMap);
+
+    // 2. LA MAGIA: Si hay una imagen, la sumamos al array manualmente
+    if (nuevaImagen) {
+        fields.push("img_usuarios = ?");
+        values.push(nuevaImagen);
+    }
+
+    if (fields.length === 0) return res.status(400).send("Nada que actualizar.");
+
     values.push(userId);
-
-    // Consulta a la base de datos
-    db.query(`UPDATE usuarios SET ${fields} WHERE idUsuario = ?`, values, (error, results) => {
-        if (error) {
-            console.error("Error al actualizar el usuario:", error);
-            return res.status(500).send("Error al actualizar el usuario.");
-        }
-
-        if (results.affectedRows === 0) {
-            return res.status(404).send("Usuario no encontrado.");
-        }
-
-        res.status(200).send("Usuario actualizado con éxito.");
+    db.query(`UPDATE usuarios SET ${fields.join(", ")} WHERE idUsuario = ?`, values, (error, results) => {
+        if (error) return res.status(500).send("Error en el servidor.");
+        res.status(200).send("Parámetro actualizado.");
     });
 };
 
