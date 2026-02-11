@@ -21,24 +21,36 @@ document.getElementById("formEditarUsuario").addEventListener("submit", function
   const idUsuario = modal.dataset.usuarioId;
 
   const formData = new FormData();
+  
+  // Mandamos los nombres EXACTOS que espera el controlador
   formData.append("nombre", document.getElementById("edit-nombreCompleto").value);
   formData.append("alias", document.getElementById("edit-alias").value);
   formData.append("dni", document.getElementById("edit-dni").value);
-  formData.append("ultimoLogeoUsuario", document.getElementById("edit-ultimoLogeo").value);
   formData.append("email", document.getElementById("edit-email").value);
-  formData.append("passwordUsuario", document.getElementById("edit-password").value);
-  formData.append("img_usuarios", document.getElementById("edit-img").value);
-  formData.append("edAdmin", document.getElementById("edit-admin").checked);
   
-  const imagen = document.getElementById("edit-img").files[0];
-  if (imagen) formData.append("imagenUsuarios", imagen);
+  // El checkbox de Admin (mandamos 1 o 0 para que sea más fácil en el back)
+  const esAdmin = document.getElementById("edit-admin").checked ? 1 : 0;
+  formData.append("esAdmin", esAdmin);
+
+  // La imagen: SOLO si el usuario eligió un archivo nuevo
+  const inputImg = document.getElementById("edit-img");
+  if (inputImg.files.length > 0) {
+    // El nombre "img_usuarios" debe coincidir con lo que pusiste en upload.single()
+    formData.append("img_usuarios", inputImg.files[0]);
+  }
 
   fetch(`http://localhost:3000/auth/user/${idUsuario}`, {
     method: "PUT",
-    body: formData
+    headers: {
+      "Authorization": `Bearer ${token}` // ¡No te olvides del token!
+    },
+    body: formData // Al usar FormData, NO pongas Content-Type manualmente
   })
     .then(res => {
       if (!res.ok) throw new Error("Error al actualizar");
+      return res.text();
+    })
+    .then(() => {
       cerrarModal("modalEditarUsuario");
       location.reload();
     })
@@ -123,8 +135,9 @@ fetch("http://localhost:3000/auth/user", {
       document.getElementById("edit-nombreCompleto").value = data.nombre;
       document.getElementById("edit-alias").value = data.alias;
       document.getElementById("edit-dni").value = data.Dni;
+      document.getElementById("edit-ultimoLogeo").textContent = data.ultimoLogeo || "Sin registros";
       document.getElementById("edit-email").value = data.email;
-      document.getElementById("edit-admin").checked = data.esAdmin === 1;
+      document.getElementById("edit-admin").checked = (data.esAdmin == 1);
     });
 });
 

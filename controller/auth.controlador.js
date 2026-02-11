@@ -216,8 +216,9 @@ const showUser = (req, res) => {
         alias: userData.aliasUsuario,
         nombre: userData.nombreCompletoUsuario,
         Dni: userData.DniUsuario,
-        ultimoLogeo: userData.ultimologeoUsuario,
-        fotoPerfil : userData.img_usuarios // Devuelve la foto de perfil
+        ultimoLogeo: userData.ultimoLogeoUsuario,
+        fotoPerfil : userData.img_usuarios, // Devuelve la foto de perfil
+        esAdmin: userData.esAdmin //
       });
     }
   );
@@ -285,9 +286,10 @@ const showAllUser = (req, res) => {
 
 const updateUser = (req, res) => {
     const userId = req.params.id;
-    const { email, alias, nombre, dni } = req.body;
+    const { email, alias, nombre, dni, esAdmin, passwordUsuario } = req.body;
     const nuevaImagen = req.file ? req.file.filename : null; // Capturamos la foto nueva
-    const esAdminValue = edAdmin === 'true' || edAdmin === true ? 1 : 0;
+    // Aceptamos '1' (string), 1 (número) o true (booleano)
+    const esAdminValue = (esAdmin == 1 || esAdmin === 'true' || esAdmin === true) ? 1 : 0;
 
     let sql = "UPDATE usuarios SET emailUsuario = ?, aliasUsuario = ?, nombreCompletoUsuario = ?, DniUsuario = ?, esAdmin = ?";
     let values = [email, alias, nombre, dni, esAdminValue];
@@ -296,6 +298,12 @@ const updateUser = (req, res) => {
     if (nuevaImagen) {
         sql += ", img_usuarios = ?";
         values.push(nuevaImagen);
+    } 
+
+    if (passwordUsuario && passwordUsuario.trim() !== "") {
+        const hash = bcrypt.hashSync(passwordUsuario, 8);
+        sql += ", passwordUsuario = ?";
+        values.push(hash);
     }
 
     sql += " WHERE idUsuario = ?";
