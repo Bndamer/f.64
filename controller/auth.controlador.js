@@ -23,6 +23,7 @@ const db = require("../db/db"); // Conexión a la base de datos
 
 const register = (req, res) => {
     const imagenAsubir = req.file ? req.file.filename : null;
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
 
   const {  //informacion traida del cuerpo del body
     emailUsuario,
@@ -31,6 +32,10 @@ const register = (req, res) => {
     nombreCompletoUsuario,
     password
   } = req.body;
+
+  if (!passwordRegex.test(password)) {
+  return res.status(400).send("La contraseña debe tener al menos 8 caracteres, una mayúscula y un número.");
+}
   /////DOBLE VERIFICACION///// Verifica si el email ya existe
   db.query(
     "SELECT * FROM usuarios WHERE emailUsuario = ?",
@@ -67,6 +72,8 @@ const register = (req, res) => {
               .send("El alias ya está en uso, por favor elija otro.");
           }
 
+          
+
 
           console.log("mail que llego:", emailUsuario); // Verifica el email recibido
           console.log("Contraseña que llegó:", password); //verifica contraseña recibida
@@ -99,7 +106,7 @@ const register = (req, res) => {
                 { id: result.insertId },
                 process.env.SECRET_KEY, // Clave secreta del entorno
                 {
-                  expiresIn: "1h", //expiracion del token,1 hora.
+                  expiresIn: "2h", //expiracion del token,2 horas.
                 }
               );
 
@@ -170,12 +177,17 @@ const login = (req, res) => {
         { id: userData.idUsuario },
         process.env.SECRET_KEY, // Clave secreta del entorno
         {
-          expiresIn: "1h", // Expiración del token en 1 hora
+          expiresIn: "2h", // Expiración del token en 2 horas
         }
       );
       
 
-      res.send({ auth: true, token, esAdmin: userData.esAdmin }); // Respuesta exitosa con el token
+      res.send({
+  auth: true,
+  token,
+  id: userData.idUsuario,
+  esAdmin: userData.esAdmin
+}); // Respuesta exitosa con el token
     }
   );
 };
@@ -290,6 +302,7 @@ const updateUser = (req, res) => {
     const nuevaImagen = req.file ? req.file.filename : null; // Capturamos la foto nueva
     // Aceptamos '1' (string), 1 (número) o true (booleano)
     const esAdminValue = (esAdmin == 1 || esAdmin === 'true' || esAdmin === true) ? 1 : 0;
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
 
     let sql = "UPDATE usuarios SET emailUsuario = ?, aliasUsuario = ?, nombreCompletoUsuario = ?, DniUsuario = ?, esAdmin = ?";
     let values = [email, alias, nombre, dni, esAdminValue];
@@ -301,6 +314,9 @@ const updateUser = (req, res) => {
     } 
 
     if (passwordUsuario && passwordUsuario.trim() !== "") {
+      if (!passwordRegex.test(passwordUsuario)) {
+        return res.status(400).send("La contraseña debe tener al menos 8 caracteres, una mayúscula y un número.");
+    }
         const hash = bcrypt.hashSync(passwordUsuario, 8);
         sql += ", passwordUsuario = ?";
         values.push(hash);
@@ -346,11 +362,12 @@ const deleteUser = (req, res) => {
 // en la base de datos sin necesidad de actualizar todos los datos.
 // Se utiliza un mapeo para permitir el uso de nombres de campo más amigables
 // en lugar de los nombres exactos en la base de datos.
-////////METODO EXCLUSIVO PARA ADMINISTRADORES,PERMITE EDITAR LA PROPIEDAD ADMIN////////
+////////METODO QUE NO INCLUYE LA PROPIEDAD ADMIN,  ADMIN SE INCLUYE EN EL PUT////////
 
 const UpdateOneParameterUser = (req, res) => {
-    const userId = req.params.id;
-    const updates = req.body;
+
+    const userId = req.userId; // desde token
+    const updates = { ...req.body };
     const nuevaImagen = req.file ? req.file.filename : null;
 
     const fieldMap = {
@@ -358,30 +375,53 @@ const UpdateOneParameterUser = (req, res) => {
         email: "emailUsuario",
         alias: "aliasUsuario",
         dni: "DniUsuario",
-        admin: "esAdmin"
+        passwordUsuario: "passwordUsuario"
     };
 
-    // 1. Armamos los campos de texto como ya hacías
-    let fields = Object.keys(updates)
-        .filter(key => fieldMap[key])
-        .map(key => `${fieldMap[key]} = ?`);
-    
-    let values = Object.values(updates)
-        .filter((_, index) => Object.keys(updates)[index] in fieldMap);
+    const ejecutarUpdate = () => {
 
-    // 2. LA MAGIA: Si hay una imagen, la sumamos al array manualmente
-    if (nuevaImagen) {
-        fields.push("img_usuarios = ?");
-        values.push(nuevaImagen);
+        let fields = Object.keys(updates)
+            .filter(key => fieldMap[key])
+            .map(key => `${fieldMap[key]} = ?`);
+
+        let values = Object.keys(updates)
+            .filter(key => fieldMap[key])
+            .map(key => updates[key]);
+
+        if (nuevaImagen) {
+            fields.push("img_usuarios = ?");
+            values.push(nuevaImagen);
+        }
+
+        if (fields.length === 0) {
+            return res.status(400).send("Nada que actualizar.");
+        }
+
+        values.push(userId);
+
+        db.query(
+            `UPDATE usuarios SET ${fields.join(", ")} WHERE idUsuario = ?`,
+            values,
+            (error) => {
+                if (error) return res.status(500).send("Error en el servidor.");
+                res.status(200).send("Perfil actualizado.");
+            }
+        );
+    };
+
+    // 🔐 Si viene password → hasheamos primero
+    if (updates.passwordUsuario) {
+
+        bcrypt.hash(updates.passwordUsuario, 10, (err, hash) => {
+            if (err) return res.status(500).send("Error al encriptar contraseña.");
+
+            updates.passwordUsuario = hash;
+            ejecutarUpdate(); // recién acá ejecutamos el UPDATE
+        });
+
+    } else {
+        ejecutarUpdate(); // si no hay password, ejecutamos directo
     }
-
-    if (fields.length === 0) return res.status(400).send("Nada que actualizar.");
-
-    values.push(userId);
-    db.query(`UPDATE usuarios SET ${fields.join(", ")} WHERE idUsuario = ?`, values, (error, results) => {
-        if (error) return res.status(500).send("Error en el servidor.");
-        res.status(200).send("Parámetro actualizado.");
-    });
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ABM - Tickets & Reportes</title>
+    <link rel="stylesheet" href="/CSS/style.css" />
+    <link rel="stylesheet" href="/CSS/backofficeAdmin.css" />
+    <link rel="stylesheet" href="/CSS/modal.css" />
+    <link rel="icon" type="image/x-icon" href="../images/favicon.png" />
+    <script src="/JS/backoffice.js" defer></script>
+    <script src="/JS/listadoTickets.js" defer></script>
+    <script src="/JS/buscadorTickets.js" defer></script>
+  </head>
+  <body>
+    <header class="header">
+      <div class="menu_container">
+        <!--<a class="logo" href="#">Gabinete de Curiosidades f.64 </a>-->
+        <a class="logo" href="../index.html"
+          ><img src="/images/diseño gabinete.png" alt="" />
+        </a>
+        <nav class="navbar">
+          <ul>
+            <li><a href="../desafios.html">desafío de la semana</a></li>
+            <li><a href="../historia.html">a & a</a></li>
+            <li><a href="../blog.html">blog & noticias</a></li>
+            <li><a href="../contacto.html">contacto</a></li>
+            <li>
+              <a href="#"
+                ><img src="/images/search.png" alt="Buscar" title="Buscar"
+              /></a>
+            </li>
+            <li>
+              <a href="../login.html"
+                ><img
+                  src="/images/user.png"
+                  alt="Login"
+                  title="Registrarse - Iniciar Sesión"
+              /></a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <section id="mainbackAdmin" class="mainbackAdmin">
+      <div class="tituloMainAdmin">
+        <h3>ABM - TICKETS Y REPORTES</h3>
+
+        <label for="buscadorTickets">| FILTRO POR ID/ USUARIO/ ADMIN / ESTADO /FECHA:</label>
+        <input id="buscadorTickets" type="text" placeholder="Buscar ticket" />
+
+        <div class="buttonABM">
+          <a href="adminMain.html" class="volverbtn"
+            >Volver al menú principal</a
+          >
+        </div>
+      </div>
+      <div class="ticket-lista">
+        <!-- FILA DE ENCABEZADO -->
+        <div class="fila-ticket fila-header">
+          <div>ID</div>
+          <div>CATEGORIA</div>
+          <div>TITULO</div>
+          <div>USUARIO</div>
+          <div>ADMIN</div>
+          <div>RESPUESTAS</div>
+          <div>ESTADO</div>
+          <div>FECHA CREACIÓN</div>
+          <div>ACCIONES</div>
+        </div>
+
+        <!-- TEMPLATE OCULTO -->
+        <template id="template-ticket">
+          <div class="fila fila-ticket">
+            <div class="id"></div>
+            <div class="categoria"></div>
+            <div class="titulo"></div>
+            <div class="usuario"></div>
+            <div class="admin"></div>
+            <div class="respuestas"></div>
+            <div class="estado"></div>
+            <div class="fecha"></div>
+
+            <div class="acciones">
+              <button class="ver">VER</button>
+              <button class="tomar">TOMAR</button>
+              <button class="cerrar">CERRAR</button>
+            </div>
+          </div>
+        </template>
+
+        <!-- CONTENEDOR -->
+        <div class="contenedorTickets">
+          <!-- acá se insertan las copias del template -->
+        </div>
+      </div>
+    </section>
+
+    <!-- TEMPLATE MODAL DETALLE TICKET -->
+    <section id="modalDetalleTicket" class="modalDetalle hidden">
+      <div class="modalContenido">
+        <div class="modalHeader">
+          <h3>Detalle del Ticket</h3>
+          <button class="cerrarModalBtn">❌</button>
+        </div>
+        <div class="modalBody">
+          <div class="detalleGrid">
+            <div>
+              <strong>Título:</strong> <span class="detalleTitulo"></span>
+            </div>
+            <div>
+              <strong>Categoría:</strong> <span class="detalleCategoria"></span>
+            </div>
+            <div>
+              <strong>Estado:</strong> <span class="detalleEstado"></span>
+            </div>
+            <div>
+              <strong>Fecha:</strong> <span class="detalleFecha"></span>
+            </div>
+            <div>
+              <strong>Usuario:</strong> <span class="detalleUsuario"></span>
+            </div>
+            <div>
+              <strong>Admin:</strong> <span class="detalleAdmin"></span>
+            </div>
+          </div>
+          <hr />
+          <div class="detalleTituloContainer">
+            <h4 class="detalle-titulo"></h4>
+          </div>
+          <div class="detalleDescripcionContainer">
+            <p class="detalleDescripcion"></p>
+          </div>
+          <div class="detalleEvidenciaContainer">
+            <a id="linkEvidencia" target="_blank">
+              <img class="detalleEvidencia" src="" alt="Evidencia" />
+            </a>
+          </div>
+          <hr />
+          <h4>Historial de actualizaciones</h4>
+          <div class="contenedorActualizaciones">
+            <!-- Aquí se insertan las respuestas dinámicamente -->
+          </div>
+          <h4>¿Necesita agregar actualizaciones?</h4>
+          <div class="contenedorAgregarActualizacion">    
+            <textarea class="nuevaActualizacion" placeholder="Escribe tu actualización aquí..."></textarea>
+            <button type="button"class="agregarActualizacionBtn">Agregar</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      <div class="link">
+        <p>Información Útil</p>
+        <a href="#">Sobre Nosotros</a>
+        <a href="#">Términos y Condiciones</a>
+        <a href="#">Contacto</a>
+        <a href="#">Soporte</a>
+      </div>
+
+      <div class="link">
+        <p>Recursos</p>
+        <a href="#">Técnicas de Fotografía</a>
+        <a href="#">Guía de Cámaras</a>
+        <a href="#">Comunidad Fotográfica</a>
+        <a href="#">Newsletter</a>
+      </div>
+
+      <div class="socials">
+        <p>Nuestras redes</p>
+        <div class="socialsIcons">
+          <img src="../images/footer/facebook.png" alt="Facebook" />
+          <img src="../images/footer/social.png" alt="Instagram" />
+          <img src="../images/footer/twitter.png" alt="Twitter" />
+        </div>
+      </div>
+
+      <div class="small">
+        <p>"Tus primeras 10.000 fotografías serán tus peores fotografías."</p>
+        <p>Henri Cartier-Bresson</p>
+
+        <small>
+          <p>Gabinete de Curiosidades F.64. Todos los derechos reservados.</p>
+          <p>2024. Buenos Aires,Argentina.</p></small
+        >
+      </div>
+    </div>
+  </body>
+</html>

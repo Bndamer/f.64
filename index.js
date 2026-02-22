@@ -50,6 +50,15 @@ app.use('/desafios', desafiosRouter);
 const usuariosdesafiosRouter = require('./routers/usuarios_desafios.router');
 app.use('/usuarios-desafios', usuariosdesafiosRouter);
 
+// Rutas para tickets (soporte y reportes)
+const ticketsRouter = require('./routers/tickets.router');
+app.use('/tickets', ticketsRouter);
+
+//Rutas para actualizaciones de tickets
+const actualizacionesRouter = require('./routers/updates.router');
+app.use('/updates', actualizacionesRouter);
+
+
 app.use(express.static(__dirname + "/public"));  //configuracion acceso a la carpeta public///
 
 app.use("/uploads", express.static(path.join(__dirname, "images/uploads")));

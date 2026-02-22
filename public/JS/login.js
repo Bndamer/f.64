@@ -28,9 +28,14 @@ document.getElementById('formLogin').addEventListener('submit', async (e) => {
          if (res.ok) {
             alert('Login exitoso');
 
+
             // Guardar token en localStorage si lo necesitás más adelante
             if (respuesta.token) {
                 localStorage.setItem('token', respuesta.token);
+                localStorage.setItem('userId', respuesta.id);
+
+                
+
             }
 
             // 🔥 Redirigir según si es admin o no
