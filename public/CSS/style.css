@@ -254,7 +254,7 @@ transition: 1s ease;
   gap: 100px;
 }
 
-.login, .register {
+.login, .register  {
   padding: 0 20px 40px 20px;
   font-size: 11px;
 }
@@ -290,6 +290,170 @@ fieldset{
   grid-column: span 2;
   justify-self: center; /* lo centra horizontalmente */
  }
+
+
+/*--------------------estilos para pagina desafios---------------------------*/
+
+.seccionDesafiosUsuarios{
+color: whitesmoke;
+}
+
+.cardDesafioUsuario {
+  display: flex;
+  gap: 30px;
+  background: linear-gradient(145deg, #1b1b1b, #111);
+  border-radius: 20px;
+  padding: 30px;
+  
+  box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+  transition: all 0.3s ease;
+}
+
+.cardDesafioUsuario:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 45px rgba(0,0,0,0.8);
+}
+
+.cardDesafioUsuario img {
+  width: 240px;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.badgeDesafio {
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 20px;
+  letter-spacing: 1px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.semanalBadge {
+  background: #1f8f4d;
+}
+
+.infoDesafio h3 {
+  font-size: 1rem;
+  margin: 10px 0;
+}
+
+.artistaReferencia {
+  font-style: italic;
+  opacity: 0.8;
+  margin-bottom: 10px;
+}
+
+.descripcionDesafio {
+  line-height: 1.6;
+  margin-bottom: 15px;
+  opacity: 0.9;
+}
+
+.detallesDesafio {
+  display: flex;
+  gap: 25px;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  opacity: 0.85;
+}
+
+.meta {
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.puntos {
+  color: #00d4ff;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.btnParticipar {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  background: #00d4ff;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btnParticipar:hover {
+  background: #00a8cc;
+  transform: scale(1.05);
+}
+.mensualBadge {
+  background: #4a1f8f;
+}
+
+.anualBadge {
+  background: #8f1f73;
+}
+
+ /*--------------------estilos para apartado de contacto en header---------------------------*/ 
+
+.seccion-contacto {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  gap: 20px;
+  color: rgb(255, 221, 255);
+  background: linear-gradient(145deg, #1b1b1b40, #111);
+  border-radius: 15px;
+}
+
+.contacto-formulario,
+.contacto-mapa {
+  width: 450px;
+  margin: 10px 30px 5px 30px;
+}
+
+.contacto-formulario h3 {
+  margin-bottom: 15px;
+}
+
+.formulario-contacto {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 20px 10px 20px 10px;
+}
+
+.formulario-contacto input,
+.formulario-contacto textarea {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.formulario-contacto button {
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 20px;
+  background: #00d4ff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.formulario-contacto button:hover {
+  background: #00a8cc;
+}
+
+.contacto-mapa h4 {
+  margin-bottom: 15px;
+}
+
+.info-sede {
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
 
 
 /*--------------------------------Responsive abajo----------------------------------*/

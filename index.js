@@ -58,6 +58,10 @@ app.use('/tickets', ticketsRouter);
 const actualizacionesRouter = require('./routers/updates.router');
 app.use('/updates', actualizacionesRouter);
 
+// Rutas para formulario contacto//
+const contactoRouter = require("./routers/contacto.router");
+app.use("/contacto", contactoRouter);
+
 
 app.use(express.static(__dirname + "/public"));  //configuracion acceso a la carpeta public///
 

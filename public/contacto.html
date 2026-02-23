@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="CSS/style.css" />
     <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
     <script src="JS/gridmain.js"></script>
+    <script src="JS/contactoForm.js" defer></script>
+    
   </head>
 
   <body>
@@ -40,10 +42,51 @@
       </div>
     </header>
 
-    <section class="">
-      <div class="">
-      </div>
-    </section>
+       <section class="seccion-contacto">
+
+  <!-- COLUMNA IZQUIERDA -->
+  <div class="contacto-formulario">
+
+    <h3>¡Contáctanos!</h3>
+
+    <p>
+      ¿Tenes alguna pregunta, sugerencia o simplemente quieres decir hola?
+      ¡Conta con el equipo de F.64!
+    </p>
+
+    <form class="formulario-contacto" id="formContacto">
+
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre completo">
+
+      <label for="email">Correo Electrónico:</label>
+      <input type="email" id="email" name="email" required placeholder="Tu correo electrónico">
+
+      <label for="mensaje">Mensaje:</label>
+      <textarea id="mensaje" name="mensaje" rows="5" required placeholder="Escribe tu mensaje aquí"></textarea>
+
+      <button type="submit" id="envioContacto">Enviar</button>
+
+    </form>
+  </div>
+
+  <!-- COLUMNA DERECHA -->
+  <div class="contacto-mapa">
+
+    <h4>Cursos y Charlas en nuestra sede!</h4>
+
+    <div class="info-sede">
+      <p><strong>Studio Lumen</strong></p>
+      <p>Av. de las Artes 2450</p>
+      <p>Buenos Aires, Argentina</p>
+      <p>📞 +54 11 4567-8900</p>
+    </div>
+
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3282.7804652120585!2d-58.437673000000004!3d-34.634987699999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccbb53b251301%3A0x707ae8ad104a507e!2sDe%20las%20Artes%202450%2C%20C1424BCH%20Cdad.%20Aut%C3%B3noma%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1771875612713!5m2!1ses!2sar" width="350" height="250" style="border-radius: 10px;;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+  </div>
+
+</section>
 
     <!--<hr />-->
 

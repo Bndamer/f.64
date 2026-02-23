@@ -1,16 +1,4 @@
- /*<section id="mainbackoffice">
-        <div>
-        <h3> ¡Bienvenido Lechuza Viajera!</h3>
-        <img class="avatarUser" src="../images/avatar-user/8.png" alt="">
-        </div>
-        <div class="menuMain">
-        <a class="itemuser" href=""><img class="imguser" src="../images/mainUser/perfil.jpg" alt="" /><span class="name">Perfil</span></a>
-        <a class="itemuser" href=""><img class="imguser" src="../images/mainUser/comunidad.jpg" alt="" /><span class="name">Comunidad</span></a>
-        <a class="itemuser" href=""><img class="imguser" src="../images/mainUser/desafios.jpg" alt="" /><span class="name">Progreso Desafíos</span></a>
-        <a class="itemuser" href=""><img class="imguser" src="../images/mainUser/migaleria.jpg" alt="" /><span class="name">Mi Galería</span></a>
-        </div>
-        <button id="logoutBtn">Cerrar Sesión</button>
-      </section>*/
+
 
       body {
             display: flex;
