@@ -62,6 +62,10 @@ app.use('/updates', actualizacionesRouter);
 const contactoRouter = require("./routers/contacto.router");
 app.use("/contacto", contactoRouter);
 
+// Rutas para galería
+const galeriaRouter = require("./routers/galeria.router");
+app.use("/galeria", galeriaRouter);
+
 
 app.use(express.static(__dirname + "/public"));  //configuracion acceso a la carpeta public///
 

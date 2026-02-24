@@ -19,8 +19,12 @@ document.addEventListener("DOMContentLoaded", () => {
     cargarSony();
   } else if (path.includes("canonnikon.html")) {
     cargarCanonNikon();
-  
-  } else {
+  } else if(path.includes("sony.html")){
+    cargarPorMarca("Sony");
+  } else if(path.includes("canonnikon.html")){
+    cargarPorMarca("Canon");
+    cargarPorMarca("Nikon");
+   } else {
     console.error("Página no reconocida para cargar datos dinámicos.");
   }
 });

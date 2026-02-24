@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
@@ -6,13 +6,14 @@
     <title>Mi galeria</title>
     <link rel="stylesheet" href="/CSS/style.css" />
     <link rel="stylesheet" href="/CSS/backofficeUser.css" />
-    <link rel="icon" type="image/x-icon" href="../images/favicon.png" />
+    <link rel="stylesheet" href="/CSS/modal.css" />
+    <link rel="icon" type="image/x-icon" href="./images/favicon.png" />
     <script src="/JS/backoffice.js" defer></script>
-    <script src="/JS/logout.js" defer></script>
-
+    <!--<script src="/JS/logout.js" defer></script>-->
+    <script src="/JS/galeriaUser.js" defer></script>
   </head>
   <body>
- <header class="header">
+    <header class="header">
       <div class="menu_container">
         <!--<a class="logo" href="#">Gabinete de Curiosidades f.64 </a>-->
         <a class="logo" href="../index.html"
@@ -42,8 +43,179 @@
       </div>
     </header>
 
+    <!-- SECCION GALERIA -->
+    <section class="galeriaUsuario">
+      <div class="headerGaleria">
+        <h2>Mi Galería</h2>
+        <div>
+          <button class="btnAbrirModalSubir">+ Subir Foto</button>
+          <button
+            class="btnVolver"
+            onclick="window.location.href = '../regularUser/backoffice.html'"
+          >
+            Volver
+          </button>
+        </div>
+      </div>
 
-    
+      <div class="gridGaleria">
+        <template id="cardGaleria">
+          <div class="cardGaleria">
+            <!-- Imagen principal -->
+            <div class="imagenContainer">
+              <img class="imagenGaleria" src="" alt="Fotografía del usuario" />
+            </div>
+
+            <!-- Información -->
+            <div class="infoGaleria">
+              <p class="descripcionFoto"></p>
+
+              <div class="equipoUsado">
+                <p class="camaraUsada"></p>
+                <p class="lenteUsado"></p>
+                <p class="tecnicasUsadas"></p>
+              </div>
+
+              <!-- Interacciones -->
+              <div class="interaccionesGaleria">
+                <div class="estadisticas">
+                  <button class="btnLike likesCount"><span>❤️0</span></button>
+                  <button class="btnComentarios"><span>💬 0</span></button>
+                </div>
+
+                <div class="accionesGaleria">
+                  <button class="btnPostularFoto">Postular a Desafio</button>
+                  <button class="btnEditarInfo">Editar Info</button>
+                  <button class="btnEliminarFoto">Eliminar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </section>
+
+    <!-- MODAL PARA SUBIR FOTO A LA GALERIA -->
+    <div id="modalSubirFoto" class="modalSubirFoto hidden">
+      <div class="modalContenido">
+        <button class="cerrarModalSubir">✖</button>
+        <h3>Subir nueva fotografía</h3>
+        <form id="formSubirFoto" class="formSubirFoto">
+          <!-- Imagen -->
+          <label for="imagenGaleria">Seleccionar imagen</label>
+          <input
+            type="file"
+            id="imagenGaleria"
+            name="imagenGaleria"
+            accept="image/*"
+            required
+          />
+          <!-- Descripción -->
+          <label for="descripcionGaleria">Descripción</label>
+          <textarea
+            id="descripcionGaleria"
+            name="descripcionGaleria"
+            rows="4"
+            placeholder="Describe tu fotografía..."
+          ></textarea>
+          <!-- Cámara usada -->
+          <label for="camaraUsadaSelect">Cámara utilizada</label>
+          <select id="camaraUsadaSelect" name="camaraUsada">
+            <option value="">Seleccionar cámara</option>
+          </select>
+          <!-- Lente usado -->
+          <label for="lenteUsadoSelect">Lente utilizado</label>
+          <select id="lenteUsadoSelect" name="lenteUsado">
+            <option value="">Seleccionar lente</option>
+          </select>
+          <!-- Técnicas -->
+          <label for="tecnicasUsadasSelect">Técnicas aplicadas</label>
+          <select id="tecnicasUsadasSelect" name="tecnicasUsadas" multiple>
+            <option value="">Seleccionar técnicas</option>
+          </select>
+          <button type="submit" class="btnPublicarFoto">
+            Publicar fotografía
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- MODAL EDITAR FOTO -->
+    <div id="modalEditarFoto" class="modal hidden">
+      <div class="modalContenido">
+        <button class="cerrarModalEditar">✖</button>
+        <h3>Editar información de la fotografía</h3>
+
+        <form id="formEditarFoto" class="formEditarFoto">
+          <!-- ID oculto -->
+          <input type="hidden" id="editIdGaleria" />
+
+          <!-- Imagen (opcional al editar) -->
+          <div class="infoImagenActual">
+            <p>Imagen :</p>
+            <img id="previewImagenActual" class="miniPreview" />
+          </div>
+
+          <!-- Descripción -->
+          <label for="editDescripcionGaleria">Descripción</label>
+          <textarea
+            id="editDescripcionGaleria"
+            name="descripcionGaleria"
+            rows="4"
+            placeholder="Editar descripción..."
+          ></textarea>
+
+          <!-- Cámara -->
+          <label for="editCamaraSelect">Cámara utilizada</label>
+          <select id="editCamaraSelect" name="camaraUsada">
+            <option value="">Seleccionar cámara</option>
+          </select>
+
+          <!-- Lente -->
+          <label for="editLenteSelect">Lente utilizado</label>
+          <select id="editLenteSelect" name="lenteUsado">
+            <option value="">Seleccionar lente</option>
+          </select>
+
+          <!-- Técnicas -->
+          <label for="editTecnicasSelect">Técnicas aplicadas</label>
+          <select
+            id="editTecnicasSelect"
+            name="tecnicasUsadas"
+            multiple
+          ></select>
+
+          <button type="submit" class="btnGuardarCambios">
+            Guardar cambios
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- MODAL COMENTARIOS -->
+    <div class="modalComentarios hidden">
+      <div class="modalContenidoComentarios">
+        <button class="cerrarModalComentarios">✖</button>
+        <h3>Comentarios</h3>
+        <div class="listaComentarios">
+          <!-- Comentario individual -->
+          <div class="comentarioItem">
+            <strong class="usuarioComentario">Usuario123</strong>
+            <p class="textoComentario">Excelente composición y uso de luz 👏</p>
+          </div>
+        </div>
+        <!-- Agregar comentario -->
+        <form class="formAgregarComentario">
+          <textarea
+            class="inputComentario"
+            placeholder="Escribe un comentario..."
+            rows="3"
+            required
+          ></textarea>
+          <button type="submit" class="btnEnviarComentario">Comentar</button>
+        </form>
+      </div>
+    </div>
 
     <div class="footer">
       <div class="link">
