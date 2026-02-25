@@ -123,7 +123,7 @@ fetch("http://localhost:3000/accesorios")
   
 
   const imagen = document.getElementById("nuevo-img").files[0];
-  if (imagen) formData.append("imagenAccesorio", imagen);
+  if (imagen) formData.append("imagenAccesorios", imagen);
 
   fetch("http://localhost:3000/accesorios", {
     method: "POST",

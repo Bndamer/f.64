@@ -26,7 +26,7 @@ const uploads =multer({
         };
         cb("Tipo de archivo no soportado");
     },
-    limits: {fileSize: 1024 * 1024 * 3}, //aprox es 3mb
+    limits: {fileSize: 5 * 1024 * 1024}, //aprox es 5mb
 });
 
 module.exports = uploads;
