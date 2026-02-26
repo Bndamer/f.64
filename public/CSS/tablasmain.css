@@ -217,3 +217,116 @@
     gap: 2px;
     color: rgb(176, 198, 223);
 }
+
+
+/* =========================  PÁGINAS SONY Y NIKON/CANON ========================= /**/
+
+.sony-page,.nikonCanon-page {
+  position: relative;
+  color: rgb(240, 240, 240);
+  width: 100%;
+  margin: 20px 30px 20px 30px;
+  background-image: url("/images/SONY/69.jpg");
+  background-size: cover;
+  background-position: center;
+  padding: 0px 30px;
+  z-index: 1;
+  border-radius: 20px;
+}
+
+/* Overlay oscuro */
+.sony-page::before,.nikonCanon-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9); /* ← ajustás opacidad acá */
+  z-index: -1;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.sony-hero,.marca-hero {
+  text-align: center;
+  margin: 100px 0 80px 0;
+}
+
+.sony-hero h1,.marca-hero h1 {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  letter-spacing: 2px;
+}
+
+.sony-hero p ,.marca-hero p {
+  font-size: 1.2rem;
+  color: #bbb;
+}
+
+/* =========================
+   BLOQUES EN CASCADA
+========================= */
+
+.sony-bloque ,.marca-bloque {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  margin: 100px 0;
+}
+
+.sony-bloque.reverse,.marca-bloque.reverse {
+  flex-direction: row-reverse;
+}
+
+.sony-texto,.marca-texto {
+  flex: 1;
+}
+
+.sony-texto h2,.marca-texto h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.sony-texto p,.marca-texto p {
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 15px;
+  color: #ccc;
+}
+
+.sony-imagen,.marca-imagen {
+  flex: 1;
+}
+
+.sony-imagen img,.marca-imagen img {
+  width: 100%;
+  border-radius: 12px;
+  transition: 0.4s ease;
+}
+
+/* Hover suave tecnológico */
+.sony-imagen img:hover,.marca-imagen img:hover {
+  transform: scale(1.03);
+}
+.textoder{
+    text-align: right;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+  .sony-bloque,.marca-bloque {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .sony-bloque.reverse,.marca-bloque.reverse {
+    flex-direction: column;
+  }
+
+  .sony-texto,.marca-texto {
+    margin-bottom: 30px;
+  }
+}
