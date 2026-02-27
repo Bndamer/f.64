@@ -66,6 +66,13 @@ app.use("/contacto", contactoRouter);
 const galeriaRouter = require("./routers/galeria.router");
 app.use("/galeria", galeriaRouter);
 
+// Rutas para inscripciones
+const inscripcionesRouter = require('./routers/inscripciones.router');
+app.use('/inscripciones', inscripcionesRouter);
+
+const evidenciasRouter = require('./routers/evidencia.router');
+app.use('/evidencias', evidenciasRouter);
+
 //Ruta para buscador principal
 const buscadorRouter = require("./routers/buscador.router");
 app.use("/search", buscadorRouter);
