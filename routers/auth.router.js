@@ -14,7 +14,8 @@ router.post('/login', controller.login);
 
 //// METODO GET ////
 router.get('/user/:id', authMiddleware, controller.showUser); // Obtiene la información del usuario//
-router.get('/user', authMiddleware, controller.showAllUser); // Obtiene la información del usuario//
+router.get('/user', authMiddleware, controller.showAllUser); // Obtiene la información de los usuarios//
+router.get("/users/comunidad", authMiddleware, controller.showUsersComunidad); // Obtiene la información de los usuarios para la comunidad//
 
 //// METODO PUT ////
 router.put('/user/:id',uploads.single('img_usuarios'), authMiddleware, controller.updateUser); // Actualiza la información del usuario//

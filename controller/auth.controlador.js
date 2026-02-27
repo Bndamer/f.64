@@ -492,6 +492,42 @@ const resetPasswordByAdmin = (req, res) => {
 };
 
 
+////////////////////////////////METODO GET ESPECIAL,SOLO TRAE LO ESENCIAL DE TODOS LOS USUARIOS REGISTRADOS SIN DATOS SENSIBLES PARA EL APARTADO COMUNIDAD./////////////
+const showUsersComunidad = (req, res) => {
+  const userId = req.userId; // viene del token
+
+  if (!userId) {
+    return res.status(400).send("No se obtuvo el userId.");
+  }
+
+  // Opcional: verificar que el usuario existe
+  db.query("SELECT * FROM usuarios WHERE idUsuario = ?", [userId], (error, results) => {
+    if (error) return res.status(500).send("Error al verificar usuario.");
+    if (results.length === 0) return res.status(404).send("Usuario no encontrado.");
+
+    // Solo traer usuarios comunes (esAdmin = 0)
+    db.query(
+      "SELECT idUsuario, aliasUsuario, nombreCompletoUsuario, img_usuarios FROM usuarios WHERE esAdmin = 0",
+      (err, users) => {
+        if (err) return res.status(500).send("Error al obtener usuarios de comunidad.");
+
+        const userResponses = users.map(u => ({
+          id: u.idUsuario,
+          alias: u.aliasUsuario,
+          nombre: u.nombreCompletoUsuario,
+          fotoPerfil: u.img_usuarios
+        }));
+
+        res.status(200).send({
+          count: userResponses.length,
+          users: userResponses,
+          message: "Usuarios de comunidad obtenidos con éxito."
+        });
+      }
+    );
+  });
+};
+
 
 
 
@@ -504,5 +540,6 @@ module.exports = {
   deleteUser,
   UpdateOneParameterUser,
   changePassword,
-  resetPasswordByAdmin
+  resetPasswordByAdmin,
+  showUsersComunidad
 };

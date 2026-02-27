@@ -108,3 +108,5 @@ app.get("/auth/status", (req, res) => {
   }
 
 });
+ ///acceso a las imagenes de la galeria para el carrusel de las tarjetas de comunidad/////////
+app.use("/galeria", express.static(path.join(__dirname, "images/galeria")));

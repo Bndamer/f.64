@@ -11,12 +11,13 @@
     <script src="/JS/logout.js" defer></script>
    <script src="/JS/statusUser.js" defer></script>
     <script src="/JS/buscadorPrincipal.js" defer></script>
+    <script src="/JS/comunidad.js" defer></script>
       </head>
 <body>
   <header class="header" id="header-container">
       <div class="menu_container">
         <!--<a class="logo" href="#">Gabinete de Curiosidades f.64 </a>-->
-        <a class="logo" href="index.html"
+        <a class="logo" href="/index.html"
           ><img src="../images/diseño gabinete.png" alt="" />
         </a>
         <nav class="navbar">
@@ -68,7 +69,19 @@
       </div>
     </header>
 
+<div id="comunidad-container">
+  <div class="buscadorComunidad">
+  <h4>Buscador de Usuarios</h4>
+  <input type="text" id="buscarUsuario" placeholder="Buscar usuario...">
+  </div>
+  <div id="listaUsuarios" class="cards-container"></div>
+</div>
 
+<!-- Modal para carrusel -->
+<div id="modalCarrusel" class="modal">
+  <span class="cerrar">&times;</span>
+  <div class="carrusel"></div>
+</div>
     
 
     <div class="footer">
