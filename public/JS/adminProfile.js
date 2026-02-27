@@ -1,3 +1,5 @@
+(() => { ////encierro las variables para que no se mezclen con otras partes del código donde si tengo declaras el token tmb///
+
 const token = localStorage.getItem("token");
 const userId = localStorage.getItem("userId");
 
@@ -73,3 +75,5 @@ fetch(`http://localhost:3000/auth/user/${userId}`, {
         alert("No se pudo actualizar el perfil");
       });
   });
+
+})();

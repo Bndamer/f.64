@@ -66,6 +66,10 @@ app.use("/contacto", contactoRouter);
 const galeriaRouter = require("./routers/galeria.router");
 app.use("/galeria", galeriaRouter);
 
+//Ruta para buscador principal
+const buscadorRouter = require("./routers/buscador.router");
+app.use("/search", buscadorRouter);
+
 
 app.use(express.static(__dirname + "/public"));  //configuracion acceso a la carpeta public///
 
@@ -88,3 +92,19 @@ app.use("/auth", require("./routers/auth.router"));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
+
+
+
+///////status user///////
+app.get("/auth/status", (req, res) => {
+
+  if (req.session && req.session.usuario) {
+    res.json({
+      logueado: true,
+      rol: req.session.usuario.rol
+    });
+  } else {
+    res.json({ logueado: false });
+  }
+
+});

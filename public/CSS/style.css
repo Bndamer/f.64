@@ -215,6 +215,43 @@ transition: 1s ease;
   gap: 5px;
 }
 
+
+/*----------------BUSCADOR DEL HEADER-------------------*/ 
+
+/* CONTENEDOR */
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* INPUT OCULTO */
+.search-container input {
+  width: 0;
+  opacity: 0;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 20px;
+  outline: none;
+  transition: 0.4s ease;
+  background: #111;
+  color: white;
+}
+
+/* BOTÓN LUPA */
+.search-container button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* ESTADO ACTIVO */
+.search-container.active input {
+  width: 200px;
+  opacity: 1;
+  margin-right: 10px;
+}
+
 /***********CSS del listado de camaras*************************/
 .listadoCamaras {
   display:block;
@@ -677,6 +714,130 @@ color: whitesmoke;
 
 .lista-articulos a:hover {
   border-bottom: 1px solid white;
+}
+
+
+/*ESTILOS PARA SEARCH.HTML LOS RESULTADOS DEL BUSCADOR PRINCIPAL*/
+
+/* Sección general */
+.resultados {
+  width: 90%;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+
+/* Título */
+.resultados h2 {
+  font-size: 28px;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 10px;
+  font-weight: 600;
+  color:#ddd
+}
+
+/* Contenedor en grid */
+#contenedorResultados {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+/* Card individual */
+#contenedorResultados div {
+  background: #00000063;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+  border-style: solid;
+  border: 1px solid #ffffff;
+}
+
+/* Hover efecto */
+#contenedorResultados div:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* Título del resultado */
+#contenedorResultados h3 {
+  font-size: 18px;
+  margin: 0;
+}
+
+/* Link */
+#contenedorResultados a {
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+#contenedorResultados a:hover {
+  color: #0077ff;
+}
+.tipo {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #d3d3d3;
+  letter-spacing: 1px;
+}
+
+
+/* ------------cambio de color en icono usuario,si esta loggeado o no,verde para usuario comun y */
+
+.usuario-activo {
+  filter: brightness(0) saturate(100%) invert(35%) sepia(90%) saturate(600%) hue-rotate(90deg);
+}
+
+.admin-activo {
+  filter: brightness(80%) saturate(100%) invert(20%) sepia(90%) saturate(600%) hue-rotate(0deg);
+}
+
+
+
+/*---------------------- CSS DEL DROPDOUWN /MINI MENU QUE APARECE CUANDO ESTOY LOGGEADO------------*/
+
+.user-menu {
+  position: relative;
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 45px;
+  right: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  list-style: none;
+  padding: 10px 0;
+  min-width: 160px;
+  z-index: 999;
+}
+.user-menu > .dropdown {
+  display: none;
+}
+.user-menu > .dropdown.active {
+  display: block;
+}
+
+.dropdown li {
+  padding: 8px 15px;
+}
+
+.dropdown li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+}
+
+.dropdown li:hover {
+  background-color: #f2f2f2;
+}
+
+.dropdown.active {
+  display: block;
 }
 
 

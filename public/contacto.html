@@ -8,11 +8,13 @@
     <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
     <script src="JS/gridmain.js"></script>
     <script src="JS/contactoForm.js" defer></script>
+        <script src="JS/buscadorPrincipal.js" defer></script>
+    <script src="JS/statusUser.js" defer></script>
     
   </head>
 
   <body>
-    <header class="header">
+  <header class="header" id="header-container">
       <div class="menu_container">
         <!--<a class="logo" href="#">Gabinete de Curiosidades f.64 </a>-->
         <a class="logo" href="index.html"
@@ -20,24 +22,49 @@
         </a>
         <nav class="navbar">
           <ul>
-            <li><a href="./desafios.html"title="Pon a prueba tus Habilidades">desafío de la semana</a></li>
-            <li><a href="./historia.html" title="Historia & Artistas">h & a</a></li>
-            <li><a href="./blog.html" title="Mantenete Informado">blog & noticias</a></li>
-            <li><a href="./contacto.html" title="Contacto">contacto</a></li>
-            <li>
-              <a href="#"
-                ><img src="images/search.png" alt="Buscar" title="Buscar"
-              /></a>
-            </li>
-            <li>
-              <a href="login.html"
-                ><img
-                  src="images/user.png"
-                  alt="Login"
-                  title="Registrarse - Iniciar Sesión"
-              /></a>
-            </li>
-          </ul>
+  <li>
+    <a href="./desafios.html" title="Pon a prueba tus Habilidades">Desafios</a>
+  </li>
+
+  <li>
+    <a href="./historia.html" title="Historia & Artistas">Historia Artistas</a>
+  </li>
+
+  <li>
+    <a href="./blog.html" title="Mantenete Informado">Noticias Blog</a>
+  </li>
+
+  <li>
+    <a href="./contacto.html" title="Contacto">Contacto</a>
+  </li>
+
+  <!-- 🔎 Buscador -->
+  <li class="search-item">
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Buscar..." />
+      <button id="searchBtn">
+        <img src="/images/search.png" alt="Buscar">
+      </button>
+    </div>
+  </li>
+
+  <!-- 👤 Usuario -->
+  <li class="user-menu">
+    <a href="login.html" id="loginLink">
+      <img
+        src="images/user.png"
+        alt="Login"
+        title="Mi cuenta"
+        id="loginIcon"
+      />
+    </a>
+
+    <ul class="dropdown" id="userDropdown">
+      <li><a href="#" id="miCuentaBtn">Mi cuenta</a></li>
+      <li><a href="#" id="logoutBtn">Cerrar sesión</a></li>
+    </ul>
+  </li>
+</ul>
         </nav>
       </div>
     </header>

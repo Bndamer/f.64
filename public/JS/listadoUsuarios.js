@@ -1,3 +1,5 @@
+(() => {
+
 // MODALES
 function abrirModal(id, usuarioId = null) {
   const modal = document.getElementById(id);
@@ -184,3 +186,4 @@ fetch("http://localhost:3000/auth/user", {
     });
 });
 
+})();

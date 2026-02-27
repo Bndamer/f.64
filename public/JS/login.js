@@ -33,6 +33,7 @@ document.getElementById('formLogin').addEventListener('submit', async (e) => {
             if (respuesta.token) {
                 localStorage.setItem('token', respuesta.token);
                 localStorage.setItem('userId', respuesta.id);
+                localStorage.setItem('esAdmin', respuesta.esAdmin);
 
                 
 

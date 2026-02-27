@@ -73,18 +73,7 @@
     justify-content: center;
     gap: 80px;
 }
-#logoutBtn {
-  align-self: flex-end;
-  margin-right: 30px;
-  width: auto;
-  padding: 5px 10px;
-  font-size: 14px;
-  background-color: #ff5757;
-  color: #fff;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-}
+
 .itemadmin:hover {
     transform: scale(1.05);
     transition: transform 0.3s ease;
