@@ -10,8 +10,11 @@ const controller =require("../controller/desafios.controlador");
 //para tooos los accesorio//
 router.get('/',controller.allChallenge);
 
-//para un producto,item o accesorio en mi caso
+//para un desafio en mi caso
 router.get('/:id',controller.showChallenge);
+
+//para desafios disponibles, es decir, aquellos que no tengan una inscripción activa para el usuario
+router.get('/disponibles/:id', controller.selectedChallenge);
 //METODO POST//
 router.post('/', controller.storeChallenge);
 

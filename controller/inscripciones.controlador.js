@@ -83,19 +83,21 @@ const newInscripcion = (req, res) => {
     const { idUsuario, idDesafio } = req.body;
 
     const sql = `
-        INSERT INTO inscripciones (idUsuario, idDesafio)
+        INSERT INTO inscripciones (fkUsuario, fkDesafio)
         VALUES (?, ?)
     `;
 
     db.query(sql, [idUsuario, idDesafio], (error, result) => {
 
         if (error) {
-            // error 1062 = duplicate entry (por UNIQUE)
+
+            console.log("ERROR SQL:", error);
+
             if (error.code === "ER_DUP_ENTRY") {
                 return res.status(400).json({ error: "El usuario ya está inscrito en este desafío" });
             }
 
-            return res.status(500).json({ error: "ERROR: Intente más tarde por favor" });
+            return res.status(500).json({ error: error.message });
         }
 
         res.status(201).json({
@@ -114,7 +116,7 @@ const newInscripcion = (req, res) => {
 const misDesafios = (req, res) => {
 
     const { idUsuario } = req.params;
-    const { estado } = req.query; // opcional
+    const { estado } = req.query;
 
     let sql = `
         SELECT 
@@ -132,8 +134,8 @@ const misDesafios = (req, res) => {
             d.fechaCreacion
 
         FROM inscripciones i
-        INNER JOIN desafios d ON i.idDesafio = d.idDesafio
-        WHERE i.idUsuario = ?
+        INNER JOIN desafios d ON i.fkDesafio = d.idDesafio
+        WHERE i.fkUsuario = ?
     `;
 
     const values = [idUsuario];
@@ -146,6 +148,7 @@ const misDesafios = (req, res) => {
     db.query(sql, values, (error, rows) => {
 
         if (error) {
+            console.log(error); // 👈 importante para debug
             return res.status(500).json({ error: "ERROR: Intente más tarde por favor" });
         }
 

@@ -5,18 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Perfil</title>
     <link rel="stylesheet" href="/CSS/style.css" />
-    <link rel="stylesheet" href="/CSS/backofficeAdmin.css" />
+    <link rel="stylesheet" href="/CSS/backofficeUser.css" />
     <link rel="icon" type="image/x-icon" href="../images/favicon.png" />
     <script src="/JS/backoffice.js" defer></script>
     <script src="/JS/logout.js" defer></script>
     <script src="/JS/statusUser.js" defer></script>
     <script src="/JS/buscadorPrincipal.js" defer></script>
+    <script src="/JS/progresoDesafios.js" defer></script>
       </head>
 <body>
   <header class="header" id="header-container">
       <div class="menu_container">
         <!--<a class="logo" href="#">Gabinete de Curiosidades f.64 </a>-->
-        <a class="logo" href="index.html"
+        <a class="logo" href="/index.html"
           ><img src="../images/diseño gabinete.png" alt="" />
         </a>
         <nav class="navbar">
@@ -68,7 +69,48 @@
       </div>
     </header>
 
-    
+<main class="progreso-desafios">
+
+  <!-- RESUMEN -->
+  <section class="resumen-usuario">
+    <h1>Mis Desafíos</h1>
+    <div class="stats">
+      <div>Activos: <span id="totalActivos">0</span></div>
+      <div>Completados: <span id="totalCompletados">0</span></div>
+      <div>Puntos: <span id="totalPuntos">0</span></div>
+    </div>
+  </section>
+
+  <!-- FILTROS -->
+  <section class="filtros-estado">
+    <button data-estado="todos" class="filtro activo">Todos</button>
+    <button data-estado="activo" class="filtro">Activos</button>
+    <button data-estado="completado" class="filtro">Completados</button>
+    <button data-estado="abandonado" class="filtro">Abandonados</button>
+  </section>
+
+  <!-- DESAFÍOS DISPONIBLES --> 
+  <section class="lista-desafios" id="listaDesafios"></section>
+
+  <section class="section-disponibles">
+    <h2>Desafíos disponibles</h2>
+    <section class="lista-disponibles" id="listaDisponibles"></section>
+  </section>
+
+  <!-- PANEL EVIDENCIAS -->
+  <section class="panel-evidencias hidden" id="panelEvidencias">
+    <button id="cerrarPanel">✖</button>
+    <h3 id="tituloDesafio"></h2>
+    <div id="listaEvidencias"></div>
+
+    <form id="formEvidencia">
+      <input type="file" name="evidencia" required />
+      <textarea name="descripcion" placeholder="Descripción opcional"></textarea>
+      <button type="submit">Subir Evidencia</button>
+    </form>
+  </section>
+
+</main>
 
     <div class="footer">
       <div class="link">

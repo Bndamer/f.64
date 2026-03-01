@@ -26,10 +26,39 @@ const allChallenge = (req, res) => {
 };
 
 
+///////////////////////////////////////////////////////////////////////
+//////////////METODO GET/////// consultar todas los desafios que no tengan inscripcion activa,get especial para desafios disponibles en progreso desafios///////////
+const selectedChallenge = (req, res) => {
+
+    const { id } = req.params; //
+
+    const sql = `SELECT * 
+    FROM desafios 
+    WHERE idDesafio NOT IN (
+        SELECT fkDesafio 
+        FROM inscripciones 
+        WHERE fkUsuario = ?
+        AND estado IN ('pendiente', 'en progreso')
+    )
+`;
+
+    db.query(sql, [id], (error, rows) => {
+
+        if (error) {
+            console.log(error); // para debug
+            return res.status(500).json({ error: "ERROR: Intente más tarde por favor" });
+        }
+
+        res.json(rows);
+    });
+};
+
+
+
 
 
 /////////////////////////////////////////////////////////////////////////
-//////////////METODO GET///////consultar una cámara especifica//////////
+//////////////METODO GET///////consultar un desafio especifico//////////
 
 const showChallenge = (req, res) => {
     const { id } = req.params; // Extrae el ID de los parámetros de la solicitud
@@ -114,5 +143,6 @@ module.exports={
     showChallenge,
     storeChallenge,
     updateChallenge,
-    destroyChallenge
+    destroyChallenge,
+    selectedChallenge
 };
