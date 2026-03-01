@@ -98,8 +98,11 @@ app.post("/api/register", uploads.single("img_usuarios"), register);
 app.use("/auth", require("./routers/auth.router"));
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
 
+app.listen(PORT, () => {
+  console.log("Servidor corriendo en puerto " + PORT);
+  console.log("http://localhost:3000")
+});
 
 
 ///////status user///////
