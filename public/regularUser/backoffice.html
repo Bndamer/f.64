@@ -109,6 +109,38 @@
     </div>
 </div>
 
+<!-- Modal para ver consultas -->
+<!-- Modal para ver consultas -->
+<div id="modalConsultasContainer" class="modal" style="display:none;">
+  <div class="modal-content">
+    <span id="cerrarConsultas" class="close">&times;</span>
+    <h3>Mis Consultas</h3>
+    <div id="consultasList">
+      <!-- Aquí se cargarán los tickets y sus respuestas -->
+    </div>
+  </div>
+</div>
+
+<!-- Template de cada ticket -->
+<template id="templateConsulta">
+  <div class="ticket-item">
+    <div><strong>ID:</strong> <span class="ticketId"></span></div>
+    <div><strong>Categoria:</strong> <span class="categoria"></span></div>
+    <div><strong>Titulo:</strong> <span class="titulo"></span></div>
+    <div><strong>Estado:</strong> <span class="estado"></span></div>
+    <div><strong>Fecha:</strong> <span class="fecha"></span></div>
+
+    <div class="contenedorActualizaciones">
+      <!-- Actualizaciones aparecerán aquí -->
+    </div>
+
+    <!-- Formulario para responder -->
+    <textarea class="respuestaInput" placeholder="Escribe tu respuesta..."></textarea>
+    <button class="responderBtn">Responder</button>
+    <hr>
+  </div>
+</template>
+
 
     <div class="footer">
       <div class="link">

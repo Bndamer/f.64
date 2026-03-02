@@ -121,6 +121,75 @@ const showTicket = (req, res) => {
     });
 };
 
+
+// GET todos los tickets de un usuario con sus actualizaciones
+const getTicketsByUser = (req, res) => {
+    const { idUsuario } = req.params;
+
+    if (!idUsuario) {
+        return res.status(400).json({ error: "Falta el ID del usuario" });
+    }
+
+    // Traemos los tickets del usuario
+    const sqlTickets = `
+        SELECT 
+            t.idTicket,
+            t.categoriaTicket,
+            t.tituloTicket,
+            t.descripcionTicket,
+            t.evidenciaTicket,
+            t.datetimeCreacionTicket,
+            t.idUsuarioCreadorTicket,
+            t.idAdminAsignado,
+            t.estadoTicket
+        FROM tickets t
+        WHERE t.idUsuarioCreadorTicket = ?
+        ORDER BY t.datetimeCreacionTicket DESC
+    `;
+
+    db.query(sqlTickets, [idUsuario], (error, tickets) => {
+        if (error) {
+            console.error(error);
+            return res.status(500).json({ error: "Error al traer tickets" });
+        }
+
+        if (tickets.length === 0) {
+            return res.json([]); // no hay tickets
+        }
+
+        // Por cada ticket, traemos sus actualizaciones
+        let ticketsConUpdates = [];
+        let pendientes = tickets.length;
+
+        tickets.forEach(ticket => {
+            const sqlUpdates = `
+                SELECT ta.idActualizacion, ta.mensajeActualizacion, ta.fechaHoraActualizacion, u.aliasUsuario
+                FROM ticket_actualizaciones ta
+                JOIN usuarios u ON ta.fkUsuarioAutor = u.idUsuario
+                WHERE ta.fkTicket = ?
+                ORDER BY ta.fechaHoraActualizacion ASC
+            `;
+
+            db.query(sqlUpdates, [ticket.idTicket], (err, updates) => {
+                if (err) {
+                    console.error(err);
+                    ticket.updates = [];
+                } else {
+                    ticket.updates = updates;
+                }
+
+                ticketsConUpdates.push(ticket);
+                pendientes--;
+
+                // Cuando terminan de consultarse todos los tickets, devolvemos JSON
+                if (pendientes === 0) {
+                    res.json(ticketsConUpdates);
+                }
+            });
+        });
+    });
+};
+
 ////////////////////////////////////////////////////////////
 //////////////////// METODO POST ///////////////////////////
 
@@ -378,5 +447,6 @@ module.exports = {
     cerrarTicket,
     destroyTicket,
     addUpdate,
-    getUpdatesByTicket
+    getUpdatesByTicket,
+    getTicketsByUser
 };

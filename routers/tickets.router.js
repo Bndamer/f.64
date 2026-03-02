@@ -19,8 +19,11 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-///////////////////////////////////////////////////////////
+
 ///////////////////// TICKETS /////////////////////////////
+
+// GET todos los tickets de un usuario **antes que el /:id**
+router.get('/user/:idUsuario', controller.getTicketsByUser);
 
 // GET - todos los tickets (backoffice admin)
 router.get('/', controller.allTickets);
@@ -34,11 +37,9 @@ router.post('/:idUsuarioCreador', upload.single("evidencia"), controller.storeTi
 // PUT - actualizar ticket (admin)
 router.put('/:id', controller.updateTicket);
 
-//PUT - tomar y cerrar ticket (admin)
+// PUT - tomar y cerrar ticket (admin)
 router.put('/:id/cerrar', controller.cerrarTicket);
-router.put('/:id/tomar', controller.tomarTicket);   
-
-
+router.put('/:id/tomar', controller.tomarTicket);
 
 // DELETE - eliminar ticket (admin)
 router.delete('/:id', controller.destroyTicket);
