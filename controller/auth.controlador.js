@@ -56,65 +56,49 @@ const register = (req, res) => {
 
       // Verificar si el alias ya existe
       db.query(
-        "SELECT * FROM usuarios WHERE aliasUsuario = ?",
-        [aliasUsuario],
-        (error, existingAlias) => {
-          if (error) {
-            console.error(error);
-            return res
-              .status(500)
-              .send("Hubo un problema verificando si el alias ya existe.");
-          }
+  "SELECT * FROM usuarios WHERE DniUsuario = ?",
+  [DniUsuario],
+  (error, existingDni) => {
+    if (error) {
+      console.error(error);
+      return res.status(500).send("Hubo un problema verificando el DNI.");
+    }
 
-          if (existingAlias.length > 0) {  //verifica que el alias no este en eso
-            return res
-              .status(400)
-              .send("El alias ya está en uso, por favor elija otro.");
-          }
+    if (existingDni.length > 0) {
+      return res.status(400).send("Ya existe un usuario registrado con el DNI ingresado.");
+    }
 
-          
+    // --- Si todo OK: encriptar contraseña e insertar ---
+    const hash = bcrypt.hashSync(password, 8);
 
-
-          console.log("mail que llego:", emailUsuario); // Verifica el email recibido
-          console.log("Contraseña que llegó:", password); //verifica contraseña recibida
-
-          // Encriptar la contraseña
-          const hash = bcrypt.hashSync(password, 8);
-
-          // Insertar el nuevo usuario en la base de datos con su alias y email
-          db.query(
-            "INSERT INTO usuarios (emailUsuario, aliasUsuario, DniUsuario, nombreCompletoUsuario, ultimologeoUsuario, passwordUsuario, img_usuarios ) VALUES (?, ?, ?, ?, ?, ?,?)",
-            [
-              emailUsuario,
-              aliasUsuario,
-              DniUsuario,
-              nombreCompletoUsuario,
-              null, //ultimo logeo no se establece al registrarse
-              hash, //contraseña encriptada
-              imagenAsubir //nombre de la imagen
-            ],
-            (error, result) => {
-              if (error) {
-                console.error(error);
-                return res
-                  .status(500)
-                  .send("Hubo un problema registrando, reintente.");
-              }
-
-              // Generar el token JWT
-              const token = jwt.sign(
-                { id: result.insertId },
-                process.env.SECRET_KEY, // Clave secreta del entorno
-                {
-                  expiresIn: "2h", //expiracion del token,2 horas.
-                }
-              );
-
-              res.status(201).send({ auth: true, token, id: result.insertId }); //en postman,aparecera respuesta exitosa si todo sale bien.
-            }
-          );
+    db.query(
+      "INSERT INTO usuarios (emailUsuario, aliasUsuario, DniUsuario, nombreCompletoUsuario, ultimologeoUsuario, passwordUsuario, img_usuarios ) VALUES (?, ?, ?, ?, ?, ?, ?)",
+      [
+        emailUsuario,
+        aliasUsuario,
+        DniUsuario,
+        nombreCompletoUsuario,
+        null,
+        hash,
+        imagenAsubir
+      ],
+      (error, result) => {
+        if (error) {
+          console.error(error);
+          return res.status(500).send("Hubo un problema registrando, reintente.");
         }
-      );
+
+        const token = jwt.sign(
+          { id: result.insertId },
+          process.env.SECRET_KEY,
+          { expiresIn: "2h" }
+        );
+
+        res.status(201).send({ auth: true, token, id: result.insertId });
+      }
+    );
+  }
+);
     }
   );
 };

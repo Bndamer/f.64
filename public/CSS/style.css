@@ -919,3 +919,115 @@ color: whitesmoke;
         margin-bottom: 25px;
     }
   /*}
+
+  /* Contenedor principal */
+.terminos-container {
+  max-width: 800px;        /* Ancho cómodo de lectura */
+  margin: 40px auto;       /* Centrado en la página */
+  padding: 30px 40px;      /* Espaciado interno */
+  background-color: #a18d5d;
+  border-radius: 10px;     /* Bordes redondeados */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  font-family: 'Helvetica Neue', Arial, sans-serif; /* Tipografía clara */
+  color: #ffffff;             /* Letras oscuras pero suaves */
+  line-height: 1.6;        /* Espaciado entre líneas */
+}
+
+/* Título */
+.terminos-container h2 {
+  font-size: 1.8rem;
+  text-align: center;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+/* Párrafo inicial */
+.terminos-container p {
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+/* Lista de términos */
+.terminos-container ul {
+  list-style: none; /* Quitamos los bullets por defecto */
+  padding-left: 0;
+}
+
+.terminos-container ul li {
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 15px;
+  font-size: 0.98rem;
+}
+
+/* Creamos un bullet personalizado */
+.terminos-container ul li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #555; /* Bullet un poco más claro que el texto */
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+/* Contenedor principal de Sobre Nosotros */
+.sobre-nosotros {
+  background-color: #f5f5f5cb;
+  padding: 60px 20px;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  color: #111111;
+  border-radius: 20px;
+}
+
+/* Contenido flex: texto a la izquierda, imagen a la derecha */
+.sobre-nosotros-contenido {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+/* Texto */
+.sobre-nosotros .texto {
+  flex: 1 1 500px;
+}
+
+.sobre-nosotros .texto h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+.sobre-nosotros .texto p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+/* Imagen */
+.sobre-nosotros .imagen {
+  flex: 1 1 400px;
+  text-align: center;
+}
+
+.sobre-nosotros .imagen img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Responsive: en móviles el texto y la imagen van apilados */
+@media (max-width: 768px) {
+  .sobre-nosotros-contenido {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .sobre-nosotros .texto, 
+  .sobre-nosotros .imagen {
+    flex: 1 1 100%;
+  }
+}
