@@ -125,13 +125,14 @@ const showTicket = (req, res) => {
 //////////////////// METODO POST ///////////////////////////
 
 const storeTicket = (req, res) => {
+    const { categoria, titulo, descripcion } = req.body;
 
-    const {
-        categoria,
-        titulo,
-        descripcion,
-        idUsuarioCreador
-    } = req.body;
+    // Tomamos el id del usuario desde params (demo)
+    const { idUsuarioCreador } = req.params;
+
+    if (!idUsuarioCreador) {
+        return res.status(400).json({ error: "Falta el id del usuario creador" });
+    }
 
     const evidencia = req.file?.filename || null;
 
@@ -141,16 +142,9 @@ const storeTicket = (req, res) => {
         VALUES (?, ?, ?, ?, ?)
     `;
 
-    const values = [
-        categoria,
-        titulo,
-        descripcion,
-        evidencia,
-        idUsuarioCreador
-    ];
+    const values = [categoria, titulo, descripcion, evidencia, idUsuarioCreador];
 
     db.query(sql, values, (error, result) => {
-
         if (error) {
             console.error(error);
             return res.status(500).json({ error: "ERROR al crear el ticket" });
@@ -162,6 +156,7 @@ const storeTicket = (req, res) => {
         });
     });
 };
+
 
 ////////////////////////////////////////////////////////////
 //////////////////// METODO PUT ////////////////////////////

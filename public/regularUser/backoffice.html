@@ -79,7 +79,36 @@
         <a class="itemuser" href="progreso.html"><img class="imguser" src="../images/mainUser/desafios.jpg" alt="" /><span class="name">PROGRESO DESAFÍOS</span></a>
         <a class="itemuser" href="galeria.html"><img class="imguser" src="../images/mainUser/migaleria.jpg" alt="" /><span class="name">MI GALERÍA</span></a>
         </div>
+        <div class="backoffice-buttons">
+    <button id="btnHacerConsulta">Hacer Consulta</button>
+    <button id="btnVerConsultas">Ver Mis Consultas</button>
+</div>
       </section>
+
+<!-- Modal formulario oculto inicialmente -->
+<div id="formConsultaContainer" class="modal" style="display:none;">
+    <div class="modal-content">
+        <span id="cerrarFormulario" class="close">&times;</span>
+        <h3>Crear Consulta</h3>
+        <form id="formConsulta" enctype="multipart/form-data">
+            <label for="categoria">Categoría:</label>
+            <input type="text" id="categoria" name="categoria" required>
+
+            <label for="titulo">Título:</label>
+            <input type="text" id="titulo" name="titulo" required>
+
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" name="descripcion" required></textarea>
+
+            <label for="evidencia">Evidencia (opcional):</label>
+            <input type="file" id="evidencia" name="evidencia">
+
+            <button type="submit">Enviar Consulta</button>
+        </form>
+        <div id="mensaje"></div>
+    </div>
+</div>
+
 
     <div class="footer">
       <div class="link">

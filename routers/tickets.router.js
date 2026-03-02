@@ -29,7 +29,7 @@ router.get('/', controller.allTickets);
 router.get('/:id', controller.showTicket);
 
 // POST - crear ticket (usuario común)
-router.post('/', upload.single("evidencia"), controller.storeTicket);
+router.post('/:idUsuarioCreador', upload.single("evidencia"), controller.storeTicket);
 
 // PUT - actualizar ticket (admin)
 router.put('/:id', controller.updateTicket);
