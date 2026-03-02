@@ -626,3 +626,195 @@
     border-radius: 3px;
     font-size: 13px;
 }
+
+
+/**************************RESPONSIVE **************/
+
+/* ===================================
+   RESPONSIVE USUARIO COMÚN
+=================================== */
+
+/* --------------------- General --------------------- */
+@media (max-width: 1200px) {
+  body {
+    flex-direction: column;
+    align-items: center;
+  }
+  .mainbackoffice {
+    width: 90%;
+    height: auto;
+    padding: 20px;
+  }
+  .tituloMainUser {
+    font-size: 13px;
+    gap: 8px;
+    padding-left: 20px;
+  }
+  .imguser {
+    width: 180px;
+    height: 180px;
+  }
+  .menuMain {
+    gap: 50px;
+    flex-wrap: wrap;
+  }
+}
+
+/* --------------------- Tablets --------------------- */
+@media (max-width: 992px) {
+  .mainbackoffice {
+    width: 95%;
+    height: auto;
+  }
+  .imguser {
+    width: 150px;
+    height: 150px;
+  }
+  .avatarUser {
+    width: 40px;
+    height: 40px;
+  }
+  .itemuser {
+    width: 150px;
+  }
+  .itemuser .name {
+    font-size: 9px;
+  }
+  .itemuser .notificacion {
+    width: 18px;
+    height: 18px;
+    font-size: 16px;
+  }
+  .menuMain {
+    gap: 30px;
+  }
+}
+
+/* --------------------- Móviles --------------------- */
+@media (max-width: 768px) {
+  .mainbackoffice {
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+  }
+  .imguser {
+    width: 130px;
+    height: 130px;
+  }
+  .tituloMainUser {
+    font-size: 12px;
+    padding-left: 10px;
+  }
+  .menuMain {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .itemuser {
+    width: 120px;
+  }
+  .itemuser .name {
+    font-size: 8px;
+  }
+  .itemuser .notificacion {
+    width: 16px;
+    height: 16px;
+    font-size: 14px;
+  }
+
+  /* Galería */
+  .galeriaUsuario {
+    width: 95%;
+  }
+  .cardGaleria {
+    width: 90%;
+    height: auto;
+  }
+  .imagenContainer {
+    aspect-ratio: 4/3;
+  }
+
+  /* Comunidad */
+  .cards-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .usuario-card {
+    width: 90%;
+  }
+
+  /* Panel de evidencias */
+  .panel-evidencias {
+    width: 90%;
+    height: auto;
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px;
+  }
+
+  /* Progreso desafíos */
+  .progreso-desafios {
+    width: 95%;
+    padding: 15px;
+  }
+  .resumen-usuario {
+    width: 90%;
+    height: auto;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .stats {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .lista-desafios {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+  }
+
+  /* Modales */
+  .modal-content {
+    width: 90%;
+    padding: 15px;
+  }
+  .modal-content input[type="text"],
+  .modal-content textarea,
+  .modal-content input[type="file"] {
+    font-size: 14px;
+  }
+}
+
+/* --------------------- Móviles pequeños --------------------- */
+@media (max-width: 480px) {
+  .imguser {
+    width: 100px;
+    height: 100px;
+  }
+  .tituloMainUser {
+    font-size: 11px;
+  }
+  .itemuser {
+    width: 100px;
+  }
+  .itemuser .name {
+    font-size: 7px;
+  }
+  .itemuser .notificacion {
+    width: 14px;
+    height: 14px;
+    font-size: 12px;
+  }
+
+  .cardGaleria {
+    width: 100%;
+    height: auto;
+  }
+
+  .usuario-card {
+    width: 95%;
+  }
+  .lista-desafios {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}

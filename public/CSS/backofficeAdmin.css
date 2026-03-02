@@ -464,3 +464,204 @@
   justify-self: end;
   margin-top: 10px;
 }
+
+
+
+/*---------------------CSS RESPONSIVE--------------------------*/
+/* ===================================
+   RESPONSIVE ADMIN
+=================================== */
+
+/* --------------------- General --------------------- */
+@media (max-width: 1200px) {
+  .mainbackAdmin {
+    width: 90%;
+    height: auto;
+    padding: 20px;
+  }
+  .tituloMainAdmin {
+    font-size: 13px;
+    gap: 10px;
+    padding-left: 40px;
+  }
+  .imgadmin {
+    width: 180px;
+    height: 180px;
+  }
+  .menuMain {
+    gap: 50px;
+    flex-wrap: wrap;
+  }
+}
+
+/* --------------------- Tablets --------------------- */
+@media (max-width: 992px) {
+  .mainbackAdmin {
+    width: 95%;
+    height: auto;
+  }
+  .imgadmin {
+    width: 150px;
+    height: 150px;
+  }
+  .avatarAdmin {
+    width: 40px;
+    height: 40px;
+  }
+  .itemadmin {
+    width: 150px;
+  }
+  .itemadmin .name {
+    font-size: 9px;
+  }
+  .itemadmin .notificacion {
+    width: 18px;
+    height: 18px;
+    font-size: 16px;
+  }
+  .menuMain {
+    gap: 30px;
+  }
+  #backsistemBtn,
+  .nuevoBtn, .volverbtn, .listbtn {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+  .tituloMainAdmin input {
+    height: 30px;
+  }
+}
+
+/* --------------------- Móviles --------------------- */
+@media (max-width: 768px) {
+  .mainbackAdmin {
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+  }
+  .imgadmin {
+    width: 130px;
+    height: 130px;
+  }
+  .tituloMainAdmin {
+    font-size: 12px;
+    padding-left: 10px;
+  }
+  .menuMain {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .itemadmin {
+    width: 120px;
+  }
+  .itemadmin .name {
+    font-size: 8px;
+  }
+  .itemadmin .notificacion {
+    width: 16px;
+    height: 16px;
+    font-size: 14px;
+  }
+
+  /* Contenido admin */
+  .menuContent {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+  }
+  .itemContent {
+    width: 150px;
+  }
+  .itemContent .name {
+    font-size: 14px;
+  }
+  .imgcontent {
+    width: 150px;
+    height: 60px;
+  }
+
+  /* Grillas listas */
+  .camara-lista .fila-camara,
+  .lente-lista .fila-lente,
+  .tecnica-lista .fila-tecnica,
+  .artista-lista .fila-artista,
+  .accesorio-lista .fila-accesorio,
+  .marca-lista .fila-marca,
+  .resena-lista .fila-resena,
+  .usuario-lista .fila-usuario,
+  .desafio-lista .fila-desafio,
+  .ticket-lista .fila-ticket {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    font-size: 10px;
+  }
+
+  /* Perfil admin */
+  .form-perfil {
+    width: 95%;
+    height: auto;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .form-perfil div {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .btn-guardar {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
+/* --------------------- Móviles pequeños --------------------- */
+@media (max-width: 480px) {
+  .imgadmin {
+    width: 100px;
+    height: 100px;
+  }
+  .tituloMainAdmin {
+    font-size: 11px;
+    padding-left: 5px;
+  }
+  .itemadmin {
+    width: 100px;
+  }
+  .itemadmin .name {
+    font-size: 7px;
+  }
+  .itemadmin .notificacion {
+    width: 14px;
+    height: 14px;
+    font-size: 12px;
+  }
+  .menuContent {
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+  .itemContent {
+    width: 100px;
+  }
+  .imgcontent {
+    width: 100px;
+    height: 50px;
+  }
+
+  /* Grillas listas */
+  .camara-lista .fila-camara,
+  .lente-lista .fila-lente,
+  .tecnica-lista .fila-tecnica,
+  .artista-lista .fila-artista,
+  .accesorio-lista .fila-accesorio,
+  .marca-lista .fila-marca,
+  .resena-lista .fila-resena,
+  .usuario-lista .fila-usuario,
+  .desafio-lista .fila-desafio,
+  .ticket-lista .fila-ticket {
+    grid-template-columns: 1fr 1fr;
+    font-size: 9px;
+  }
+
+  /* Perfil admin */
+  .form-perfil {
+    width: 100%;
+    grid-template-columns: 1fr;
+  }
+}

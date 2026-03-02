@@ -312,6 +312,8 @@
     text-align: right;
 }
 
+
+
 /* =========================
    RESPONSIVE
 ========================= */
@@ -328,5 +330,111 @@
 
   .sony-texto,.marca-texto {
     margin-bottom: 30px;
+  }
+}
+
+/* =========================
+   GRIDS & CARDS RESPONSIVE
+========================= */
+@media (max-width: 1200px) {
+  .gridFotografos,
+  .gridLentes,
+  .gridCamaras,
+  .gridTecnicas,
+  .gridAccesorios {
+    justify-content: center;
+    gap: 15px;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 992px) {
+  .gridFotografos,
+  .gridLentes,
+  .gridCamaras,
+  .gridTecnicas,
+  .gridAccesorios {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .imagenFotografo,
+  .imagenLentes,
+  .imagenCamaras,
+  .imagenTecnica,
+  .imagenAccesorios {
+    width: 80%;
+    height: auto;
+  }
+
+  .card,
+  .cardlens,
+  .cardCam,
+  .cardTecnica,
+  .cardTec,
+  .cardAccess {
+    width: 90%;
+    flex-direction: column;
+    height: auto;
+  }
+
+  .card h3,
+  .cardlens h3,
+  .cardCam h3,
+  .cardTecnica h3,
+  .cardTec h3,
+  .cardAccess h3 {
+    font-size: 1.1rem;
+  }
+
+  .card p,
+  .cardlens p,
+  .cardCam p,
+  .cardTecnica p,
+  .cardTec p,
+  .cardAccess p {
+    font-size: 0.85rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .gridFotografos,
+  .gridLentes,
+  .gridCamaras,
+  .gridTecnicas,
+  .gridAccesorios {
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .card,
+  .cardlens,
+  .cardCam,
+  .cardTecnica,
+  .cardTec,
+  .cardAccess {
+    padding: 10px;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .card,
+  .cardlens,
+  .cardCam,
+  .cardTecnica,
+  .cardTec,
+  .cardAccess {
+    width: 95%;
+  }
+
+  .imagenFotografo,
+  .imagenLentes,
+  .imagenCamaras,
+  .imagenTecnica,
+  .imagenAccesorios {
+    width: 100%;
+    height: auto;
   }
 }
