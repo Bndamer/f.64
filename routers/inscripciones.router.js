@@ -16,6 +16,8 @@ router.get('/usuario/:idUsuario', controller.misDesafios);
 // Traer una inscripción específica
 router.get('/:id', controller.showInscripcion);
 
+// Traer todas las inscripciones de un desafio especifico///
+router.get('/desafio/:idDesafio', controller.inscripcionesPorDesafio);
 
 /////////////////////////////////////////////////////////
 ////////////////////// POST /////////////////////////////

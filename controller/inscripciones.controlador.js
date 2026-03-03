@@ -75,6 +75,27 @@ const showInscripcion = (req, res) => {
 };
 
 
+
+////////////////////////get de inscripciones por desafio,necesario para evaluacion del admin/////////////////
+const inscripcionesPorDesafio = (req, res) => {
+  const { idDesafio } = req.params;
+
+  const sql = `
+    SELECT i.idInscripcion, i.fechaInscripcion, i.estado, i.progreso, i.puntosObtenidos, 
+           u.aliasUsuario
+    FROM inscripciones i
+    INNER JOIN usuarios u ON i.fkUsuario = u.idUsuario
+    WHERE i.fkDesafio = ?
+    ORDER BY i.fechaInscripcion DESC
+  `;
+
+  db.query(sql, [idDesafio], (error, rows) => {
+    if (error) return res.status(500).json({ error: "Error al traer inscripciones" });
+    res.json(rows);
+  });
+};
+
+
 /////////////////////////////////////////////////////////
 //////////////////POST - INSCRIPCION NUEVA/////////////////////
 ///////////////////////////////////////////////////////////
@@ -263,5 +284,6 @@ module.exports = {
     newInscripcion,
     misDesafios,
     updateInscripcion,
-    destroyInscripcion
+    destroyInscripcion,
+    inscripcionesPorDesafio
 };

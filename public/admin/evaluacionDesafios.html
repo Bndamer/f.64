@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evaluación de Desafíos</title>
+<link rel="stylesheet" href="/CSS/style.css" />
+<link rel="stylesheet" href="/CSS/backofficeAdmin.css" />
+<script src="/JS/statusUser.js" defer></script>
+<script src="/JS/buscadorPrincipal.js" defer></script>
+<script src="/JS/evaluacionDesaf.js" defer></script>
+
+<style>
+  body {
+    font-family: "SuckersGothicMedium", sans-serif;
+    background-color: #121212;
+    color: #fff;
+    margin: 0;
+    padding: 20px;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .desafio-selector {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .inscripciones-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+  }
+
+  .inscripciones-table th,
+  .inscripciones-table td {
+    border: 1px solid #444;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .inscripciones-table th {
+    background-color: #222;
+  }
+
+  .inscripciones-table td {
+    background-color: rgba(0,0,0,0.5);
+  }
+
+  .evidencia-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  .evidencia-img:hover {
+    transform: scale(1.1);
+  }
+
+  .comentario-input {
+    width: 90%;
+    padding: 6px;
+    border-radius: 5px;
+    border: none;
+    font-size: 13px;
+  }
+
+  .btn-evaluar {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: darkcyan;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .btn-evaluar:hover {
+    background-color: #009999;
+  }
+
+  /* Modal simple para zoom en evidencia */
+  .modal-evidencia {
+    display: none;
+    position: fixed;
+    top: 0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+
+  .modal-evidencia img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+  }
+
+</style>
+</head>
+<body>
+      <header class="header" id="header-container">
+      <div class="menu_container">
+        <!--<a class="logo" href="#">Gabinete de Curiosidades f.64 </a>-->
+        <a class="logo" href="/index.html"
+          ><img src="../images/diseño gabinete.png" alt="" />
+        </a>
+        <nav class="navbar">
+          <ul>
+  <li>
+    <a href="../desafios.html" title="Pon a prueba tus Habilidades">Desafios</a>
+  </li>
+
+  <li>
+    <a href="../historia.html" title="Historia & Artistas">Historia Artistas</a>
+  </li>
+
+  <li>
+    <a href="../blog.html" title="Mantenete Informado">Noticias Blog</a>
+  </li>
+
+  <li>
+    <a href="../contacto.html" title="Contacto">Contacto</a>
+  </li>
+
+  <!-- 🔎 Buscador -->
+  <li class="search-item">
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Buscar..." />
+      <button id="searchBtn">
+        <img src="/images/search.png" alt="Buscar">
+      </button>
+    </div>
+  </li>
+
+  <!-- 👤 Usuario -->
+  <li class="user-menu">
+    <a href="login.html" id="loginLink">
+      <img
+        src="/images/user.png"
+        alt="Login"
+        title="Mi cuenta"
+        id="loginIcon"
+      />
+    </a>
+
+    <ul class="dropdown" id="userDropdown">
+      <li><a href="#" id="miCuentaBtn">Mi cuenta</a></li>
+      <li><a href="#" id="logoutBtn">Cerrar sesión</a></li>
+    </ul>
+  </li>
+</ul>
+        </nav>
+      </div>
+    </header>
+
+<h1>Evaluación Desafíos</h1>
+
+<div class="desafios-container" id="desafiosContainer">
+  <!-- Aquí se generarán los botones dinámicamente -->
+</div>
+
+<table class="inscripciones-table">
+  <thead>
+    <tr>
+      <th>Usuario</th>
+      <th>Progreso</th>
+      <th>Estado</th>
+      <th>Evidencia</th>
+      <th>Comentario</th>
+      <th>Puntos</th>
+      <th>Acción</th>
+    </tr>
+  </thead>
+  <tbody id="inscripcionesBody">
+    <tr>
+      <td colspan="7">Selecciona un desafío para ver las inscripciones</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Modal para zoom de evidencia -->
+<div class="modal-evidencia" id="modalEvidencia">
+  <img src="" id="zoomEvidencia">
+</div>
+
+<div class="footer">
+  <div class="link">
+            <p>Información Útil</p>
+            <a href="../gabinete.html">Sobre el Gabinete</a>
+            <a href="../terminos.html">Términos y Condiciones</a>
+            <a href="../contacto.html">Contacto & Soporte</a>
+        </div>
+
+        <div class="link">
+            <p>Recursos</p>
+            <a href="../tables/tecnicas.html">Técnicas de Fotografía</a>
+            <a href="../login.html">Comunidad Fotográfica</a>
+            <a href="../contacto.html">Newsletter</a>
+        </div>
+
+      <div class="socials">
+          <p>Nuestras redes</p>
+           <div class="socialsIcons">
+          <a href="https://www.facebook.com/"><img src="../images/footer/facebook.png" alt="Facebook" /></a>
+          <a href="https://www.instagram.com/"><img src="../images/footer/social.png" alt="Instagram" /></a>
+          <a href="https://twitter.com/"><img src="../images/footer/twitter.png" alt="Twitter" /></a>
+        </div>
+      </div>
+
+        <div class="small">
+          <p>
+              "Tus primeras 10.000 fotografías serán tus peores fotografías."
+            </p>
+             <p>Henri Cartier-Bresson</p>
+
+          <small>
+            <p>Gabinete de Curiosidades F.64. Todos los derechos reservados.</p>
+            <p> 2024.
+            Buenos Aires,Argentina.</p></small>
+      </div>
+</div>
+</body>
+</html>
